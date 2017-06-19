@@ -1,0 +1,24 @@
+{
+	"ITEM_TEMPLATE": {
+		"1": {
+			"NAME": "거엄",
+			"IMAGE": "검1",
+			"CARTEGORY": "무기",
+			"Attack": 10000,
+			"Defence": 0,
+			"CriticalPercent": 0.3,
+			"CriticalDamage": 2,
+			"AttackSpeed": 1
+		},
+		"2": {
+			"NAME": "카알",
+			"IMAGE": "칼1",
+			"CARTEGORY": "무기",
+			"Attack": 1,
+			"Defence": 10000,
+			"CriticalPercent": 0.3,
+			"CriticalDamage": 0.2,
+			"AttackSpeed": 1.1
+		}
+	}
+}

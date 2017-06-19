@@ -1,0 +1,74 @@
+{
+	"Status": {
+		"1": {
+			"Attack": 10,
+			"Defence": 10,
+			"CriticalPercent": 0.1,
+			"CriticalDamage": 0.1,
+			"AttackSpeed": 1
+		},
+		"2": {
+			"Attack": 20,
+			"Defence": 20,
+			"CriticalPercent": 0.2,
+			"CriticalDamage": 0.2,
+			"AttackSpeed": 1.1
+		},
+		"3": {
+			"Attack": 30,
+			"Defence": 30,
+			"CriticalPercent": 0.3,
+			"CriticalDamage": 0.3,
+			"AttackSpeed": 1.2
+		},
+		"4": {
+			"Attack": 40,
+			"Defence": 40,
+			"CriticalPercent": 0.4,
+			"CriticalDamage": 0.4,
+			"AttackSpeed": 1.3
+		},
+		"5": {
+			"Attack": 50,
+			"Defence": 50,
+			"CriticalPercent": 0.5,
+			"CriticalDamage": 0.5,
+			"AttackSpeed": 1.4
+		},
+		"6": {
+			"Attack": 60,
+			"Defence": 60,
+			"CriticalPercent": 0.6,
+			"CriticalDamage": 0.6,
+			"AttackSpeed": 1.5
+		},
+		"7": {
+			"Attack": 70,
+			"Defence": 70,
+			"CriticalPercent": 0.7,
+			"CriticalDamage": 0.7,
+			"AttackSpeed": 1.6
+		},
+		"8": {
+			"Attack": 80,
+			"Defence": 80,
+			"CriticalPercent": 0.8,
+			"CriticalDamage": 0.8,
+			"AttackSpeed": 1.7
+		},
+		"9": {
+			"Attack": 90,
+			"Defence": 90,
+			"CriticalPercent": 0.9,
+			"CriticalDamage": 0.9,
+			"AttackSpeed": 1.8
+		},
+		"10": {
+			"Attack": 100,
+			"Defence": 100,
+			"CriticalPercent": 1,
+			"CriticalDamage": 1,
+			"AttackSpeed": 1.9
+		}
+	}
+}
