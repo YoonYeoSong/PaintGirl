@@ -6,8 +6,11 @@ public class UI_Myroom : MonoBehaviour {
 
 	UIButton Inven_Charactor_btn = null;
 	UIButton Inven_Weapon_btn = null;
-	UISprite Inven_Charactor = null;
-	UISprite Inven_Weapon = null;
+	public UISprite Inven_Charactor = null;
+	public UISprite Inven_Weapon = null;
+
+ 	public GameObject Inven_Character_Model = null;
+	public GameObject Inven_Gun_Model = null;
 
 	private void Awake()
 	{
@@ -37,13 +40,16 @@ public class UI_Myroom : MonoBehaviour {
 	{
 		Inven_Charactor.depth = 3;
 		Inven_Weapon.depth = 2;
-
+		Inven_Character_Model.SetActive(true);
+		Inven_Gun_Model.SetActive(false);
 	}
 
 	void ShowInven_Weapon()
 	{
 		Inven_Charactor.depth = 2;
 		Inven_Weapon.depth = 3;
+		Inven_Character_Model.SetActive(false);
+		Inven_Gun_Model.SetActive(true);
 	}
 
 }

@@ -148,100 +148,100 @@ public class GUIControllerSD : MonoBehaviour {
 		
 	}
 	
-	void OnGUI(){
+	//void OnGUI(){
 		
-		//AnimationChange ------------------------------------------------
-		float animButtonHeight = Screen.height/ (animButtonInfoNormal.Length + animButtonInfoBlack.Length + 1 ) - 3;
+	//	//AnimationChange ------------------------------------------------
+	//	float animButtonHeight = Screen.height/ (animButtonInfoNormal.Length + animButtonInfoBlack.Length + 1 ) - 3;
 		
 		
-		GUILayout.BeginHorizontal(GUILayout.Width(Screen.width/4));
+	//	GUILayout.BeginHorizontal(GUILayout.Width(Screen.width/4));
 			
-			GUILayout.BeginVertical();
+	//		GUILayout.BeginVertical();
 			
-				if (showCommon) 	{ ShowAnimationButtons(animButtonInfoCommon, 	animButtonHeight); }
-				if (showNormal) 	{ ShowAnimationButtons(animButtonInfoNormal, 	animButtonHeight); }
-				if (showBlack)		{ ShowAnimationButtons(animButtonInfoBlack, 		animButtonHeight); }
-				if (showOsaka)		{ ShowAnimationButtons(animButtonInfoOsaka, 		animButtonHeight); }
-				if (showFukuoka)	{ ShowAnimationButtons(animButtonInfoFukuoka, 	animButtonHeight); }
-				if (showHokkaido)	{ ShowAnimationButtons(animButtonInfoHokkaido, animButtonHeight); }
+	//			if (showCommon) 	{ ShowAnimationButtons(animButtonInfoCommon, 	animButtonHeight); }
+	//			if (showNormal) 	{ ShowAnimationButtons(animButtonInfoNormal, 	animButtonHeight); }
+	//			if (showBlack)		{ ShowAnimationButtons(animButtonInfoBlack, 		animButtonHeight); }
+	//			if (showOsaka)		{ ShowAnimationButtons(animButtonInfoOsaka, 		animButtonHeight); }
+	//			if (showFukuoka)	{ ShowAnimationButtons(animButtonInfoFukuoka, 	animButtonHeight); }
+	//			if (showHokkaido)	{ ShowAnimationButtons(animButtonInfoHokkaido, animButtonHeight); }
 			
-			GUILayout.EndVertical();
+	//		GUILayout.EndVertical();
 			
-		GUILayout.EndHorizontal();
+	//	GUILayout.EndHorizontal();
 		
 		
-		//FaceChange ------------------------------------------------
-		float emotionButtonHeight =  (Screen.height-200) / (emotionButtonInfo.Length+1) - 3;
+	//	//FaceChange ------------------------------------------------
+	//	float emotionButtonHeight =  (Screen.height-200) / (emotionButtonInfo.Length+1) - 3;
 		
-		GUILayout.BeginArea(new Rect(Screen.width- Screen.width/4, 0, Screen.width/4, Screen.height-200));
+	//	GUILayout.BeginArea(new Rect(Screen.width- Screen.width/4, 0, Screen.width/4, Screen.height-200));
 			
-			GUILayout.BeginVertical();
+	//		GUILayout.BeginVertical();
 				
-				foreach (var tmpInfo in emotionButtonInfo) {
-					if (GUILayout.Button(tmpInfo.buttonLabel, GUILayout.Height(emotionButtonHeight))) {
-						ChangeFace((QuerySDEmotionalController.QueryChanSDEmotionalType)tmpInfo.id);
-					}
-				}
+	//			foreach (var tmpInfo in emotionButtonInfo) {
+	//				if (GUILayout.Button(tmpInfo.buttonLabel, GUILayout.Height(emotionButtonHeight))) {
+	//					ChangeFace((QuerySDEmotionalController.QueryChanSDEmotionalType)tmpInfo.id);
+	//				}
+	//			}
 			
-			GUILayout.EndVertical();
+	//		GUILayout.EndVertical();
 		
-		GUILayout.EndArea();
-		
-		
-		//CameraChange --------------------------------------------
-		
-		if (GUI.Button (new Rect (Screen.width / 2 -75, 0, 150, 80), "Camera"))
-		{
-			if (cameraUp == true)
-			{
-				CameraObj.GetComponent<Camera>().fieldOfView = 60;
-				CameraObj.transform.localPosition = new Vector3(PosDefault.x, PosDefault.y, PosDefault.z);
-				cameraUp = false;
-			}
-			else
-			{
-				CameraObj.GetComponent<Camera>().fieldOfView = 25;
-				CameraObj.transform.localPosition = new Vector3(PosDefault.x, PosDefault.y + 0.1f, PosDefault.z);
-				cameraUp = true;
-			}
-		}
+	//	GUILayout.EndArea();
 		
 		
-		//Sound ---------------------------------------------------------
+	//	//CameraChange --------------------------------------------
 		
-		if(GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height - 100, 50 ,100), "<---"))
-		{
-			querySoundNumber--;
-			if (querySoundNumber < 0)
-			{
-				querySoundNumber = targetNum;
-			}
-		}
-		if(GUI.Button(new Rect(Screen.width / 2 + 100, Screen.height - 100, 50 ,100), "--->"))
-		{
-			querySoundNumber++;
-			if (querySoundNumber > targetNum)
-			{
-				querySoundNumber = 0;
-			}
+	//	if (GUI.Button (new Rect (Screen.width / 2 -75, 0, 150, 80), "Camera"))
+	//	{
+	//		if (cameraUp == true)
+	//		{
+	//			CameraObj.GetComponent<Camera>().fieldOfView = 60;
+	//			CameraObj.transform.localPosition = new Vector3(PosDefault.x, PosDefault.y, PosDefault.z);
+	//			cameraUp = false;
+	//		}
+	//		else
+	//		{
+	//			CameraObj.GetComponent<Camera>().fieldOfView = 25;
+	//			CameraObj.transform.localPosition = new Vector3(PosDefault.x, PosDefault.y + 0.1f, PosDefault.z);
+	//			cameraUp = true;
+	//		}
+	//	}
+		
+		
+	//	//Sound ---------------------------------------------------------
+		
+	//	if(GUI.Button(new Rect(Screen.width / 2 - 150, Screen.height - 100, 50 ,100), "<---"))
+	//	{
+	//		querySoundNumber--;
+	//		if (querySoundNumber < 0)
+	//		{
+	//			querySoundNumber = targetNum;
+	//		}
+	//	}
+	//	if(GUI.Button(new Rect(Screen.width / 2 + 100, Screen.height - 100, 50 ,100), "--->"))
+	//	{
+	//		querySoundNumber++;
+	//		if (querySoundNumber > targetNum)
+	//		{
+	//			querySoundNumber = 0;
+	//		}
 			
-		}
-		if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height - 70, 200 ,70), "Play"))
-		{
-			queryChan.GetComponent<QuerySDSoundController>().PlaySoundByNumber(querySoundNumber);
-		}
+	//	}
+	//	if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height - 70, 200 ,70), "Play"))
+	//	{
+	//		queryChan.GetComponent<QuerySDSoundController>().PlaySoundByNumber(querySoundNumber);
+	//	}
 		
-		GUI.Label (new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), (querySoundNumber+1) + " / " + (targetNum+1) + "  :  " + targetSounds[querySoundNumber]);
+	//	GUI.Label (new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), (querySoundNumber+1) + " / " + (targetNum+1) + "  :  " + targetSounds[querySoundNumber]);
 		
 		
-		//SceneChange --------------------------------------------
+	//	//SceneChange --------------------------------------------
 		
-		if (GUI.Button (new Rect (Screen.width -150, Screen.height-100, 150,100), NextSceneButtonLabel))
-		{
-			Application.LoadLevel( NextSceneName );
-		}
+	//	if (GUI.Button (new Rect (Screen.width -150, Screen.height-100, 150,100), NextSceneButtonLabel))
+	//	{
+	//		Application.LoadLevel( NextSceneName );
+	//	}
 		
-	}
+	//}
 	
 	
 	void ShowAnimationButtons(ButtonInfo[] infos, float buttonHeight)

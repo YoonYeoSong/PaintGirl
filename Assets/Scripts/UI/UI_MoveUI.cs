@@ -8,6 +8,13 @@ public class UI_MoveUI : MonoBehaviour {
 	Vector3 OriginPos = Vector3.zero;
 	GameObject NGUICamera = null;
 
+	public GameObject SD_Action;
+	GameObject Render_Character;
+	GameObject Render_Gun;
+
+
+	GameObject myroom = null;
+
 	UIButton MyRoomBtn = null;
 	UIButton MainBtn = null;
 	UIButton StoreBtn = null;
@@ -21,7 +28,11 @@ public class UI_MoveUI : MonoBehaviour {
 
 	public void Awake()
 	{
+		myroom = GameObject.Find("PF_UI_MYROOM");
+		SD_Action = GameObject.Find("SD_Action");
 
+		Render_Character = GameObject.Find("Character_Render");
+		Render_Gun = GameObject.Find("Gun_Render");
 
 		NGUICamera = gameObject.transform.parent.gameObject;
 		M1 = gameObject.transform.parent.parent.FindChild("PF_UI_MAIN").FindChild("BackGround").FindChild("M1").transform.position;
@@ -112,6 +123,21 @@ public class UI_MoveUI : MonoBehaviour {
 	{
 		if (ArriveCheck == true)
 		{
+			Render_Character.SetActive(false);
+			Render_Gun.SetActive(false);
+
+			myroom.GetComponent<UI_Myroom>().Inven_Charactor.GetComponent<UISprite>().depth = 3;
+			myroom.GetComponent<UI_Myroom>().Inven_Weapon.GetComponent<UISprite>().depth = 2;
+
+			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(true);
+			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
+
+			SD_Action.GetComponent<CameraAction>().click = false;
+			SD_Action.GetComponent<CameraAction>().enabled = true;
+
+			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			go.transform.rotation = Quaternion.Euler(0, 180, 0);
+
 			CheckGoMenu = 1;
 			ArriveCheck = false;
 			MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.blue;
@@ -120,10 +146,22 @@ public class UI_MoveUI : MonoBehaviour {
 		}
 
 	}
+
 	void ShowMain()
 	{
 		if (ArriveCheck == true)
 		{
+			Render_Character.SetActive(true);
+			Render_Gun.SetActive(true);
+
+			SD_Action.GetComponent<CameraAction>().click = false;
+			SD_Action.GetComponent<CameraAction>().enabled = true;
+			
+			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
+			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
+
+			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 2;
 			ArriveCheck = false;
@@ -137,6 +175,18 @@ public class UI_MoveUI : MonoBehaviour {
 	{
 		if (ArriveCheck == true)
 		{
+			Render_Character.SetActive(false);
+			Render_Gun.SetActive(false);
+
+			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
+			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
+
+			SD_Action.GetComponent<CameraAction>().click = false;
+			SD_Action.GetComponent<CameraAction>().enabled = false;
+
+			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			go.transform.rotation = Quaternion.Euler(0, 180, 0);
+
 			CheckGoMenu = 3;
 			ArriveCheck = false;
 			MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;

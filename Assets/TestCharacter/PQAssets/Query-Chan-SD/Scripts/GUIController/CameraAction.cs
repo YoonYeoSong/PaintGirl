@@ -14,7 +14,7 @@ public class CameraAction : MonoBehaviour {
 	
 	//float beforePos = 0.0f;
 
-	bool click = false;
+	public bool click = false;
 
 
 	void Update () {
