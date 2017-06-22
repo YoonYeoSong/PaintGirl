@@ -175,7 +175,7 @@ public class ActorManager : MonoSingleton<ActorManager> {
 
 	public Actor PlayerLoad()
 	{
-		GameObject playerPrefab = Resources.Load("Prefabs/" + "Actor/" + "Player") as GameObject;
+		GameObject playerPrefab = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic") as GameObject;
 		GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
 		return go.GetComponent<Actor>();
