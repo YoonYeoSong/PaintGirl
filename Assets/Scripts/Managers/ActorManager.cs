@@ -6,7 +6,7 @@ public class ActorManager : MonoSingleton<ActorManager> {
 
 	// 하이라키 관리용
 	Transform ActorRoot = null;
-
+	
 	// 모든 엑터 관리
 	Dictionary<eTeamType, List<Actor>> DicActor = new Dictionary<eTeamType, List<Actor>>();
 

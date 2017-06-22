@@ -14,11 +14,11 @@ public class UI_Myroom : MonoBehaviour {
 
 	private void Awake()
 	{
-		Inven_Charactor_btn = gameObject.transform.FindChild("BaseGround").FindChild("Inventory_Charactor").FindChild("Btn").GetComponent<UIButton>();
-		Inven_Charactor = gameObject.transform.FindChild("BaseGround").FindChild("Inventory_Charactor").GetComponent<UISprite>();
+		Inven_Charactor_btn = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Charactor").FindChild("Btn").GetComponent<UIButton>();
+		Inven_Charactor = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Charactor").GetComponent<UISprite>();
 
-		Inven_Weapon_btn = gameObject.transform.FindChild("BaseGround").FindChild("Inventory_Weapon").FindChild("Btn").GetComponent<UIButton>();
-		Inven_Weapon = gameObject.transform.FindChild("BaseGround").FindChild("Inventory_Weapon").GetComponent<UISprite>();
+		Inven_Weapon_btn = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Weapon").FindChild("Btn").GetComponent<UIButton>();
+		Inven_Weapon = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Weapon").GetComponent<UISprite>();
 
 
 		if (Inven_Charactor_btn == null)

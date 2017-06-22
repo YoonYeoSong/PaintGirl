@@ -76,12 +76,12 @@ public class UI_MoveUI : MonoBehaviour {
 			Debug.LogError("StartBtn is not founded");
 		}
 		StartBtn = trans.GetComponent<UIButton>();
-		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
+		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
+		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "ShowStage"));
 
-
-		MyRoomBtn.defaultColor = Color.white;
+		MyRoomBtn.defaultColor = Color.green;
 		MainBtn.defaultColor = Color.blue;
-		StoreBtn.defaultColor = Color.white;
+		StoreBtn.defaultColor = Color.green;
 		StartBtn.defaultColor = Color.yellow;
 
 	}
@@ -150,8 +150,8 @@ public class UI_MoveUI : MonoBehaviour {
 			MyRoomBtn.defaultColor = Color.blue;
 			MainBtn.gameObject.SetActive(true);
 			StartBtn.gameObject.SetActive(false);
-			MainBtn.defaultColor = Color.white;
-			StoreBtn.defaultColor = Color.white;
+			MainBtn.defaultColor = Color.green;
+			StoreBtn.defaultColor = Color.green;
 		}
 
 	}
@@ -174,9 +174,9 @@ public class UI_MoveUI : MonoBehaviour {
 
 			CheckGoMenu = 2;
 			ArriveCheck = false;
-			MyRoomBtn.defaultColor = Color.white;
+			MyRoomBtn.defaultColor = Color.green;
 			MainBtn.defaultColor = Color.yellow;
-			StoreBtn.defaultColor = Color.white;
+			StoreBtn.defaultColor = Color.green;
 
 			MainBtn.gameObject.SetActive(false);
 			StartBtn.gameObject.SetActive(true);
@@ -201,8 +201,8 @@ public class UI_MoveUI : MonoBehaviour {
 
 			CheckGoMenu = 3;
 			ArriveCheck = false;
-			MyRoomBtn.defaultColor = Color.white;
-			MainBtn.defaultColor = Color.white;
+			MyRoomBtn.defaultColor = Color.green;
+			MainBtn.defaultColor = Color.green;
 			StoreBtn.defaultColor = Color.blue;
 
 			MainBtn.gameObject.SetActive(true);
@@ -212,8 +212,39 @@ public class UI_MoveUI : MonoBehaviour {
 
 	}
 
+
+	StageInfo Info = null;
+
+	public StageInfo INFO
+	{
+		get
+		{
+			return Info;
+		}
+	}
+
+	UILabel StageName = null;
+
+	public void Init(StageInfo _info)
+	{
+		Info = _info;
+		StageName = this.GetComponentInChildren<UILabel>();
+		StageName.text = Info.NAME;
+
+	}
+
 	void GoGame()
 	{
+
+		GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
+		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
 		Debug.Log("게임 시작 !");
+	}
+
+	void ShowStage()
+	{
+		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_STAGE);
+		UI_Stage stage = go.GetComponent<UI_Stage>();
+		stage.Init();
 	}
 }
