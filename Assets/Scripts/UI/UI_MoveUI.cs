@@ -9,8 +9,8 @@ public class UI_MoveUI : MonoBehaviour {
 	GameObject NGUICamera = null;
 
 	public GameObject SD_Action;
-	GameObject Render_Character;
-	GameObject Render_Gun;
+	//GameObject Render_Character;
+	//GameObject Render_Gun;
 
 
 	GameObject myroom = null;
@@ -18,10 +18,11 @@ public class UI_MoveUI : MonoBehaviour {
 	UIButton MyRoomBtn = null;
 	UIButton MainBtn = null;
 	UIButton StoreBtn = null;
+	UIButton StartBtn = null;
 
-	Vector3 M1 = Vector3.zero;
-	Vector3 M2 = Vector3.zero;
-	Vector3 M3 = Vector3.zero;
+	Vector3 M1 = new Vector3(-1480,0,0);
+	Vector3 M2 = new Vector3(0, 0, 0);
+	Vector3 M3 = new Vector3(1480, 0, 0);
 	int CheckGoMenu = 0;
 	bool ArriveCheck = true;
 	float ChangeTime = 0.5f;
@@ -31,13 +32,10 @@ public class UI_MoveUI : MonoBehaviour {
 		myroom = GameObject.Find("PF_UI_MYROOM");
 		SD_Action = GameObject.Find("SD_Action");
 
-		Render_Character = GameObject.Find("Character_Render");
-		Render_Gun = GameObject.Find("Gun_Render");
+		//Render_Character = GameObject.Find("Character_Render");
+		//Render_Gun = GameObject.Find("Gun_Render");
 
 		NGUICamera = gameObject.transform.parent.gameObject;
-		M1 = gameObject.transform.parent.parent.FindChild("PF_UI_MAIN").FindChild("BackGround").FindChild("M1").transform.position;
-		M2 = gameObject.transform.parent.parent.FindChild("PF_UI_MAIN").FindChild("BackGround").FindChild("M2").transform.position;
-		M3 = gameObject.transform.parent.parent.FindChild("PF_UI_MAIN").FindChild("BackGround").FindChild("M3").transform.position;
 		NGUICamera.transform.position = Vector3.zero;
 		OriginPos = M2;
 
@@ -71,11 +69,20 @@ public class UI_MoveUI : MonoBehaviour {
 		StoreBtn = trans.GetComponent<UIButton>();
 		EventDelegate.Add(StoreBtn.onClick, new EventDelegate(this, "ShowStore"));
 
+		trans = gameObject.transform.FindChild("BottomPanel").FindChild("StartBtn");
 
-		MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
-		MainBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.blue;
-		StoreBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
+		if (trans == null)
+		{
+			Debug.LogError("StartBtn is not founded");
+		}
+		StartBtn = trans.GetComponent<UIButton>();
+		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
 
+
+		MyRoomBtn.defaultColor = Color.white;
+		MainBtn.defaultColor = Color.blue;
+		StoreBtn.defaultColor = Color.white;
+		StartBtn.defaultColor = Color.yellow;
 
 	}
 
@@ -85,9 +92,9 @@ public class UI_MoveUI : MonoBehaviour {
 		if (CheckGoMenu == 1)
 		{
 			currTime += Time.deltaTime;
-			NGUICamera.transform.position = Vector3.Lerp(OriginPos, M1, currTime / ChangeTime);
+			NGUICamera.transform.localPosition = Vector3.Lerp(OriginPos, M1, currTime / ChangeTime);
 
-			if (NGUICamera.transform.position == M1)
+			if (NGUICamera.transform.localPosition == M1)
 			{
 				currTime = 0.0f;
 				OriginPos = M1;
@@ -97,8 +104,8 @@ public class UI_MoveUI : MonoBehaviour {
 		else if (CheckGoMenu == 2)
 		{
 			currTime += Time.deltaTime;
-			NGUICamera.transform.position = Vector3.Lerp(OriginPos, M2, currTime / ChangeTime);
-			if (NGUICamera.transform.position == M2)
+			NGUICamera.transform.localPosition = Vector3.Lerp(OriginPos, M2, currTime / ChangeTime);
+			if (NGUICamera.transform.localPosition == M2)
 			{
 				currTime = 0.0f;
 				OriginPos = M2;
@@ -108,8 +115,8 @@ public class UI_MoveUI : MonoBehaviour {
 		else if (CheckGoMenu == 3)
 		{
 			currTime += Time.deltaTime;
-			NGUICamera.transform.position = Vector3.Lerp(OriginPos, M3, currTime / ChangeTime);
-			if (NGUICamera.transform.position == M3)
+			NGUICamera.transform.localPosition = Vector3.Lerp(OriginPos, M3, currTime / ChangeTime);
+			if (NGUICamera.transform.localPosition == M3)
 			{
 				currTime = 0.0f;
 				OriginPos = M3;
@@ -123,8 +130,8 @@ public class UI_MoveUI : MonoBehaviour {
 	{
 		if (ArriveCheck == true)
 		{
-			Render_Character.SetActive(false);
-			Render_Gun.SetActive(false);
+			//Render_Character.SetActive(true);
+			//Render_Gun.SetActive(true);
 
 			myroom.GetComponent<UI_Myroom>().Inven_Charactor.GetComponent<UISprite>().depth = 3;
 			myroom.GetComponent<UI_Myroom>().Inven_Weapon.GetComponent<UISprite>().depth = 2;
@@ -140,9 +147,11 @@ public class UI_MoveUI : MonoBehaviour {
 
 			CheckGoMenu = 1;
 			ArriveCheck = false;
-			MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.blue;
-			MainBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
-			StoreBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
+			MyRoomBtn.defaultColor = Color.blue;
+			MainBtn.gameObject.SetActive(true);
+			StartBtn.gameObject.SetActive(false);
+			MainBtn.defaultColor = Color.white;
+			StoreBtn.defaultColor = Color.white;
 		}
 
 	}
@@ -151,8 +160,8 @@ public class UI_MoveUI : MonoBehaviour {
 	{
 		if (ArriveCheck == true)
 		{
-			Render_Character.SetActive(true);
-			Render_Gun.SetActive(true);
+			//Render_Character.SetActive(true);
+			//Render_Gun.SetActive(true);
 
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
@@ -165,9 +174,12 @@ public class UI_MoveUI : MonoBehaviour {
 
 			CheckGoMenu = 2;
 			ArriveCheck = false;
-			MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
-			MainBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.blue;
-			StoreBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
+			MyRoomBtn.defaultColor = Color.white;
+			MainBtn.defaultColor = Color.yellow;
+			StoreBtn.defaultColor = Color.white;
+
+			MainBtn.gameObject.SetActive(false);
+			StartBtn.gameObject.SetActive(true);
 		}
 
 	}
@@ -175,8 +187,8 @@ public class UI_MoveUI : MonoBehaviour {
 	{
 		if (ArriveCheck == true)
 		{
-			Render_Character.SetActive(false);
-			Render_Gun.SetActive(false);
+			//Render_Character.SetActive(true);
+			//Render_Gun.SetActive(false);
 
 			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
 			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
@@ -189,10 +201,19 @@ public class UI_MoveUI : MonoBehaviour {
 
 			CheckGoMenu = 3;
 			ArriveCheck = false;
-			MyRoomBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
-			MainBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.white;
-			StoreBtn.gameObject.transform.FindChild("Image").GetComponent<UISprite>().color = Color.blue;
+			MyRoomBtn.defaultColor = Color.white;
+			MainBtn.defaultColor = Color.white;
+			StoreBtn.defaultColor = Color.blue;
+
+			MainBtn.gameObject.SetActive(true);
+			StartBtn.gameObject.SetActive(false);
+
 		}
 
+	}
+
+	void GoGame()
+	{
+		Debug.Log("게임 시작 !");
 	}
 }
