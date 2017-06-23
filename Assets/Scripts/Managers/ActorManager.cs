@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ActorManager : MonoSingleton<ActorManager> {
 
@@ -175,8 +176,12 @@ public class ActorManager : MonoSingleton<ActorManager> {
 
 	public Actor PlayerLoad()
 	{
-		GameObject playerPrefab = Resources.Load("Prefabs/" + "Actor/" + "Player") as GameObject;
+		GameObject playerPrefab = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic_Change_Main") as GameObject;
 		GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+		go.GetComponent<Player>().enabled = true;
+		go.GetComponent<CapsuleCollider>().enabled = true;
+		go.GetComponent<NavMeshAgent>().enabled = true;
 
 		return go.GetComponent<Actor>();
 	}

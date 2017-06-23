@@ -43,7 +43,7 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 
 			//if (Operation.isDone == true)
 			if(Operation.isDone == true && StackTime >= 2.0f)
-			{
+			{		
 				CurrentState = NextState;
 				ComplateLoad(CurrentState);
 

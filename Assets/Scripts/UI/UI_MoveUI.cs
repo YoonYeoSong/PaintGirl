@@ -149,8 +149,8 @@ public class UI_MoveUI : MonoBehaviour
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
-			go.transform.rotation = Quaternion.Euler(0, 180, 0);
+			//GameObject go = GameObject.FindGameObjectWithTag("Player");
+			//go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 1;
 			ArriveCheck = false;
@@ -176,8 +176,8 @@ public class UI_MoveUI : MonoBehaviour
 			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
 			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
-			go.transform.rotation = Quaternion.Euler(0, 180, 0);
+			//GameObject go = GameObject.FindGameObjectWithTag("Player");
+			//go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 2;
 			ArriveCheck = false;
@@ -203,7 +203,7 @@ public class UI_MoveUI : MonoBehaviour
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = false;
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
 			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 3;
