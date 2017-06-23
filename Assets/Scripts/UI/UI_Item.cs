@@ -31,6 +31,7 @@ public class UI_Item : MonoBehaviour {
 		Texture.mainTexture = Resources.Load<Texture>("Textures/" + itemInstance.ITEM_INFO.ITEM_IMAGE);
 	}
 
+
 	void OnClick()
 	{
 		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
@@ -39,7 +40,7 @@ public class UI_Item : MonoBehaviour {
 		popup.Set(
 			() =>
 			{
-				ItemManager.Instance.EquipItem(itemInstance);
+				//ItemManager.Instance.EquipItem(itemInstance);
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
 			() =>
@@ -47,9 +48,9 @@ public class UI_Item : MonoBehaviour {
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			}
 			,
-			"장비 장착"
+			"캐릭터 선택"
 			,
-			"이 장비를 장착 하시겠습니까?"
+			"이 캐릭터를 선택 하시겠습니까?"
 			);
 	}
 

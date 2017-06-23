@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_MoveUI : MonoBehaviour {
+public class UI_MoveUI : MonoBehaviour
+{
 
 	float currTime = 0.0f;
 	Vector3 OriginPos = Vector3.zero;
@@ -20,12 +21,13 @@ public class UI_MoveUI : MonoBehaviour {
 	UIButton StoreBtn = null;
 	UIButton StartBtn = null;
 
-	Vector3 M1 = new Vector3(-1480,0,0);
+	Vector3 M1 = new Vector3(-1480, 0, 0);
 	Vector3 M2 = new Vector3(0, 0, 0);
 	Vector3 M3 = new Vector3(1480, 0, 0);
 	int CheckGoMenu = 0;
 	bool ArriveCheck = true;
 	float ChangeTime = 0.5f;
+
 
 	public void Awake()
 	{
@@ -79,10 +81,15 @@ public class UI_MoveUI : MonoBehaviour {
 		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
 		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "ShowStage"));
 
+
+
+		
+
 		MyRoomBtn.defaultColor = Color.green;
 		MainBtn.defaultColor = Color.blue;
 		StoreBtn.defaultColor = Color.green;
 		StartBtn.defaultColor = Color.yellow;
+
 
 	}
 
@@ -165,7 +172,7 @@ public class UI_MoveUI : MonoBehaviour {
 
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
-			
+
 			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
 			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
 
@@ -247,4 +254,6 @@ public class UI_MoveUI : MonoBehaviour {
 		UI_Stage stage = go.GetComponent<UI_Stage>();
 		stage.Init();
 	}
+
+
 }
