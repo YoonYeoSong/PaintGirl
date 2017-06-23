@@ -23,7 +23,7 @@ public class UI_Logo : BaseObject {
 		//	 Scene_Manager.Instance.LoadScene(eSceneType.SCENE_LOBBY);
 		// });
 	}
-	
+
 	void GoLobby()
 	{
 		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_LOBBY);

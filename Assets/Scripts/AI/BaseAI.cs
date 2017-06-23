@@ -251,7 +251,7 @@ public class BaseAI : BaseObject {
 				StartCoroutine("Attack");
 				break;
 			case eStateType.STATE_WALK:
-				StartCoroutine("Move");			
+				StartCoroutine("Move");
 				break;
 			case eStateType.STATE_DEAD:
 				StartCoroutine("Dead");
