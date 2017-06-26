@@ -91,10 +91,10 @@ public class Player : Actor
 			base.Update();
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			ChangeState(eStateType.STATE_ATTACK);
-		}
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	ChangeState(eStateType.STATE_ATTACK);
+		//}
 	}
 
 	//TEST CODE
