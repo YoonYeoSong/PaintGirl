@@ -18,6 +18,10 @@ public class UI_Myroom : MonoBehaviour {
 	GameObject PastCharacter = null; //이전 서있는 캐릭터
 	GameObject NowCharacter = null; // 바꿀 서있는 캐릭터
 
+	GameObject PastWeapon = null; //이전 서있는 무기
+	GameObject NowWeapon = null; // 바꿀 서있는 무기
+
+
 	private void Awake()
 	{
 		Inven_Charactor_btn = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Charactor").FindChild("Btn").GetComponent<UIButton>();
@@ -47,7 +51,7 @@ public class UI_Myroom : MonoBehaviour {
 		Inven_WeaponShow.SetActive(false);
 
 		PastCharacter = GameObject.Find("SD_Basic").gameObject;
-
+		PastWeapon = GameObject.Find("ShotGun").gameObject;
 	}
 
 	void ShowInven_Charactor()
@@ -90,8 +94,21 @@ public class UI_Myroom : MonoBehaviour {
 		//NowCharacter = Instantiate()
 	}
 
-	void WeaponChange()
+	public void ChangeWeapon(int i)
 	{
+		if (NowWeapon != null)
+			Destroy(NowWeapon);
+
+		if (PastWeapon != null)
+			Destroy(PastWeapon);
+
+		UITexture trans = gameObject.transform.FindChild("BackGround").FindChild("Inventory_Weapon").FindChild("ScrollView").FindChild("Grid").GetChild(i).GetComponent<UITexture>();
+
+		Debug.Log(trans.mainTexture.name);
+		GameObject temp = Resources.Load(ConstValue.Weapon_Prefab + "/" + trans.mainTexture.name) as GameObject;
+
+		Debug.Log(temp);
+		NowWeapon = Instantiate(temp, new Vector3(-11.12f, 0.42f, 0.19f), Quaternion.Euler(0, 180, 0));
 
 	}
 }
