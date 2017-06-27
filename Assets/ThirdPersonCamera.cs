@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour {
-	private const float Y_ANGLE_MIN = 5.0f;
-	private const float Y_ANGLE_MAX = 50.0f;
+	public float Y_ANGLE_MIN = 5.0f;
+	public float Y_ANGLE_MAX = 50.0f;
 	public Transform looktAt;
 	public Transform camTransform;
 
 	private Camera cam;
-	private float distance = 3.0f; //카메라 와 플레이어 사이 거리.
+	public float distance = 2.5f; //카메라 와 플레이어 사이 거리.
 	private float currentX = 0.0f;
 	private float currentY = 0.0f;
 	private float sensitivityX = 10.0f; //x축 민감도
@@ -31,9 +31,9 @@ public class ThirdPersonCamera : MonoBehaviour {
 			//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
 			looktAt = GameObject.Find("SD_Basic_Change_Main(Clone)").transform;
 		}
-
+		
 		currentX += Input.GetAxis("Mouse X") * sensitivityX;
-		currentY += Input.GetAxis("Mouse Y") * sensitivityY* (-1);
+		currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY ;
 
 		currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 	}
@@ -44,6 +44,6 @@ public class ThirdPersonCamera : MonoBehaviour {
 		Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
 		camTransform.position = looktAt.position + rotation * dir;
 
-		camTransform.LookAt(looktAt.position);
+		camTransform.LookAt(looktAt.position + new Vector3(0, 1.2f, 0));
 	}
 }
