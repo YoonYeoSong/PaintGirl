@@ -45,6 +45,7 @@ public class Player : Actor
 
 	DetectionArea DetectArea;
 
+	Rigidbody rigi;
 	float AttackRange = 3.0f;
 	void Start()
 	{
@@ -52,6 +53,7 @@ public class Player : Actor
 		Agent = SelfComponent<NavMeshAgent>();
 		Anim = this.GetComponentInChildren<Animator>();
 		Stick = JoyStick.Instance;
+		rigi = GetComponent<Rigidbody>();
 
 		DetectArea = SelfObject.GetComponentInChildren<DetectionArea>();
 		if (DetectArea == null)
@@ -72,15 +74,24 @@ public class Player : Actor
 		{
 			//Vector3 Axis = JoyStick.Instance.Axis;
 			//Vector3 pos = new Vector3(Axis.x, 0, Axis.y);
-			//SelfTransform.position += pos * Time.deltaTime * 2;
 
 			Vector2 Axis = Stick.Axis;
-			Vector3 MovePosition = transform.position;
+			Vector3 MovePosition = new Vector3(0, 0, 0);
+			Vector3 MoveRotation = new Vector3(0, 0, 0);
+
+
+			//Vector3 MovePosition = transform.position;
 			MovePosition += new Vector3(Axis.x, 0, Axis.y);
+			//MoveRotation += new Vector3(Axis.x, 0, Axis.y);
+			SelfTransform.position += MovePosition * Time.deltaTime * 2;
+			SelfTransform.rotation = Quaternion.LookRotation(MovePosition);
+
+			//Quaternion newRotation = Quaternion.LookRotation(SelfTransform.position);
+			//rigi.rotation = Quaternion.Slerp(rigi.rotation, newRotation, 10.0f * Time.deltaTime);
 			//this.SelfComponent<NavMeshAgent>().SetDestination(MovePosition);
-			AI.ClearAI();
-			Agent.Resume();
-			Agent.SetDestination(MovePosition);
+			//AI.ClearAI();
+			//Agent.Resume();
+			//Agent.SetDestination(MovePosition);
 
 
 			ChangeState(eStateType.STATE_WALK);
@@ -89,12 +100,7 @@ public class Player : Actor
 		{
 			ChangeState(eStateType.STATE_IDLE);
 			base.Update();
-		}
-
-		//if (Input.GetKeyDown(KeyCode.Space))
-		//{
-		//	ChangeState(eStateType.STATE_ATTACK);
-		//}
+		}	
 	}
 
 	//TEST CODE
