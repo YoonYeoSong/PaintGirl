@@ -67,7 +67,7 @@ public class NormalAI : BaseAI {
 			}
 			else
 			{
-				SetMove(targetObject.SelfTransform.position);
+				//SetMove(targetObject.SelfTransform.position);
 			}
 		}
 
