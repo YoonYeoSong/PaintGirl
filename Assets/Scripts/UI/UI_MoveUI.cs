@@ -267,6 +267,9 @@ public class UI_MoveUI : MonoBehaviour
 
 	void ShowOption()
 	{
+		GameObject OptionPrefab;
+		OptionPrefab = Resources.Load("Prefabs/UI/PF_UI_OptionPanel") as GameObject;
+		NGUITools.AddChild(gameObject.transform.parent.gameObject, OptionPrefab);
 		Debug.Log("옵션오픈");
 	}
 
