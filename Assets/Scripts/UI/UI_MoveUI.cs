@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_MoveUI : MonoBehaviour {
+public class UI_MoveUI : MonoBehaviour
+{
 
 	float currTime = 0.0f;
 	Vector3 OriginPos = Vector3.zero;
@@ -19,13 +20,15 @@ public class UI_MoveUI : MonoBehaviour {
 	UIButton MainBtn = null;
 	UIButton StoreBtn = null;
 	UIButton StartBtn = null;
+	UIButton OptionBtn = null;
 
-	Vector3 M1 = new Vector3(-1480,0,0);
+	Vector3 M1 = new Vector3(-1480, 0, 0);
 	Vector3 M2 = new Vector3(0, 0, 0);
 	Vector3 M3 = new Vector3(1480, 0, 0);
 	int CheckGoMenu = 0;
 	bool ArriveCheck = true;
 	float ChangeTime = 0.5f;
+
 
 	public void Awake()
 	{
@@ -79,10 +82,24 @@ public class UI_MoveUI : MonoBehaviour {
 		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
 		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "ShowStage"));
 
+		trans = gameObject.transform.FindChild("TopPanel").FindChild("Option").FindChild("Btn");
+
+		if (trans == null)
+		{
+			Debug.LogError("OptionBtn is not founded");
+		}
+		OptionBtn = trans.GetComponent<UIButton>();
+		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
+		EventDelegate.Add(OptionBtn.onClick, new EventDelegate(this, "ShowOption"));
+
+
+
+
 		MyRoomBtn.defaultColor = Color.green;
 		MainBtn.defaultColor = Color.blue;
 		StoreBtn.defaultColor = Color.green;
 		StartBtn.defaultColor = Color.yellow;
+
 
 	}
 
@@ -142,7 +159,7 @@ public class UI_MoveUI : MonoBehaviour {
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
 			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 1;
@@ -165,11 +182,11 @@ public class UI_MoveUI : MonoBehaviour {
 
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
-			
+
 			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
 			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
 			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 2;
@@ -196,7 +213,7 @@ public class UI_MoveUI : MonoBehaviour {
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = false;
 
-			GameObject go = GameObject.FindGameObjectWithTag("SD_Character");
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
 			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 3;
@@ -247,4 +264,10 @@ public class UI_MoveUI : MonoBehaviour {
 		UI_Stage stage = go.GetComponent<UI_Stage>();
 		stage.Init();
 	}
+
+	void ShowOption()
+	{
+		Debug.Log("옵션오픈");
+	}
+
 }

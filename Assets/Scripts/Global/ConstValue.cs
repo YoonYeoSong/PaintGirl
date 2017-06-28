@@ -44,4 +44,12 @@ public static class ConstValue
 	// LocalSave
 	public const string LocalSave_ItemInstance = "ITEM_INSTANCE";
 
+	//CharacterLocal
+	public const string Character_Prefab = "Prefabs/Character";
+
+	//WeaponLocal
+	public const string Weapon_Prefab = "Prefabs/Weapon";
+
+
+
 }
