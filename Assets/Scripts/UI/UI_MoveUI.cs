@@ -20,6 +20,7 @@ public class UI_MoveUI : MonoBehaviour
 	UIButton MainBtn = null;
 	UIButton StoreBtn = null;
 	UIButton StartBtn = null;
+	UIButton OptionBtn = null;
 
 	Vector3 M1 = new Vector3(-1480, 0, 0);
 	Vector3 M2 = new Vector3(0, 0, 0);
@@ -81,9 +82,18 @@ public class UI_MoveUI : MonoBehaviour
 		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
 		EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "ShowStage"));
 
+		trans = gameObject.transform.FindChild("TopPanel").FindChild("Option").FindChild("Btn");
+
+		if (trans == null)
+		{
+			Debug.LogError("OptionBtn is not founded");
+		}
+		OptionBtn = trans.GetComponent<UIButton>();
+		//EventDelegate.Add(StartBtn.onClick, new EventDelegate(this, "GoGame"));
+		EventDelegate.Add(OptionBtn.onClick, new EventDelegate(this, "ShowOption"));
 
 
-		
+
 
 		MyRoomBtn.defaultColor = Color.green;
 		MainBtn.defaultColor = Color.blue;
@@ -149,8 +159,8 @@ public class UI_MoveUI : MonoBehaviour
 			SD_Action.GetComponent<CameraAction>().click = false;
 			SD_Action.GetComponent<CameraAction>().enabled = true;
 
-			//GameObject go = GameObject.FindGameObjectWithTag("Player");
-			//go.transform.rotation = Quaternion.Euler(0, 180, 0);
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
+			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 1;
 			ArriveCheck = false;
@@ -176,8 +186,8 @@ public class UI_MoveUI : MonoBehaviour
 			myroom.GetComponent<UI_Myroom>().Inven_Character_Model.SetActive(false);
 			myroom.GetComponent<UI_Myroom>().Inven_Gun_Model.SetActive(false);
 
-			//GameObject go = GameObject.FindGameObjectWithTag("Player");
-			//go.transform.rotation = Quaternion.Euler(0, 180, 0);
+			GameObject go = GameObject.FindGameObjectWithTag("Player");
+			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
 			CheckGoMenu = 2;
 			ArriveCheck = false;
@@ -255,5 +265,9 @@ public class UI_MoveUI : MonoBehaviour
 		stage.Init();
 	}
 
+	void ShowOption()
+	{
+		Debug.Log("옵션오픈");
+	}
 
 }

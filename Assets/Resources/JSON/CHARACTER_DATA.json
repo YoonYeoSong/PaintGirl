@@ -1,0 +1,24 @@
+{
+	"SKILL_TEMPLATE": {
+		"1": {
+			"HP": 5,
+			"MOVESPEED": 2
+		},
+		"2": {
+			"HP": 6,
+			"MOVESPEED": 2.2
+		},
+		"3": {
+			"HP": 7,
+			"MOVESPEED": 2.4
+		},
+		"4": {
+			"HP": 8,
+			"MOVESPEED": 2.6
+		},
+		"5": {
+			"HP": 9,
+			"MOVESPEED": 2.8
+		}
+	}
+}

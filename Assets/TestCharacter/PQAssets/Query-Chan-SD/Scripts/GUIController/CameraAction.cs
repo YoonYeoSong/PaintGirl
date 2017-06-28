@@ -22,7 +22,7 @@ public class CameraAction : MonoBehaviour {
 	private void Awake()
 	{
 		
-		CharacterClick = gameObject.transform.parent.FindChild("UI Root").FindChild("Character_RenderPanel").FindChild("Character_Render").GetComponent<UIButton>();
+		//CharacterClick = gameObject.transform.parent.FindChild("UI Root").FindChild("PF_UI_MYROOM").FindChild("BackGround").FindChild("Character_RenderPanel").FindChild("Character_Render").GetComponent<UIButton>();
 		//CharacterClick = transform.Find("Character_Render").GetComponent<UIButton>();
 
 		CharacterClick_Inven = gameObject.transform.parent.FindChild("UI Root").FindChild("PF_UI_MYROOM").FindChild("EquipPanel").FindChild("My_Information_Character").GetComponent<UIButton>();

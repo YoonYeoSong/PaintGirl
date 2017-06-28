@@ -1,0 +1,19 @@
+{
+	"WEAPON_DATA": {
+		"MACHINEGUN": {
+			"DAMAGE": 1,
+			"RANGE": 4,
+			"ATTACKSPEED": 1
+		},
+		"SHOTGUN": {
+			"DAMAGE": 2,
+			"RANGE": 3,
+			"ATTACKSPEED": 0.9
+		},
+		"ROCKETLAUNCHER": {
+			"DAMAGE": 3,
+			"RANGE": 7,
+			"ATTACKSPEED": 0.3
+		}
+	}
+}
