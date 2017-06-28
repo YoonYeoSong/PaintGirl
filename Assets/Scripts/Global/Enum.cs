@@ -12,7 +12,8 @@ public enum eStateType
     STATE_IDLE,
     STATE_ATTACK,
     STATE_WALK,
-    STATE_DEAD
+    STATE_DEAD,
+	STATE_JUMP,
 }
 
 public enum eStatusData

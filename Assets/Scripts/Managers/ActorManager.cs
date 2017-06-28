@@ -181,7 +181,7 @@ public class ActorManager : MonoSingleton<ActorManager> {
 
 		go.GetComponent<Player>().enabled = true;
 		go.GetComponent<CapsuleCollider>().enabled = true;
-		go.GetComponent<NavMeshAgent>().enabled = true;
+		//go.GetComponent<NavMeshAgent>().enabled = true;
 
 		return go.GetComponent<Actor>();
 	}

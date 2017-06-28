@@ -67,7 +67,7 @@ public class NormalAI : BaseAI {
 			}
 			else
 			{
-				SetMove(targetObject.SelfTransform.position);
+				//SetMove(targetObject.SelfTransform.position);
 			}
 		}
 
@@ -96,5 +96,12 @@ public class NormalAI : BaseAI {
 		END = true;
 		yield return StartCoroutine(base.Dead());
 
+	}
+	protected override IEnumerator Jump()
+	{
+		yield return new WaitForEndOfFrame();
+		AddNextAI(eStateType.STATE_JUMP);
+
+		yield return StartCoroutine(base.Jump());
 	}
 }
