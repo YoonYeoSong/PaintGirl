@@ -13,7 +13,7 @@ public class Player : Actor
 	DetectionArea DetectArea;
 
 
-	eStateType State;// = eStateType.STATE_IDLE;
+	eStateType State;
 
 	//Rigidbody rigi;
 	float AttackRange = 3.0f;
@@ -22,49 +22,67 @@ public class Player : Actor
 
 	Rigidbody rigdbody;
 	bool isJumping;
+	bool isRoll;
+
+	float ftime;
 
 	void Start()
 	{
+		isJumping = false;
+		isRoll = false;
 		IS_PLAYER = true;
 		Anim = this.GetComponentInChildren<Animator>();
 		Stick = JoyStick.Instance;
 		rigdbody = GetComponent<Rigidbody>();
 
-		DetectArea = SelfObject.GetComponentInChildren<DetectionArea>();
-		if (DetectArea == null)
-		{
-			Debug.Log("DetectionArea가 없어서 생성.");
-			GameObject go = new GameObject(typeof(DetectionArea).ToString(), typeof(DetectionArea));
+		//DetectArea = SelfObject.GetComponentInChildren<DetectionArea>();
+		//if (DetectArea == null)
+		//{
+		//	Debug.Log("DetectionArea가 없어서 생성.");
+		//	GameObject go = new GameObject(typeof(DetectionArea).ToString(), typeof(DetectionArea));
 
-			go.transform.SetParent(SelfTransform);
-			go.transform.localPosition = Vector3.zero;
-			DetectArea = go.GetComponent<DetectionArea>();
-		}
-		DetectArea.Inin(this, this.AttackRange);
+		//	go.transform.SetParent(SelfTransform);
+		//	go.transform.localPosition = Vector3.zero;
+		//	DetectArea = go.GetComponent<DetectionArea>();
+		//}
+		//DetectArea.Inin(this, this.AttackRange);
 
 		State = eStateType.STATE_IDLE;
+		SetAnimation(State);
 	}
 
 	protected override void Update()
 	{
 
+		if (ftime >= 1.0f)
+		{
+			isRoll = false;
+			ftime = 0;
+
+			State = eStateType.STATE_WALK;
+			SetAnimation(State);
+
+			print(State);
+		}
 
 		CheckGround(); // 밑이 땅인지 확인
 
-
-		if (Input.GetKeyDown(KeyCode.F1))
-		{
-			Vector2 Axis = Stick.Axis;
-			Vector3 MovePosition = new Vector3(0, 0, 0);
-			MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
-			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
-		}
-		else if (Input.GetKeyDown(KeyCode.Space) && grounded)
+		if (Input.GetKeyDown(KeyCode.Space) && grounded)
 		{
 			State = eStateType.STATE_JUMP;
 			SetAnimation(State);
 			jump = true;
 			//isJumping = true;
+		}
+		else if (Input.GetKeyDown(KeyCode.F1))
+		{
+			isRoll = true;
+			State = eStateType.STATE_ROLL;
+			SetAnimation(State);
+			Vector2 Axis = Stick.Axis;
+			Vector3 MovePosition = new Vector3(0, 0, 0);
+			MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
+			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 		}
 		else if (Stick.IsPressed)
 		{
@@ -88,24 +106,51 @@ public class Player : Actor
 			//AI.ClearAI();
 			//Agent.Resume();
 			//Agent.SetDestination(MovePosition);
-
-			if(isJumping == true)
+			if(isRoll == false)
 			{
-				print(State);
+				if (Input.GetKeyDown(KeyCode.F1))
+				{
+					isRoll = true;
+					State = eStateType.STATE_ROLL;
+					SetAnimation(State);
+					//Vector2 Axis = Stick.Axis;
+					//Vector3 MovePosition = new Vector3(0, 0, 0);
+					MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
+					SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
+				}
+			}
+			if (isJumping == true)
+			{	
 				return;
-			}else
+			}
+			else
 			{
 				State = eStateType.STATE_WALK;
 				SetAnimation(State);
 			}
+
 		}
 		else if(!Stick.IsPressed)
 		{
 			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 
+			if (isRoll == false)
+			{
+				if (Input.GetKeyDown(KeyCode.F1))
+				{
+					isRoll = true;
+					State = eStateType.STATE_ROLL;
+					SetAnimation(State);
+					Vector2 Axis = Stick.Axis;
+					Vector3 MovePosition = new Vector3(0, 0, 0);
+					MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
+					SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
+				}
+			}
+
+
 			if (isJumping == true)
 			{
-				print(State);
 				return;
 			}
 			else
@@ -206,6 +251,18 @@ public class Player : Actor
 		// Exit
 	}
 
+	IEnumerator STATE_ROLL()
+	{
+		// Enter
+		while (State == eStateType.STATE_ROLL)
+		{
+
+			yield return null;
+			// Excute
+		}
+		// Exit
+	}
+
 	public float moveForce = 365f;          // Amount of force added to move the player left and right.
 	float maxSpeed = 3.0f;             // The fastest the player can travel in the x axis.
 	float jumpForce = 300f;         // Amount of force added when the player jumps.
@@ -213,13 +270,21 @@ public class Player : Actor
 	private bool jump;
 
 	//물리 관련 움직임은 이곳에서 처리
+	
 	void FixedUpdate()
 	{
+		if (isRoll)
+		{
+			ftime += Time.deltaTime;
+
+		}
+
 		if (jump)
 		{
 			rigdbody.AddForce(new Vector3(0f, jumpForce, 0f));
 			jump = false;
 		}
+
 	}
 
 	void CheckGround()
