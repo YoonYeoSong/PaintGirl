@@ -97,4 +97,11 @@ public class NormalAI : BaseAI {
 		yield return StartCoroutine(base.Dead());
 
 	}
+	protected override IEnumerator Jump()
+	{
+		yield return new WaitForEndOfFrame();
+		AddNextAI(eStateType.STATE_JUMP);
+
+		yield return StartCoroutine(base.Jump());
+	}
 }

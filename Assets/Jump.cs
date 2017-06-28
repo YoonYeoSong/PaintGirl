@@ -2,49 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jump : MonoBehaviour {
+public class Jump : Player {
 
-	public float speed = 3.0f;
-	public float jumpPower = 5.0f;
+	//public float speed = 3.0f;
+	//public float jumpPower = 5.0f;
 
-	Rigidbody rigdbody;
-	bool isJumping;
+	//Rigidbody rigdbody;
+	//bool isJumping;
 
-	private void Awake()
-	{
-		rigdbody = GetComponent<Rigidbody>();
-	}
+	//Player player = null;
+	//eStateType State;
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			if (transform.position.y >= 0f)
-			{
-				isJumping = false;
-			}
-			else
-			{
-				isJumping = true;
-			}
+	//private void Awake()
+	//{
+	//	rigdbody = GetComponent<Rigidbody>();
+	//	player = GetComponent<Player>();
+	//	State = eStateType.STATE_JUMP;
+	//}
 
-		}
-	}
+	//protected override void Update()
+	//{
+	//	if (Input.GetKeyDown(KeyCode.Space))
+	//	{
+	//		if (transform.position.y >= 0.8f)
+	//		{
+	//			isJumping = false;
+	//		}
+	//		else
+	//		{
+	//			isJumping = true;
+	//		}
 
-	private void FixedUpdate()
-	{
-		Jumping();
-		//isJumping = false;
-	}
+	//	}
+	//}
+	//private void FixedUpdate()
+	//{
+	//	Jumping();
+	//	//isJumping = false;
+	//}
 
-	void Jumping()
-	{
-		if (!isJumping)
-			return;
+	//void Jumping()
+	//{
+	//	if (!isJumping)
+	//		return;
 
-		rigdbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-		isJumping = false;
-	}
+	//	//player.ChangeState(State);
+	//	rigdbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+	//	isJumping = false;
+	//}
 
 
 	//public float moveForce = 365f;          // Amount of force added to move the player left and right.

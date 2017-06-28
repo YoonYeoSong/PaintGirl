@@ -15,6 +15,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	private float sensitivityX = 10.0f; //x축 민감도
 	private float sensitivityY = 5.0f; //y축 민감도
 
+	public static Vector3 cameraRot;
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,12 +27,12 @@ public class ThirdPersonCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(looktAt == null)
+		if (looktAt == null)
 		{
 			//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
 			looktAt = GameObject.Find("SD_Basic_Change_Main(Clone)").transform;
 		}
-		
+
 		currentX += Input.GetAxis("Mouse X") * sensitivityX;
 		currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY ;
 
@@ -43,6 +44,8 @@ public class ThirdPersonCamera : MonoBehaviour {
 		Vector3 dir = new Vector3(0, 0, -distance);
 		Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
 		camTransform.position = looktAt.position + rotation * dir;
+
+		cameraRot = camTransform.rotation.eulerAngles;
 
 		camTransform.LookAt(looktAt.position + new Vector3(0, 1.2f, 0));
 	}

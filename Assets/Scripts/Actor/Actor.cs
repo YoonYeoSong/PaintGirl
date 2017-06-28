@@ -29,7 +29,7 @@ public class Actor : BaseObject
 
     // TemplateKey -> Status
     // GameCharacter
-    GameCharacter SelfCharacter = null;
+    protected GameCharacter SelfCharacter = null;
     public GameCharacter SELF_CHARACTER
     { get { return SelfCharacter; } }
 
@@ -179,11 +179,11 @@ public class Actor : BaseObject
 
 	protected virtual void Update()
     {
-		AI.UpdateAI();
-		if(AI.END)
-		{
-			Destroy(SelfObject);
-		}
+		//AI.UpdateAI();
+		//if(AI.END)
+		//{
+		//	Destroy(SelfObject);
+		//}
     }
 
 	public void RunSkill()
