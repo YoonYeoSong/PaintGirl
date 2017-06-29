@@ -25,28 +25,22 @@ public class Player : Actor
 	bool isRoll;
 
 	float ftime;
+	public float moveForce = 365f;          // Amount of force added to move the player left and right.
+	float maxSpeed = 3.0f;             // The fastest the player can travel in the x axis.
+	float jumpForce = 300f;         // Amount of force added when the player jumps.
+	private bool grounded = false;
+	private bool jump;
+
 
 	void Start()
 	{
 		isJumping = false;
 		isRoll = false;
 		IS_PLAYER = true;
-		Anim = this.GetComponentInChildren<Animator>();
 		Stick = JoyStick.Instance;
 		rigdbody = GetComponent<Rigidbody>();
-
-		//DetectArea = SelfObject.GetComponentInChildren<DetectionArea>();
-		//if (DetectArea == null)
-		//{
-		//	Debug.Log("DetectionArea가 없어서 생성.");
-		//	GameObject go = new GameObject(typeof(DetectionArea).ToString(), typeof(DetectionArea));
-
-		//	go.transform.SetParent(SelfTransform);
-		//	go.transform.localPosition = Vector3.zero;
-		//	DetectArea = go.GetComponent<DetectionArea>();
-		//}
-		//DetectArea.Inin(this, this.AttackRange);
-
+			
+		Anim = this.GetComponentInChildren<Animator>();
 		State = eStateType.STATE_IDLE;
 		SetAnimation(State);
 	}
@@ -54,100 +48,43 @@ public class Player : Actor
 	protected override void Update()
 	{
 
-		if (ftime >= 1.0f)
-		{
-			isRoll = false;
-			ftime = 0;
 
-			State = eStateType.STATE_WALK;
-			SetAnimation(State);
-
-			print(State);
-		}
 
 		CheckGround(); // 밑이 땅인지 확인
-
-		if (Input.GetKeyDown(KeyCode.Space) && grounded)
+	
+		if (Input.GetKeyDown(KeyCode.Space) && grounded) // 점프
 		{
 			State = eStateType.STATE_JUMP;
 			SetAnimation(State);
 			jump = true;
-			//isJumping = true;
 		}
-		else if (Input.GetKeyDown(KeyCode.F1))
+		else if (Input.GetKeyDown(KeyCode.F1)) // 구르기
 		{
 			isRoll = true;
 			State = eStateType.STATE_ROLL;
 			SetAnimation(State);
-			Vector2 Axis = Stick.Axis;
-			Vector3 MovePosition = new Vector3(0, 0, 0);
-			MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
-			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 		}
-		else if (Stick.IsPressed)
+		else if(!Stick.IsPressed) // 눌리지 않았을때
 		{
-
-			Vector2 Axis = Stick.Axis;
-			Vector3 MovePosition = new Vector3(0, 0, 0);
-			Vector3 MoveRotation = new Vector3(0, 0, 0);
-			Vector3 Rot = Vector3.zero;
-
-
-			MovePosition += new Vector3(Axis.x, 0, Axis.y);
-
-
-			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
-
-			//SelfTransform.rotation = Quaternion.LookRotation(ThirdPersonCamera.cameraRot);
-			//Quaternion newRotation = Quaternion.LookRotation(SelfTransform.position);
-			//rigi.rotation = Quaternion.Slerp(rigi.rotation, newRotation, 10.0f * Time.deltaTime);
-			//this.SelfComponent<NavMeshAgent>().SetDestination(MovePosition);
-			//AI.ClearAI();
-			//Agent.Resume();
-			//Agent.SetDestination(MovePosition);
-			if(isRoll == false)
-			{
-				if (Input.GetKeyDown(KeyCode.F1))
-				{
-					isRoll = true;
-					State = eStateType.STATE_ROLL;
-					SetAnimation(State);
-					//Vector2 Axis = Stick.Axis;
-					//Vector3 MovePosition = new Vector3(0, 0, 0);
-					MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
-					SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
-				}
-			}
 			if (isJumping == true)
-			{	
+			{
 				return;
 			}
 			else
 			{
-				State = eStateType.STATE_WALK;
-				SetAnimation(State);
-			}
-
-		}
-		else if(!Stick.IsPressed)
-		{
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
-
-			if (isRoll == false)
-			{
-				if (Input.GetKeyDown(KeyCode.F1))
+				if (isRoll == false)
 				{
-					isRoll = true;
-					State = eStateType.STATE_ROLL;
+					State = eStateType.STATE_IDLE;
 					SetAnimation(State);
-					Vector2 Axis = Stick.Axis;
-					Vector3 MovePosition = new Vector3(0, 0, 0);
-					MovePosition += new Vector3(Axis.x, 0, Axis.y + 50f);
-					SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 				}
+				else
+					return;
+				//State = eStateType.STATE_IDLE;
+				//SetAnimation(State);
 			}
-
+		}
+		else if (Stick.IsPressed)  // 눌 렸을때
+		{
 
 			if (isJumping == true)
 			{
@@ -155,33 +92,23 @@ public class Player : Actor
 			}
 			else
 			{
-				State = eStateType.STATE_IDLE;
-				SetAnimation(State);
+				if(isRoll == false)
+				{
+					State = eStateType.STATE_WALK;
+					SetAnimation(State);
+				}
+				else
+					return;
+				//State = eStateType.STATE_WALK;
+				//SetAnimation(State);
 			}
 		}
 	}
 
 	public void SetAnimation(eStateType state)
 	{
-		Anim.SetInteger("State", (int)state);	
+		Anim.SetInteger("State", (int)state);
 	}
-
-	//public override void ThrowEvent(string keyData, params object[] datas)
-	//{
-	//	switch (keyData)
-	//	{
-	//		case "AttackEnd":
-	//			{
-	//				//SetAnimation((eStateType)datas[0]);
-	//			}
-	//			break;
-	//		default:
-	//			{
-	//				base.ThrowEvent(keyData, datas);
-	//			}
-	//			break;
-	//	}
-	//}
 
 	private void OnEnable()
 	{
@@ -252,38 +179,117 @@ public class Player : Actor
 	}
 
 	IEnumerator STATE_ROLL()
+		
 	{
 		// Enter
 		while (State == eStateType.STATE_ROLL)
 		{
-
 			yield return null;
 			// Excute
 		}
 		// Exit
 	}
 
-	public float moveForce = 365f;          // Amount of force added to move the player left and right.
-	float maxSpeed = 3.0f;             // The fastest the player can travel in the x axis.
-	float jumpForce = 300f;         // Amount of force added when the player jumps.
-	private bool grounded = false;
-	private bool jump;
 
 	//물리 관련 움직임은 이곳에서 처리
 	
 	void FixedUpdate()
 	{
+		if (Stick.IsPressed)
+		{
+
+			Vector2 Axis = Stick.Axis;
+			Vector3 MovePosition = new Vector3(0, 0, 0);
+			Vector3 MoveRotation = new Vector3(0, 0, 0);
+			Vector3 Rot = Vector3.zero;
+			MovePosition += new Vector3(Axis.x, 0, Axis.y);
+			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
+			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+			//if (isJumping == true)
+			//{
+			//	return;
+			//}
+			//else
+			//{
+			//	if (isRoll == false)
+			//	{
+			//		State = eStateType.STATE_WALK;
+			//		SetAnimation(State);
+			//	}
+			//	//State = eStateType.STATE_WALK;
+			//	//SetAnimation(State);
+			//}
+			//SelfTransform.rotation = Quaternion.LookRotation(ThirdPersonCamera.cameraRot);
+			//Quaternion newRotation = Quaternion.LookRotation(SelfTransform.position);
+		}
+		else
+		{
+			isJumping = false;
+			isRoll = false;
+			//State = eStateType.STATE_IDLE;
+			//SetAnimation(State);
+			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+		}
+
 		if (isRoll)
 		{
 			ftime += Time.deltaTime;
-
+			Vector2 Axis = Stick.Axis;
+			Vector3 MovePosition = new Vector3(0, 0, 0);
+			MovePosition += new Vector3(Axis.x, 0, Axis.y + 1f);
+			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 1.0f;
 		}
+		//else
+		//{
+		//	//if(isJumping == false  && isRoll == false || Stick.IsPressed == true)
+		//	//{
+		//	//	State = eStateType.STATE_WALK;
+		//	//	SetAnimation(State);
+		//	//}
+		//	//else if(isJumping == false && isRoll == false || Stick.IsPressed == false)
+		//	//{
+		//	//	State = eStateType.STATE_IDLE;
+		//	//	SetAnimation(State);
+		//	//}
+		//}
 
 		if (jump)
 		{
 			rigdbody.AddForce(new Vector3(0f, jumpForce, 0f));
 			jump = false;
 		}
+
+		if (ftime >= 0.4f)
+		{
+			State = eStateType.STATE_IDLE;
+			SetAnimation(State);
+			isRoll = false;
+			ftime = 0;
+			
+
+			return;
+		}
+
+		//if (isRoll == false)
+		//{
+		//	if (Stick.IsPressed)
+		//	{
+		//		State = eStateType.STATE_WALK;
+		//		SetAnimation(State);
+		//	}
+		//	else
+		//	{
+		//		if (isJumping == true)
+		//		{
+		//			return;
+		//		}
+		//		else
+		//		{
+		//			State = eStateType.STATE_IDLE;
+		//			SetAnimation(State);
+		//		}
+		//	}
+		//}
 
 	}
 
@@ -308,7 +314,7 @@ public class Player : Actor
 		if (collision.transform.tag == "GROUND")
 		{
 			isJumping = false;
-			print(isJumping);
+			
 		}
 	}
 
@@ -317,7 +323,7 @@ public class Player : Actor
 		if (collision.transform.tag == "GROUND")
 		{
 			isJumping = true;
-			print(isJumping);
+			
 		}
 	}
 
