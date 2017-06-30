@@ -180,7 +180,7 @@ public class ActorManager : MonoSingleton<ActorManager> {
 		GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
 		go.GetComponent<Player>().enabled = true;
-		go.GetComponent<CapsuleCollider>().enabled = true;
+		//go.GetComponent<CapsuleCollider>().enabled = true;
 		go.GetComponent<NavMeshAgent>().enabled = true;
 
 		return go.GetComponent<Actor>();

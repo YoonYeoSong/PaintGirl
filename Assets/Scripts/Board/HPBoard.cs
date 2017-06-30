@@ -1,38 +1,86 @@
-﻿using System.Collections;
+﻿
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public class HPBoard : BaseBoard
+{
+    [SerializeField]
+    UIProgressBar ProgressBar = null;
+    [SerializeField]
+    UILabel HPLabel = null;
 
-public class HPBoard : BaseBoard {
 
-	// Force Unity to serialize a private field
-	// privae 변수 유니티 강제 동기화 ( 인스펙터 동기화 )
 
-	[SerializeField]
-	UIProgressBar ProgressBar = null;
+    float holdTime = 2.0f;
 
-	[SerializeField]
-	UILabel HPLabel = null;
+    //GameObject[] m1 = GameObject.FindGameObjectsWithTag("A");
 
-	public override eBoardType BOARD_TYPE
-	{
-		get
-		{
-			return eBoardType.BOARD_HP;
-		}
-	}
 
-	public override void SetData(string strKey, params object[] datas)
-	{
+    // Use this for initialization
+    void Start()
+    {
+        StartCoroutine(checkTag(holdTime));
+    }
 
-		if(strKey.Equals(ConstValue.SetData_HP))
-		{
-			// [0] Max , [1] Cur
-			double MaxHP = (double)datas[0];
-			double CurHP = (double)datas[1];
+    // void FixedUpdate()
+    //{
+    //        //5초마다 반복실행 
+    //    InvokeRepeating("checkTag", 0, 10);
 
-			ProgressBar.value =(float)(CurHP / MaxHP); // 0f ~ 1f
-			HPLabel.text = CurHP.ToString() + " / " + MaxHP.ToString();
-		}
-	}
+    //}
+    //void checkTag()
+    //{
+    //    GameObject[] m1 = GameObject.FindGameObjectsWithTag("A");
+    //    foreach (GameObject goTemp in m1)
+    //    {
+    //        Debug.Log(m1.Length);
+    //    }
+
+    //}
+
+    IEnumerator checkTag(float timer)
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        GameObject[] ACheck = GameObject.FindGameObjectsWithTag("A");
+        GameObject[] BCheck = GameObject.FindGameObjectsWithTag("B");
+        //1부터 충돌오브젝트수까지 
+        //for (int i = 1; i < gameObject.transform.childCount; i++)
+        //{       //배열길이
+        //    Debug.Log("Acheck" + ACheck.Length);
+        //    Debug.Log("Bcheck" + BCheck.Length);
+        //}
+        //if (gameObject.tag == "APlayer")
+        //{
+
+        //    ProgressBar.value = ((float)ACheck.Length / 6f); // 0f ~ 1f
+        //    HPLabel.text = ACheck.Length.ToString()
+        //         + " / " + 6;
+        //} else
+        //{
+        //    ProgressBar.value = ((float)BCheck.Length / 6f); // 0f ~ 1f
+        //    HPLabel.text = BCheck.Length.ToString()
+        //         + " / " + 6;
+        //}
+
+        if(gameObject.tag == "APlayer")
+        {
+            Debug.Log("dddd");
+        }
+
+
+        ProgressBar.value = ((float)ACheck.Length / 6f); // 0f ~ 1f
+        HPLabel.text = ACheck.Length.ToString()
+             + " / " + 6;
+
+
+        //5초마다 코루틴실행
+        StartCoroutine(checkTag(timer));
+    }
+
+
 
 }
+
