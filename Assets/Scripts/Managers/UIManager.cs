@@ -15,6 +15,7 @@ public class UIManager : MonoSingleton<UIManager>
 	public override void Init()
 	{
 		label = transform.FindChild("GameOverLabel").GetComponent<UILabel>();
+
 	}
 
 	public void SetText(bool iskill, float data)
