@@ -80,7 +80,7 @@ public class BoardManager : MonoSingleton<BoardManager> {
 				{
 					GameObject hpBoard = Resources.Load(ConstValue.UI_PATH_HP) as GameObject;
 					GameObject UIHPBoard = NGUITools.AddChild(BoardUI, hpBoard);
-					boardData = UIHPBoard.GetComponent<HPBoard>();
+				    boardData = UIHPBoard.GetComponent<HPBoard>();
 				}
 				break;
 			case eBoardType.BOARD_DAMAGE:
