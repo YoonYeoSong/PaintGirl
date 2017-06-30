@@ -64,7 +64,7 @@ public class BaseAI : BaseObject {
 
 	// 애니메이션을 위해 가져오고
 	Animator Anim = null;
-	NavMeshAgent NavAgent = null;
+	//NavMeshAgent NavAgent = null;
 
 	// anim이 널인지 아닌지
 	public Animator ANIMATOR
@@ -81,21 +81,21 @@ public class BaseAI : BaseObject {
 		}
 	}
 
-	public NavMeshAgent NAV_MESH_AGENT
-	{
-		get
-		{
-			if(NavAgent == null)
-			{
-				NavAgent = SelfObject.GetComponent<NavMeshAgent>();
+	//public NavMeshAgent NAV_MESH_AGENT
+	//{
+	//	get
+	//	{
+	//		if(NavAgent == null)
+	//		{
+	//			NavAgent = SelfObject.GetComponent<NavMeshAgent>();
 				
-			}
-			return NavAgent;
-		}
-	}
+	//		}
+	//		return NavAgent;
+	//	}
+	//}
 
 	// ani메이터가 있는지 없는지 판독
-	void ChangeAnimation()
+	protected void ChangeAnimation()
 	{
 		if(ANIMATOR == null)
 		{
@@ -103,7 +103,7 @@ public class BaseAI : BaseObject {
 			return;
 		}
 		// 파라미터들을 가지고 처리할 수 있도록
-		ANIMATOR.SetInteger("State", (int)CurrentAIState);
+		//ANIMATOR.SetInteger("State", (int)CurrentAIState);
 	}
 
 	// 다음 ai를 셋팅한다.  위치값 초기화
@@ -152,6 +152,12 @@ public class BaseAI : BaseObject {
 		ChangeAnimation();
 	}
 
+	protected virtual void ProcessJump()
+	{
+		CurrentAIState = eStateType.STATE_JUMP;
+		ChangeAnimation();
+	}
+
 	// 상속받은 애가 override (이것을 대체해 사용중)
 	protected virtual IEnumerator Idle()
 	{
@@ -173,6 +179,11 @@ public class BaseAI : BaseObject {
 		bUpdateAI = false;
 		yield break;
 
+	}
+	protected virtual IEnumerator Jump()
+	{
+		bUpdateAI = false;
+		yield break;
 	}
 
 
@@ -212,6 +223,9 @@ public class BaseAI : BaseObject {
 				break;
 			case eStateType.STATE_DEAD:
 				ProcessDead();
+				break;
+			case eStateType.STATE_JUMP:
+				ProcessJump();
 				break;
 
 		}
@@ -255,6 +269,9 @@ public class BaseAI : BaseObject {
 				break;
 			case eStateType.STATE_DEAD:
 				StartCoroutine("Dead");
+				break;
+			case eStateType.STATE_JUMP:
+				StartCoroutine("Jump");
 				break;
 
 		}
@@ -303,36 +320,36 @@ public class BaseAI : BaseObject {
 
 
 	// 현재 이동하고 있는지
-	protected bool MoveCheck()
-	{
-		// 이동이 완료가 됬는지
-		if(NAV_MESH_AGENT.pathStatus == NavMeshPathStatus.PathComplete)
-		{
-			// 이동완료 가지고있는경로가 있는지?  계산중인게 있는지?
-			if(NAV_MESH_AGENT.hasPath == false || NAV_MESH_AGENT.pathPending == false)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	//protected bool MoveCheck()
+	//{
+	//	// 이동이 완료가 됬는지
+	//	if(NAV_MESH_AGENT.pathStatus == NavMeshPathStatus.PathComplete)
+	//	{
+	//		// 이동완료 가지고있는경로가 있는지?  계산중인게 있는지?
+	//		if(NAV_MESH_AGENT.hasPath == false || NAV_MESH_AGENT.pathPending == false)
+	//		{
+	//			return true;
+	//		}
+	//	}
+	//	return false;
+	//}
 
 	// 원하는 목적지까지 이동
-	protected void SetMove(Vector3 position)
-	{
-		if (PreMovePosition == position)
-			return;
+	//protected void SetMove(Vector3 position)
+	//{
+	//	if (PreMovePosition == position)
+	//		return;
 
-		PreMovePosition = position;
-		NAV_MESH_AGENT.Resume();
-		NAV_MESH_AGENT.SetDestination(position);
-	}
+	//	PreMovePosition = position;
+	//	NAV_MESH_AGENT.Resume();
+	//	NAV_MESH_AGENT.SetDestination(position);
+	//}
 
-	// 이동 멈춤
+	//이동 멈춤
 	protected void Stop()
 	{
 		MovePosition = Vector3.zero;
-		NAV_MESH_AGENT.Stop();
+		//NAV_MESH_AGENT.Stop();
 	}
 
 }
