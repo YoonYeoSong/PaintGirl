@@ -11,11 +11,11 @@ public class UI_Game : MonoBehaviour {
 	UIButton MapCloseBtn = null;
 
 	GameObject MapPrefab;
-
+	GameObject MiniMap = null;
 	private void Awake()
 	{
 		MapPrefab = Resources.Load("Prefabs/UI/PF_UI_MiniMap") as GameObject;
-
+		
 		OptionBtn =	transform.FindChild("Top").FindChild("Option").FindChild("Btn").GetComponent<UIButton>();
 		if (OptionBtn == null)
 			Debug.Log("OptionBtn is null");
@@ -40,11 +40,7 @@ public class UI_Game : MonoBehaviour {
 
 		EventDelegate.Add(MapBtn.onClick, new EventDelegate(this, "ShowMap"));
 
-		MapCloseBtn = transform.parent.FindChild("PF_UI_MiniMap").GetComponent<UIButton>();
-		if (MapCloseBtn == null)
-			Debug.Log("MapCloseBtn is null");
 
-		EventDelegate.Add(MapCloseBtn.onClick, new EventDelegate(this, "CloseMap"));
 
 	}
 
@@ -68,20 +64,17 @@ public class UI_Game : MonoBehaviour {
 
 	void ShowMap()
 	{
-		
-		NGUITools.AddChild(gameObject.transform.parent.gameObject, MapPrefab);
+
+		MiniMap = NGUITools.AddChild(gameObject.transform.parent.gameObject, MapPrefab);
+		//MiniMap.transform.localPosition = new Vector3(-388, 87, 0);
+		MapCloseBtn = MiniMap.GetComponent<UIButton>();
+		EventDelegate.Add(MapCloseBtn.onClick, new EventDelegate(this, "CloseMap"));
 	}
 
 	void CloseMap()
 	{
 		Debug.Log("미니맵종료");
-		Destroy(GameObject.Find("PF_UI_MiniMap"));
+		Destroy(MiniMap);
 	}
-
-	private void Update()
-	{
-
-	}
-
 
 }

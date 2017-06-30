@@ -179,14 +179,14 @@ public class ActorManager : MonoSingleton<ActorManager> {
 		GameObject playerPrefab = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic_Change_Main") as GameObject;
 		GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
-		go.GetComponent<Player>().enabled = true;
-<<<<<<< HEAD
+		//go.GetComponent<Player>().enabled = true;
+//<<<<<<< HEAD
 		//go.GetComponent<CapsuleCollider>().enabled = true;
-		go.GetComponent<NavMeshAgent>().enabled = true;
-=======
-		go.GetComponent<CapsuleCollider>().enabled = true;
 		//go.GetComponent<NavMeshAgent>().enabled = true;
->>>>>>> 52fd23f1704dc24410a5800a3cdb50b4c96dc6b0
+//=======
+		//go.GetComponent<CapsuleCollider>().enabled = true;
+		//go.GetComponent<NavMeshAgent>().enabled = true;
+//>>>>>>> 52fd23f1704dc24410a5800a3cdb50b4c96dc6b0
 
 		return go.GetComponent<Actor>();
 	}

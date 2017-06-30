@@ -5,6 +5,12 @@ using UnityEngine;
 public class UIManager : MonoSingleton<UIManager>
 {
 	UILabel label;
+
+
+	UIButton AttackBtn = null;
+	UIButton JumpBtn = null;
+	UIButton RollBtn = null;
+
 	// DontDestroyOnLoad 하지 않기 위해
 	public override void Init()
 	{

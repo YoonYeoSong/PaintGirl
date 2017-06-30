@@ -34,7 +34,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 		}
 
 		currentX += Input.GetAxis("Mouse X") * sensitivityX;
-		currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY ;
+		currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY;
 
 		currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 	}

@@ -95,6 +95,28 @@ public class UI_Option_Game : MonoBehaviour {
 	void GoLobby()
 	{
 		//UI_Popup
-		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_LOBBY);
+		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
+		UI_Popup popup = go.GetComponent<UI_Popup>();
+
+		popup.Set(
+			() =>
+			{
+				Scene_Manager.Instance.LoadScene(eSceneType.SCENE_LOBBY);
+
+				
+				
+				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+			}
+			,
+			() =>
+			{
+				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+			},
+			"게임 포기",
+			"메인화면으로 돌아가시겠습니까?"
+			);
+		
+
+		
 	}
 }
