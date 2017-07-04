@@ -250,9 +250,10 @@ public class UI_MoveUI : MonoBehaviour
 
 	void ShowStage()
 	{
-		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_STAGE);
-		UI_Stage stage = go.GetComponent<UI_Stage>();
-		stage.Init();
+		GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
+		//GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_STAGE);
+		//UI_Stage stage = go.GetComponent<UI_Stage>();
+		//stage.Init();
 	}
 
 

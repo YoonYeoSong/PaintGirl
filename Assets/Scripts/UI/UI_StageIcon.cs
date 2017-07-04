@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UI_StageIcon : BaseObject {
 
+	
 	StageInfo Info = null;
 
 	public StageInfo INFO
@@ -26,6 +27,9 @@ public class UI_StageIcon : BaseObject {
 
 	public void OnClick()
 	{
+		//Launcher launcher = null;
+		GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
+		
 
 		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
 		UI_Popup popup = go.GetComponent<UI_Popup>();
@@ -37,6 +41,7 @@ public class UI_StageIcon : BaseObject {
 				GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
 				Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+				GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
 			}
 			,
 			() =>
@@ -46,7 +51,6 @@ public class UI_StageIcon : BaseObject {
 			"스테이지 선택",
 			"스테이지" + INFO.NAME + "을 입장하시겠습니까?"
 			);
-
 	}
 
 }

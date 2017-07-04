@@ -1,0 +1,22 @@
+{
+	"SKILL_TEMPLATE": {
+		"MELEE_A_1": {
+			"SKILL_TYPE": 0,
+			"RANGE_TYPE": 0,
+			"RANGE_DATA_1": 2,
+			"RANGE_DATA_2": 3,
+			"MAX_HP": 0,
+			"ATTACK": 5,
+			"DEFFENCE": 0
+		},
+		"RANGE_A_1": {
+			"SKILL_TYPE": 1,
+			"RANGE_TYPE": 1,
+			"RANGE_DATA_1": 1,
+			"RANGE_DATA_2": 0,
+			"MAX_HP": 0,
+			"ATTACK": 1,
+			"DEFFENCE": 0
+		}
+	}
+}

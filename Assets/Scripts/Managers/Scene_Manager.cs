@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
+using Photon;
 
-public class Scene_Manager : MonoSingleton<Scene_Manager> {
+public class Scene_Manager : MonoSingleton<Scene_Manager>
+{
 
-
+		
 	bool IsAsyc = true;
 	AsyncOperation Operation = null;
 
@@ -34,7 +37,7 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 	private void Update()
 	{
 
-		if(Operation != null)
+		if (Operation != null)
 		{
 			StackTime += Time.deltaTime;
 			// Loading UI Set
@@ -43,7 +46,7 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 
 			if (Operation.isDone == true)
 			//if(Operation.isDone == true && StackTime >= 2.0f)
-			{		
+			{
 				CurrentState = NextState;
 				ComplateLoad(CurrentState);
 
@@ -61,12 +64,13 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 			return;
 
 
-		if(NextState != eSceneType.SCENE_NONE && CurrentState != NextState)
+		if (NextState != eSceneType.SCENE_NONE && CurrentState != NextState)
 		{
 			OnDisableScene(CurrentState);
-			if(IsAsyc)
+			if (IsAsyc)
 			{
 				// 비동기 로그
+					
 				Operation = SceneManager.LoadSceneAsync(NextState.ToString("F"));
 				StackTime = 0.0f;
 				// Loding UI Set
@@ -89,7 +93,7 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 
 	void ComplateLoad(eSceneType _type)
 	{
-		switch(_type)
+		switch (_type)
 		{
 			case eSceneType.SCENE_NONE:
 				break;
@@ -110,7 +114,7 @@ public class Scene_Manager : MonoSingleton<Scene_Manager> {
 			default:
 				break;
 		}
-			
+
 	}
 
 	void OnDisableScene(eSceneType _type)

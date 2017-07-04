@@ -2449,14 +2449,19 @@ public static class PhotonNetwork
     /// <returns>The new instance of a GameObject with initialized PhotonView.</returns>
     public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, int group, object[] data)
     {
-        if (!connected || (InstantiateInRoomOnly && !inRoom))
+		prefabName = "Prefabs/" + "Charactor/" + "SD_Basic_Change_Main";
+		if (!connected || (InstantiateInRoomOnly && !inRoom))
         {
             Debug.LogError("Failed to Instantiate prefab: " + prefabName + ". Client should be in a room. Current connectionStateDetailed: " + PhotonNetwork.connectionStateDetailed);
             return null;
         }
 
         GameObject prefabGo;
-        if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out prefabGo))
+
+		//prefabGo = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic_Change_Main(Clone)") as GameObject;
+		//GameObject go = Instantiate(prefabGo, Vector3.zero, Quaternion.identity) as GameObject;
+
+		if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out prefabGo))
         {
             prefabGo = (GameObject)Resources.Load(prefabName, typeof(GameObject));
             if (UsePrefabCache)
@@ -2464,8 +2469,8 @@ public static class PhotonNetwork
                 PrefabCache.Add(prefabName, prefabGo);
             }
         }
-
-        if (prefabGo == null)
+		//prefabGo = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic_Change_Main") as GameObject;
+		if (prefabGo == null)
         {
             Debug.LogError("Failed to Instantiate prefab: " + prefabName + ". Verify the Prefab is in a Resources folder (and not in a subfolder)");
             return null;

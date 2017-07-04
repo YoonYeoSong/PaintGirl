@@ -54,7 +54,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 		// Player Item Setting
 
-		foreach(KeyValuePair<eSlotType,ItemInstance> pair in ItemManager.Instance.DIC_EQUIP)
+		foreach (KeyValuePair<eSlotType, ItemInstance> pair in ItemManager.Instance.DIC_EQUIP)
 		{
 			StatusData status = pair.Value.ITEM_INFO.STATUS;
 			PlayerActor.SELF_CHARACTER.CHARACTER_STATUS.AddStatusData(pair.Key.ToString(), status);
@@ -64,13 +64,13 @@ public class GameManager : MonoSingleton<GameManager>
 
 		BaseBoard hpBoard = BoardManager.Instance.GetBoardData(PlayerActor, eBoardType.BOARD_HP);
 
-		if(hpBoard != null)
+		if (hpBoard != null)
 		{
-			hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP),PlayerActor.SELF_CHARACTER.CURRENT_HP);
+			hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP), PlayerActor.SELF_CHARACTER.CURRENT_HP);
 		}
 
 		// clear Setting
-		if(SelectStageInfo.CLEAR_TYPE == eClearType.CLEAR_TIME)
+		if (SelectStageInfo.CLEAR_TYPE == eClearType.CLEAR_TIME)
 		{
 			UIManager.Instance.SetText(false, (float)SelectStageInfo.CLEAR_FINISH - StackTime);
 		}

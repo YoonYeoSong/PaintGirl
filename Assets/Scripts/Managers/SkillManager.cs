@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
-
 // 데이터, 템플릿 가지고 있다
-public class SkillManager : MonoSingleton<SkillManager> {
+public class SkillManager : MonoSingleton<SkillManager>
+{
 
 	// 사용한 스킬들의 오브젝트들 어떤 actor가 썼는지 actor가 사용한 스킬들
 	Dictionary<BaseObject, List<BaseSkill>> DicUseSkill = new Dictionary<BaseObject, List<BaseSkill>>();
@@ -26,7 +26,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 	void LoadSkillData(string strFilePath)
 	{
 		TextAsset skillAssetData = Resources.Load(strFilePath) as TextAsset;
-		if(skillAssetData == null)
+		if (skillAssetData == null)
 		{
 			Debug.LogError("Skill Data 불러오지 못함");
 		}
@@ -35,7 +35,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 			return;
 
 		JSONObject skillDataNode = rootNode["SKILL_DATA"] as JSONObject;
-		foreach(KeyValuePair<string, JSONNode> pair in skillDataNode)
+		foreach (KeyValuePair<string, JSONNode> pair in skillDataNode)
 		{
 			SkillData skillData = new SkillData(pair.Key, pair.Value);
 			DicSkillData.Add(pair.Key, skillData);
@@ -46,7 +46,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 	{
 		TextAsset skillAssetData = Resources.Load(strFilePath) as TextAsset;
 
-		if(skillAssetData == null)
+		if (skillAssetData == null)
 		{
 			Debug.LogError("Skill TempLate 로드 실패");
 			return;
@@ -56,7 +56,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 			return;
 
 		JSONObject skillDataNode = rootNode["SKILL_TEMPLATE"] as JSONObject;
-		foreach(KeyValuePair<string,JSONNode> pair in skillDataNode)
+		foreach (KeyValuePair<string, JSONNode> pair in skillDataNode)
 		{
 			SkillTemplate skillTemplate = new SkillTemplate(pair.Key, pair.Value);
 			DicSkillTemplate.Add(pair.Key, skillTemplate);
@@ -65,10 +65,10 @@ public class SkillManager : MonoSingleton<SkillManager> {
 
 	public void LoadSkillModel()
 	{
-		for(int i =0; i < (int)eSkillModelType.MAX; i++)
+		for (int i = 0; i < (int)eSkillModelType.MAX; i++)
 		{
 			GameObject go = Resources.Load("Prefabs/Skill_Models/" + ((eSkillModelType)i).ToString()) as GameObject;
-			if(go == null)
+			if (go == null)
 			{
 				Debug.LogError("Prefabs/Skill_Models/" + ((eSkillModelType)i).ToString() + "파일을 찾기 못함");
 				continue;
@@ -83,7 +83,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 	public GameObject GetModel(eSkillModelType type)
 	{
 		// 키값이 있는지
-		if(DicModel.ContainsKey(type))
+		if (DicModel.ContainsKey(type))
 		{
 			return DicModel[type];
 		}
@@ -114,7 +114,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 		// 템플릿키를 던져주고
 		SkillTemplate template = GetSkillTemplate(strSkillTemplateKey);
 		// 딕에서 꺼내와 널인지 판별
-		if(template == null)
+		if (template == null)
 		{
 			Debug.LogError(strSkillTemplateKey + "키를 찾을 수 없습니다.");
 			return;
@@ -123,12 +123,12 @@ public class SkillManager : MonoSingleton<SkillManager> {
 		BaseSkill runSkill = CreateSkill(keyObject, template);
 		RunSkill(keyObject, runSkill);
 	}
-	
+
 	public void RunSkill(BaseObject keyObject, BaseSkill runSkill)
 	{
 		List<BaseSkill> listSkill = null;
 		// 딕셔너리 에 키가 있는지 없는지 확인
-		if(DicUseSkill.ContainsKey(keyObject) == false)
+		if (DicUseSkill.ContainsKey(keyObject) == false)
 		{
 			listSkill = new List<BaseSkill>();
 			DicUseSkill.Add(keyObject, listSkill);
@@ -167,7 +167,7 @@ public class SkillManager : MonoSingleton<SkillManager> {
 		}
 		skillObject.name = skillTemplate.SKILL_TYPE.ToString();
 
-		if(makeSkill != null)
+		if (makeSkill != null)
 		{
 			// 스킬이 널이아니라면 
 
@@ -209,17 +209,17 @@ public class SkillManager : MonoSingleton<SkillManager> {
 		if (GameManager.Instance.GAME_OVER)
 			return;
 
-		foreach(KeyValuePair<BaseObject, List<BaseSkill>> pair in DicUseSkill)
+		foreach (KeyValuePair<BaseObject, List<BaseSkill>> pair in DicUseSkill)
 		{
 			List<BaseSkill> list = pair.Value;
 
-			for(int i = 0; i < list.Count; i++)
+			for (int i = 0; i < list.Count; i++)
 			{
 				BaseSkill updateSkill = list[i];
 
 				updateSkill.UpdateSkill();
 
-				if(updateSkill.END)
+				if (updateSkill.END)
 				{
 					list.Remove(updateSkill);
 					Destroy(updateSkill.gameObject);
