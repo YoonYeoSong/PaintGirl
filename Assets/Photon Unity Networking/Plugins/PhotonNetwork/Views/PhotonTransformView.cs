@@ -82,7 +82,7 @@ public class PhotonTransformView : MonoBehaviour, IPunObservable
             return;
         }
 
-       	transform.localPosition = this.m_PositionControl.UpdatePosition(transform.localPosition);
+       	transform.localPosition = this.m_PositionControl.UpdatePosition(Player.Pposition);
     }
 
     void UpdateRotation()
@@ -92,7 +92,7 @@ public class PhotonTransformView : MonoBehaviour, IPunObservable
             return;
         }
 
-        transform.localRotation = this.m_RotationControl.GetRotation(transform.localRotation);
+        transform.localRotation = this.m_RotationControl.GetRotation(Player.Protation);
     }
 
     void UpdateScale()

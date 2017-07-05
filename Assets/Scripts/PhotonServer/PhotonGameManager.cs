@@ -14,7 +14,7 @@ public class PhotonGameManager : Photon.MonoBehaviour
 
 	[Tooltip("The prefab to use for representing the player")]
 	public GameObject playerPrefab;
-
+	public GameObject LocalPlayer;
 	#endregion
 
 	#region Private Variables
@@ -56,7 +56,11 @@ public class PhotonGameManager : Photon.MonoBehaviour
 				Debug.Log("We are Instantiating LocalPlayer from " + SceneManagerHelper.ActiveSceneName);
 
 				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-				PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+				LocalPlayer = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+				LocalPlayer.gameObject.AddComponent<Player>();
+				LocalPlayer.GetComponent<Player>().enabled = true;
+				LocalPlayer.GetComponent<Player>().TEAM_TYPE = eTeamType.TEAM_1;
+				LocalPlayer.GetComponent<Player>().Template = "CHARACTER_1";
 			}
 			else
 			{

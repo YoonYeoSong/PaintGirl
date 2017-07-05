@@ -31,6 +31,8 @@ public class Player : Actor
 	private bool grounded = false;
 	private bool jump;
 
+	public static Vector3 Pposition;
+	public static Quaternion Protation;
 
 	void Start()
 	{
@@ -205,6 +207,10 @@ public class Player : Actor
 			MovePosition += new Vector3(Axis.x, 0, Axis.y);
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+
+			Pposition = SelfTransform.position;
+			Protation = SelfTransform.rotation;
+
 			//if (isJumping == true)
 			//{
 			//	return;

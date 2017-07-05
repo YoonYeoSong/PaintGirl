@@ -20,11 +20,30 @@ public class Actor : BaseObject
     public eTeamType TEAM_TYPE
     {
         get { return TeamType; }
+		set
+		{
+			value = TeamType;
+		}
     }
 
     // TeamType
     [SerializeField]
-    string TemplateKey = string.Empty;
+	string TemplateKey = string.Empty;
+
+
+	public string Template
+	{
+		get
+		{
+			return TemplateKey;
+		}
+
+		set
+		{
+			TemplateKey = value;
+		}
+	}
+
 
 
     // TemplateKey -> Status
