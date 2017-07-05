@@ -10,6 +10,8 @@ public class UI_Store : MonoBehaviour
 	UIButton GoldManyBtn = null;
 	Vector3 GoalPosition = new Vector3(85, 304, 0);
 
+	float CurTime = 0.0f;
+	float ArrTime = 1.0f;
 	bool check = false;
 	private void Awake()
 	{
@@ -74,7 +76,8 @@ public class UI_Store : MonoBehaviour
 	{
 		if (check == true)
 		{
-			Vector3.Lerp(GoldLittleBtn.transform.position, GoalPosition, 1.0f);
+			CurTime += Time.deltaTime;
+			Vector3.Lerp(GoldLittleBtn.transform.position, GoalPosition, CurTime/ArrTime);
 
 		}
 
