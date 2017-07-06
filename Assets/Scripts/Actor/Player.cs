@@ -30,10 +30,26 @@ public class Player : Actor
 	float jumpForce = 300f;         // Amount of force added when the player jumps.
 	private bool grounded = false;
 	private bool jump;
+	public float AddSpeed = 0.0f;
+	public bool MoveSpeedUpItem = false;
+	public bool MoveSpeedDownItem = false;
+	public bool StunItem = false;
 
+	int m_iTeamCheck = 0; // A팀 스크립트인지 B팀 스크립트인지 구분
 
+	float MoveSpeedUpItemTime = 0.0f;			//시간관련
+	float MoveSpeedDownItemTime = 0.0f;
+	float StunItemTime = 0.0f;
+	float ItemEffectFadeOutTime = 4.0f;
+
+	GameObject PlayerA = null;//.GetComponent<Player>();
+	GameObject PlayerB = null;//.GetComponent<Player>();
+	
 	void Start()
 	{
+
+		PlayerA = GameObject.Find("PlayerA");
+		PlayerB = GameObject.Find("PlayerB");
 		isJumping = false;
 		isRoll = false;
 		IS_PLAYER = true;
@@ -47,8 +63,43 @@ public class Player : Actor
 
 	protected override void Update()
 	{
+		MoveSpeedUpItemTime += Time.deltaTime;
+		MoveSpeedDownItemTime += Time.deltaTime;
+		StunItemTime += Time.deltaTime;
 
+		
+			if (MoveSpeedUpItem == true)
+				if (ItemEffectFadeOutTime <= MoveSpeedUpItemTime)
+				{
+					MoveSpeedUpItem = false;
+					Debug.Log("버프끝");
+					
+				}
 
+			if (MoveSpeedDownItem == true)
+				if (ItemEffectFadeOutTime <= MoveSpeedDownItemTime)
+				{
+					MoveSpeedDownItem = false;
+					Debug.Log("버프끝");
+				}
+
+		if (StunItem == true)
+		{
+			if (ItemEffectFadeOutTime <= StunItemTime)
+			{
+				StunItem = false;
+
+				//if (m_iTeamCheck == 1)
+				//PlayerA.transform.localScale = Vector3.one;
+
+				//if (m_iTeamCheck == 2)
+				//PlayerB.transform.localScale = Vector3.one;
+				transform.localScale = Vector3.one;
+				Debug.Log("스턴 끝");
+			}
+		}
+
+		m_iTeamCheck = 0;
 
 		CheckGround(); // 밑이 땅인지 확인
 	
@@ -202,8 +253,34 @@ public class Player : Actor
 			Vector3 MovePosition = new Vector3(0, 0, 0);
 			Vector3 MoveRotation = new Vector3(0, 0, 0);
 			Vector3 Rot = Vector3.zero;
-			MovePosition += new Vector3(Axis.x, 0, Axis.y);
+			//if(Axis.x != 0 && Axis.y ==0)
+			if(MoveSpeedUpItem == true)
+				MovePosition += new Vector3(Axis.x * 2, 0, Axis.y * 2);
+			else
+				MovePosition += new Vector3(Axis.x, 0, Axis.y);
+
+			if (MoveSpeedDownItem == true)
+				MovePosition += new Vector3(Axis.x / 4, 0, Axis.y / 4);
+			else
+				MovePosition += new Vector3(Axis.x, 0, Axis.y);
+
+			if (StunItem == true)
+			{
+
+				MovePosition += new Vector3(0, 0, 0);//Axis.x * 0, 0, Axis.y * 0);
+				Debug.Log("스턴중이다!");
+			}
+			else
+				MovePosition += new Vector3(Axis.x, 0, Axis.y);
+			
+
+			//if(Axis.y != 0)
+			//	MovePosition += new Vector3(Axis.x , 0, Axis.y + AddSpeed);
+			//MovePosition += new Vector3(Axis.x+AddSpeed, 0, Axis.y+AddSpeed );
+			//Debug.Log("Movepostion : " + MovePosition + ", AddSpeed : "+ AddSpeed);
+
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
+			//SelfTransform.position += new Vector3(0.2f, 0, 0.2f);//new Vector3(AddSpeed, 0, AddSpeed);
 			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 			//if (isJumping == true)
 			//{
@@ -325,6 +402,122 @@ public class Player : Actor
 			isJumping = true;
 			
 		}
+	}
+
+	public void Buff(int TeamCheck)
+	{
+		m_iTeamCheck = TeamCheck;
+		ItemType();
+	}
+
+
+
+
+	void ItemType()
+	{
+		int type = -1;
+		//type = Random.Range(0, 2);
+		type = 0;
+		if (type == 0)
+			PositiveItem();
+
+		else if (type == 1)
+			NegativeItem();
+	}
+
+	void PositiveItem()
+	{
+		int type = -1;
+		//type = Random.Range(0, 2);
+		type = 1;
+		if (type == 0)
+		{
+			MoveSpeedUp();
+		}
+		else if (type == 1)
+		{
+			EnemyStun();
+		}
+	}
+
+	void NegativeItem()
+	{
+		int type = -1;
+		//type = Random.Range(0, 3);
+		type = 1;
+		if (type == 0)
+		{ }
+		else if (type == 1)
+		{
+			MoveSpeedDown();
+		}
+	}
+
+	void MoveSpeedUp()
+	{
+		Debug.Log("이속 증가");
+		MoveSpeedUpItemTime = 0.0f;
+			MoveSpeedUpItem = true;
+		//Destroy(PlayerA.gameObject);
+		//PlayerA.transform.localPosition = new Vector3(0, 10, 0);
+	}
+
+	void EnemyStun()
+	{
+		Debug.Log("적 스턴");
+		GameObject Hammer = null;
+		
+		GameObject temp = Resources.Load("Prefabs/Game/Hammer") as GameObject;
+
+		Debug.Log(temp);
+		if (m_iTeamCheck == 1)
+		{
+			//PlayerB.transform.localPosition
+			Hammer = Instantiate(temp,  PlayerB.transform.localPosition, Quaternion.identity);
+			 
+			Debug.Log(PlayerB);
+			if (PlayerB == null)
+				Debug.Log("playerB is null");
+			PlayerB.GetComponent<Player>().StunItem = true;
+			PlayerB.GetComponent<Player>().m_iTeamCheck = 2;
+			PlayerB.GetComponent<Player>().StunItemTime = 0.0f;
+
+			Invoke("WaitPlayerBPress", 0.5f);
+		}
+
+		if (m_iTeamCheck == 2)
+		{
+
+			Hammer = Instantiate(temp, PlayerA.transform.localPosition, Quaternion.identity);
+
+			PlayerA.GetComponent<Player>().StunItem = true;
+			PlayerA.GetComponent<Player>().m_iTeamCheck = 1;
+			PlayerA.GetComponent<Player>().StunItemTime = 0.0f;
+			Invoke("WaitPlayerAPress", 0.5f);
+		}
+		Hammer.transform.localPosition += new Vector3(0, 9, 0);
+		Hammer.transform.localRotation = Quaternion.Euler(0, 90, 180);
+
+	}
+	void MoveSpeedDown()
+	{
+		Debug.Log("이속 감소");
+		MoveSpeedDownItemTime = 0.0f;
+		
+			MoveSpeedDownItem = true;
+
+	}
+
+
+
+	void WaitPlayerAPress()
+	{
+		PlayerA.transform.localScale = new Vector3(1, 0.05f, 1);
+	}
+
+	void WaitPlayerBPress()
+	{
+		PlayerB.transform.localScale = new Vector3(1, 0.05f, 1);
 	}
 
 }

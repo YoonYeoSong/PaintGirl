@@ -30,7 +30,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 		if (looktAt == null)
 		{
 			//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
-			looktAt = GameObject.Find("SD_Basic_Change_Main(Clone)").transform;
+			looktAt = GameObject.Find("PlayerA").transform;
 		}
 
 		currentX += Input.GetAxis("Mouse X") * sensitivityX;

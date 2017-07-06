@@ -57,7 +57,7 @@ public class SplatOnCollision : MonoBehaviour {
             }
         }
         //상대 플레이어
-        else if (gameObject.tag == "Bplayer")
+        else if (gameObject.tag == "BPlayer")
         {
 
             if (other.gameObject.tag == "Coll")

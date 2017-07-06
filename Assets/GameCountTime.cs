@@ -5,20 +5,24 @@ using System;
 public class GameCountTime : MonoBehaviour {
     UILabel label = null;
     public float Seconds = 30;
-    public float Minutes = 1;
-
-
+    public float Minutes = 0;
+	float CurTime = 0.0f;
+	GameObject GO = null;
+	int OnceCheck = 0;
 
     void Start () {
-        label = GameObject.Find("GameOverLabel").GetComponent<UILabel>();
-        StartCoroutine(remainderTimer());
+        label = transform.GetComponent<UILabel>();
+        //StartCoroutine(remainderTimer());
        
     }
 
-    IEnumerator remainderTimer()
-    {
-        do
-        {
+	
+
+private void Update()
+	{
+		//CurTime += Time.deltaTime;
+	if (Minutes >= 0)
+		{
             if (Seconds <= 0)
             {
                 Seconds = 60;
@@ -37,19 +41,36 @@ public class GameCountTime : MonoBehaviour {
             {
                 Seconds -= Time.deltaTime;
             }
-            label.text = string.Format("{0:D2}:{1:D2}",
-                     (int)Minutes, (int)Seconds);
+            
 
 
             //180초 받아서 분,초 계산
             //TimeSpan ts = new TimeSpan(0,0, 150);
             //label.text = string.Format("{0:HH:mm:ss}", ts);
-            yield return null;
-        } while (Minutes >= 0);
+            
+        }
 
+		label.text = string.Format("{0:D2}:{1:D2}",
+				   (int)Minutes, (int)Seconds);
 
-    }
+		if (Minutes == 0 && Seconds == 0 && OnceCheck == 0)
+		{
+			Time.timeScale = 0.1f;
+			CreateGameResult();
 
+			OnceCheck = 1;
+		}
+	}
 
+	void CreateGameResult()
+	{
+		GameObject.Find("Main Camera").GetComponent<ThirdPersonCamera>().enabled = false;
 
+		GO = Resources.Load("Prefabs/UI/PF_UI_RESULT") as GameObject;
+		
+		GameObject Trans = Instantiate(GO, gameObject.transform.parent).gameObject;
+		Trans.transform.localScale = Vector3.one;
+		Trans.transform.localPosition = Vector3.zero;
+
+	}
 }

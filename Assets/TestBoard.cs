@@ -32,8 +32,8 @@ public class TestBoard : MonoBehaviour
 
     public IEnumerator checkTag(float timer)
     {
-        yield return new WaitForSeconds(0.2f);
-        //게임오브젝트에서 태그가 A, B인것을 0.2초마다 반복 실행하면서 배열에 저장
+        yield return new WaitForSeconds(0.1f);
+        //게임오브젝트에서 태그가 A, B인것을 0.1초마다 반복 실행하면서 배열에 저장
         ACheck = GameObject.FindGameObjectsWithTag("A");
         BCheck = GameObject.FindGameObjectsWithTag("B");
 
@@ -41,13 +41,14 @@ public class TestBoard : MonoBehaviour
         //배열의 길이로 점유율 계산 
         ProgressBar.value = ((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length));
 
-        //if (ACheck.Length !=0 || BCheck.Length !=0) {
-        //    HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
-        //        (((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
+		if (ACheck.Length != 0 || BCheck.Length != 0)
+		{
+			HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
+				(((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
 
-        //}
+		}
 
-        HPLabel.text = ACheck.Length + "/" + BCheck.Length;
+		//HPLabel.text = ACheck.Length + "/" + BCheck.Length;
 
 
         //0.2초마다 코루틴실행
