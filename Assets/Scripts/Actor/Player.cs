@@ -265,7 +265,11 @@ public class Player : Actor
 				MovePosition += new Vector3(Axis.x, 0, Axis.y);
 
 			if (StunItem == true)
-				MovePosition += new Vector3(Axis.x * 0, 0, Axis.y * 0);
+			{
+
+				MovePosition += new Vector3(0, 0, 0);//Axis.x * 0, 0, Axis.y * 0);
+				Debug.Log("스턴중이다!");
+			}
 			else
 				MovePosition += new Vector3(Axis.x, 0, Axis.y);
 			
