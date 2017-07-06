@@ -12,7 +12,7 @@ public class TestBoard : MonoBehaviour
     GameObject[] ACheck;
     GameObject[] BCheck;
     float holdTime = 0.2f;
-
+    int count = 0;
     //총 충돌갯수
     const int ColiderSize = 210;
 
@@ -25,13 +25,17 @@ public class TestBoard : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+
+    }
+
     public IEnumerator checkTag(float timer)
     {
         yield return new WaitForSeconds(0.2f);
         //게임오브젝트에서 태그가 A, B인것을 0.2초마다 반복 실행하면서 배열에 저장
         ACheck = GameObject.FindGameObjectsWithTag("A");
         BCheck = GameObject.FindGameObjectsWithTag("B");
-
 
     
         //배열의 길이로 점유율 계산 
@@ -49,7 +53,8 @@ public class TestBoard : MonoBehaviour
         //0.2초마다 코루틴실행
         StartCoroutine(checkTag(timer));
     }
-    
+
+
   //public  void ChangeTag(string strTag)
   //  {
   //         if(strTag == "APlayer")

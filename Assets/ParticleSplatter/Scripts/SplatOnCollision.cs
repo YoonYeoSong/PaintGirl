@@ -6,9 +6,11 @@ public class SplatOnCollision : MonoBehaviour {
 
 	public ParticleSystem particleLauncher;
 	public Gradient particleColorGradient;
-    public string[] ac;
-    public int Acount = 0;
-    public int Bcount = 0;
+    public int ABcount = 0;
+
+
+    public int ACount = 0;
+    public int BCount = 0;
     //public ParticleDecalPool dropletDecalPool;
 
     List<ParticleCollisionEvent> collisionEvents;
@@ -39,17 +41,19 @@ public class SplatOnCollision : MonoBehaviour {
             if (other.gameObject.tag == "Coll")
            {    
                 other.gameObject.tag = "A";
-                 //바닥에 칠해질때마다 배열에 넣어놓음 /  카운트? 
-                Acount++;
-             
+                ACount++;
+              
+
+                //바닥에 칠해질때마다 배열에 넣어놓음 /  카운트? 
             }
             //}
             //상대가 칠한 바닥을 덧칠할때 다시 내것으로 바꿈
             else if (other.gameObject.tag == "B")
             {
                 other.gameObject.tag = "A";
-                Acount++;
-                Bcount--;
+                //ABcount++;
+                ACount++;
+                BCount--;
             }
         }
         //상대 플레이어
@@ -59,22 +63,17 @@ public class SplatOnCollision : MonoBehaviour {
             if (other.gameObject.tag == "Coll")
             {
                 other.gameObject.tag = "B";
-                Bcount++;
+                BCount++;
             }
             //}
             //상대가 칠한 바닥을 덧칠할때 다시 내것으로 바꿈
             else if (other.gameObject.tag == "A")
             {
                 other.gameObject.tag = "B";
-                Bcount++;
-                Acount--;
+                BCount++;
+                ACount--;
             }
         }
-
-
-
-
-
     }
 
 
@@ -84,7 +83,7 @@ public class SplatOnCollision : MonoBehaviour {
         transform.position = new Vector3(5, 5, 5);
     }
 
-
+    
   
 
 
