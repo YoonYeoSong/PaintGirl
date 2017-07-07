@@ -55,7 +55,7 @@ private void Update()
 
 		if (Minutes == 0 && Seconds == 0 && OnceCheck == 0)
 		{
-			Time.timeScale = 0.1f;
+			
 			CreateGameResult();
 
 			OnceCheck = 1;
@@ -71,6 +71,8 @@ private void Update()
 		GameObject Trans = Instantiate(GO, gameObject.transform.parent).gameObject;
 		Trans.transform.localScale = Vector3.one;
 		Trans.transform.localPosition = Vector3.zero;
+
+		Time.timeScale = 0.02f;
 
 	}
 }
