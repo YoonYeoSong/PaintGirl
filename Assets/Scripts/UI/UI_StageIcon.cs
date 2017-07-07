@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_StageIcon : BaseObject {
 
@@ -28,7 +29,7 @@ public class UI_StageIcon : BaseObject {
 	public void OnClick()
 	{
 		//Launcher launcher = null;
-		GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
+		//GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
 		
 
 		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
@@ -38,10 +39,11 @@ public class UI_StageIcon : BaseObject {
 			() =>
 			{
 				Debug.Log(Info.NAME + "입장");
-				GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
-				Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
+				//GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
+				//Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 				GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
+				SceneManager.LoadSceneAsync("PunBasics-Launcher");
 			}
 			,
 			() =>

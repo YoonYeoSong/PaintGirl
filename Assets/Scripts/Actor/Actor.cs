@@ -82,24 +82,24 @@ public class Actor : BaseObject
 		// 없으면 동작 X
 		ai.Target = this;
 
-        GameCharacter gameCharacter = CharacterManager.Instance.AddCharacter(TemplateKey);
-        gameCharacter.TargetComponenet = this;
-        SelfCharacter = gameCharacter;
+       // GameCharacter gameCharacter = CharacterManager.Instance.AddCharacter(TemplateKey);
+        //gameCharacter.TargetComponenet = this;
+        //SelfCharacter = gameCharacter;
 
 
-		for(int i = 0; i< gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL.Count; i++)
-		{
-			SkillData data = SkillManager.Instance.GetSkillData(gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL[i]);
+		//for(int i = 0; i< gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL.Count; i++)
+		//{
+		//	SkillData data = SkillManager.Instance.GetSkillData(gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL[i]);
 
-			if(data == null)
-			{
-				Debug.LogError(gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL[i] + "스킬 키를 못찾음");
-			}
-			else
-			{
-				gameCharacter.AddSkill(data);
-			}
-		}
+		//	if(data == null)
+		//	{
+		//		Debug.LogError(gameCharacter.CHARACTER_TEMPLATE.LIST_SKILL[i] + "스킬 키를 못찾음");
+		//	}
+		//	else
+		//	{
+		//		gameCharacter.AddSkill(data);
+		//	}
+		//}
 
 		if(bEnableBoard)
 		{
@@ -161,7 +161,6 @@ public class Actor : BaseObject
 			if (OBJECT_STATE == eBaseObjectState.STATE_DIE)
 			{
 				Debug.Log(gameObject.name + " 죽음!");
-				GameManager.Instance.KillCheck(this);
 
 			}
 
@@ -225,20 +224,16 @@ public class Actor : BaseObject
 
 		}
 
-		if (ActorManager.Instance != null)
-		{
-			ActorManager.Instance.RemoveActor(this);
-		}
+		//if (ActorManager.Instance != null)
+		//{
+		//	ActorManager.Instance.RemoveActor(this);
+		//}
 	}
 
 
 	public void OnDisable()
 	{
-		if (BoardManager.Instance != null && GameManager.Instance.GAME_OVER == false)
-		{
-			BoardManager.Instance.ShowBoard(this, false);
-
-		}
+		
 	}
 
 	private void OnEnable()

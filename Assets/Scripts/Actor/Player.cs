@@ -206,7 +206,7 @@ public class Player : Actor
 			Vector3 Rot = Vector3.zero;
 			MovePosition += new Vector3(Axis.x, 0, Axis.y);
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+			SelfTransform.rotation = Quaternion.Euler(CameraWork.cameraRot);
 
 			Pposition = SelfTransform.position;
 			Protation = SelfTransform.rotation;
@@ -234,7 +234,7 @@ public class Player : Actor
 			isRoll = false;
 			//State = eStateType.STATE_IDLE;
 			//SetAnimation(State);
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+			//SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 		}
 
 		if (isRoll)

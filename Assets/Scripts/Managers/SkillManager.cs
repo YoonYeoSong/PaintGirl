@@ -206,8 +206,6 @@ public class SkillManager : MonoSingleton<SkillManager>
 
 	public void Update()
 	{
-		if (GameManager.Instance.GAME_OVER)
-			return;
 
 		foreach (KeyValuePair<BaseObject, List<BaseSkill>> pair in DicUseSkill)
 		{

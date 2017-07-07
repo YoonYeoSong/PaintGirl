@@ -12,42 +12,42 @@ public class ActorManager : MonoSingleton<ActorManager> {
 	Dictionary<eTeamType, List<Actor>> DicActor = new Dictionary<eTeamType, List<Actor>>();
 
 	// 몬스터 프리팹 관리
-	Dictionary<eMonsterType, GameObject> DicMonsterPrefab = new Dictionary<eMonsterType, GameObject>();
+	//Dictionary<eMonsterType, GameObject> DicMonsterPrefab = new Dictionary<eMonsterType, GameObject>();
 
 	private void Awake()
 	{
-		MonsterPrefabInit();
+		//MonsterPrefabInit();
 	}
 
-	void MonsterPrefabInit()
-	{
-		for(int i = 0; i < (int)eMonsterType.MAX; i++)
-		{
-			GameObject go = Resources.Load("Prefabs/" + ((eMonsterType)i).ToString("F")) as GameObject;
+	//void MonsterPrefabInit()
+	//{
+	//	for(int i = 0; i < (int)eMonsterType.MAX; i++)
+	//	{
+	//		GameObject go = Resources.Load("Prefabs/" + ((eMonsterType)i).ToString("F")) as GameObject;
 
-			if(go == null)
-			{
-				Debug.LogError(((eMonsterType)i).ToString("F") + "Load Failed");
-			}
-			else
-			{
-				DicMonsterPrefab.Add((eMonsterType)i, go);
-			}
-		}
-	}
+	//		if(go == null)
+	//		{
+	//			Debug.LogError(((eMonsterType)i).ToString("F") + "Load Failed");
+	//		}
+	//		else
+	//		{
+	//			DicMonsterPrefab.Add((eMonsterType)i, go);
+	//		}
+	//	}
+	//}
 
-	public GameObject GetMonsterPrefab(eMonsterType type)
-	{
-		if(DicMonsterPrefab.ContainsKey(type) == true)
-		{
-			return DicMonsterPrefab[type];
-		}
-		else
-		{
-			Debug.Log(type.ToString() + " 타입의 몬스터 프리팹이 없습니다. ");
-			return null;
-		}
-	}
+	//public GameObject GetMonsterPrefab(eMonsterType type)
+	//{
+	//	if(DicMonsterPrefab.ContainsKey(type) == true)
+	//	{
+	//		return DicMonsterPrefab[type];
+	//	}
+	//	else
+	//	{
+	//		Debug.Log(type.ToString() + " 타입의 몬스터 프리팹이 없습니다. ");
+	//		return null;
+	//	}
+	//}
 
 	public Actor InstantiateOnce(GameObject prefab, Vector3 pos)
 	{
@@ -88,23 +88,23 @@ public class ActorManager : MonoSingleton<ActorManager> {
 		listActor.Add(actor);
 
 	}
-	public void RemoveActor(Actor actor, bool bDelete = false)
-	{
-		eTeamType teamType = actor.TEAM_TYPE;
+	//public void RemoveActor(Actor actor, bool bDelete = false)
+	//{
+	//	eTeamType teamType = actor.TEAM_TYPE;
 
-		if(DicActor.ContainsKey(teamType) == true)
-		{
-			List<Actor> listActor = null;
-			DicActor.TryGetValue(teamType, out listActor);
-			listActor.Remove(actor);
-		}
-		else
-		{
-			Debug.LogError("존재 하지 않는 엑터를 삭제하려고 합니다.");
-		}
-		if (bDelete)
-			Destroy(actor.gameObject);
-	}
+	//	if(DicActor.ContainsKey(teamType) == true)
+	//	{
+	//		List<Actor> listActor = null;
+	//		DicActor.TryGetValue(teamType, out listActor);
+	//		listActor.Remove(actor);
+	//	}
+	//	else
+	//	{
+	//		Debug.LogError("존재 하지 않는 엑터를 삭제하려고 합니다.");
+	//	}
+	//	if (bDelete)
+	//		Destroy(actor.gameObject);
+	//}
 
 	// Test Code
 	//public BaseObject GetSearchEnemy(BaseObject actor, out float returnDist, float radius = 100.0f)

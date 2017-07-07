@@ -21,7 +21,7 @@ public class MonsterRegenerator : BaseObject {
 
 	private void OnEnable()
 	{
-		MonsterPrefab = ActorManager.Instance.GetMonsterPrefab(MonsterType);
+		//MonsterPrefab = ActorManager.Instance.GetMonsterPrefab(MonsterType);
 		//Resources.Load("Prefabs/" + MonsterType.ToString()) as GameObject;
 
 		if(MonsterPrefab == null)

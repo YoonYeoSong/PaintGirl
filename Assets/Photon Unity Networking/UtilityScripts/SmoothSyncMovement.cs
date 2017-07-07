@@ -27,8 +27,10 @@ public class SmoothSyncMovement : Photon.MonoBehaviour, IPunObservable
         if (stream.isWriting)
         {
             //We own this player: send the others our data
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
+            //stream.SendNext(transform.position);
+            //stream.SendNext(transform.rotation);
+			stream.SendNext(Player.Pposition);
+			stream.SendNext(Player.Protation);
         }
         else
         {

@@ -25,8 +25,6 @@ public class BoardManager : MonoSingleton<BoardManager> {
 
 	private void Update()
 	{
-		if (GameManager.Instance.GAME_OVER)
-			return;
 
 		BaseBoard destroyBoard = null;
 

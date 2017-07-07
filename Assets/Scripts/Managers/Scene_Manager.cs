@@ -101,13 +101,13 @@ public class Scene_Manager : MonoSingleton<Scene_Manager>
 				break;
 			case eSceneType.SCENE_GAME:
 				{
-					GameManager.Instance.LoadGame();
+					//GameManager.Instance.LoadGame();
 				}
 				break;
 			case eSceneType.SCENE_LOBBY:
 				{
 					LobbyManager.Instance.LoadLobby();
-					GameManager.Instance.GameInit();
+					//GameManager.Instance.GameInit();
 				}
 				break;
 

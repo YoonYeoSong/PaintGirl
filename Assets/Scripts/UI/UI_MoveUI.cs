@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class UI_MoveUI : MonoBehaviour
 {
@@ -27,6 +29,7 @@ public class UI_MoveUI : MonoBehaviour
 	int CheckGoMenu = 0;
 	bool ArriveCheck = true;
 	float ChangeTime = 0.5f;
+
 
 
 	public void Awake()
@@ -243,14 +246,16 @@ public class UI_MoveUI : MonoBehaviour
 	void GoGame()
 	{
 
-		GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
+		//ameManager.Instance.SelectStage = int.Parse(INFO.KEY);
 		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
 		Debug.Log("게임 시작 !");
 	}
 
 	void ShowStage()
 	{
-		GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
+	
+		SceneManager.LoadScene ("PunBasics-Launcher");
+		//GameObject.Find("Launcher").GetComponent<Launcher>().Connect();
 		//GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_STAGE);
 		//UI_Stage stage = go.GetComponent<UI_Stage>();
 		//stage.Init();

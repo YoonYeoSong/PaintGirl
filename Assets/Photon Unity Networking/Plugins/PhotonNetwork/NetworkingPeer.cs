@@ -3134,9 +3134,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
             // load prefab, if it wasn't loaded before (calling methods might do this)
             if (resourceGameObject == null)
             {
-				prefabName = "Prefabs/" + "Charactor/" + "SD_Basic_Change_Main";
-
-				if (!NetworkingPeer.UsePrefabCache || !NetworkingPeer.PrefabCache.TryGetValue(prefabName, out resourceGameObject))
+                if (!NetworkingPeer.UsePrefabCache || !NetworkingPeer.PrefabCache.TryGetValue(prefabName, out resourceGameObject))
                 {
                     resourceGameObject = (GameObject)Resources.Load(prefabName, typeof (GameObject));
                     if (NetworkingPeer.UsePrefabCache)
@@ -3147,7 +3145,6 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                 if (resourceGameObject == null)
                 {
-					Debug.Log(prefabName);
                     Debug.LogError("PhotonNetwork error: Could not Instantiate the prefab [" + prefabName + "]. Please verify you have this gameobject in a Resources folder.");
                     return null;
                 }
