@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UI_Store : MonoBehaviour
 {
+	UI_MoveUI MoveUIScr = null;
+
 	Transform GoldLittle = null;
 	UIButton GoldLittleBtn = null;
 
@@ -13,11 +15,10 @@ public class UI_Store : MonoBehaviour
 	Transform GoldMany = null;
 	UIButton GoldManyBtn = null;
 
-<<<<<<< HEAD
-	float ArrTime = 1.0f;
-	float CurTime = 0.0f;
+	//float ArrTime = 1.0f;
+	//float CurTime = 0.0f;
 	bool check = false;
-=======
+
 	Transform CashLittle = null;
 	UIButton CashLittleBtn = null;
 
@@ -33,6 +34,9 @@ public class UI_Store : MonoBehaviour
 	GameObject CashPrepab = null;
 	GameObject Cash = null;
 
+	int GoldValue = 0;
+	int CashValue = 0;
+	int ExpValue = 0;
 
 	float CurTime = 0.0f;
 	float ArrTime = 2.0f;
@@ -40,15 +44,17 @@ public class UI_Store : MonoBehaviour
 	int CurrentGold = 0;
 	int GoldLittleCount = 5;
 	int GoldMiddleCount = 10;
-	int GoldManyCount = 20;
+	int GoldManyCount = 15;
 	int CurrentCash = 0;
 	int CashLittleCount = 5;
 	int CashMiddleCount = 10;
-	int CashManyCount = 20;
+	int CashManyCount = 15;
 
->>>>>>> 553b654560aa054027dc58a505c7638bce7d2da4
+
 	private void Awake()
 	{
+		MoveUIScr = transform.parent.FindChild("Camera").FindChild("BaseGround").GetComponent<UI_MoveUI>();
+
 		GoldLittle = transform.FindChild("BackGround").FindChild("ScrollView").FindChild("Grid").FindChild("Store_Gold").FindChild("ScrollView").FindChild("Grid").FindChild("Gold_Little");
 		GoldMiddle = transform.FindChild("BackGround").FindChild("ScrollView").FindChild("Grid").FindChild("Store_Gold").FindChild("ScrollView").FindChild("Grid").FindChild("Gold_Middle");
 		GoldMany = transform.FindChild("BackGround").FindChild("ScrollView").FindChild("Grid").FindChild("Store_Gold").FindChild("ScrollView").FindChild("Grid").FindChild("Gold_Many");
@@ -95,7 +101,17 @@ public class UI_Store : MonoBehaviour
 				Debug.Log("gold");
 						
 				InvokeRepeating("GoldLittleAnimation", 0.0f, 0.1f);
-				
+
+				GoldValue = PlayerPrefs.GetInt("GoldKey");
+				GoldValue += 100;
+				PlayerPrefs.SetInt("GoldKey", GoldValue);
+
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue -= 10;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
+
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
 			() =>
@@ -122,6 +138,16 @@ public class UI_Store : MonoBehaviour
 
 				InvokeRepeating("GoldMiddleAnimation", 0.0f, 0.1f);
 
+				GoldValue = PlayerPrefs.GetInt("GoldKey");
+				GoldValue += 500;
+				PlayerPrefs.SetInt("GoldKey", GoldValue);
+
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue -= 40;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
+
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
 			() =>
@@ -145,6 +171,16 @@ public class UI_Store : MonoBehaviour
 			() =>
 			{
 				InvokeRepeating("GoldManyAnimation", 0.0f, 0.1f);
+
+				GoldValue = PlayerPrefs.GetInt("GoldKey");
+				GoldValue += 1500;
+				PlayerPrefs.SetInt("GoldKey", GoldValue);
+
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue -= 100;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
 
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
@@ -223,6 +259,13 @@ public class UI_Store : MonoBehaviour
 
 				InvokeRepeating("CashLittleAnimation", 0.0f, 0.1f);
 
+				
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue += 10;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
+
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
 			() =>
@@ -249,6 +292,13 @@ public class UI_Store : MonoBehaviour
 
 				InvokeRepeating("CashMiddleAnimation", 0.0f, 0.1f);
 
+				
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue += 40;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
+
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
 			() =>
@@ -272,6 +322,12 @@ public class UI_Store : MonoBehaviour
 			() =>
 			{
 				InvokeRepeating("CashManyAnimation", 0.0f, 0.1f);
+
+				CashValue = PlayerPrefs.GetInt("CashKey");
+				CashValue += 100;
+				PlayerPrefs.SetInt("CashKey", CashValue);
+
+				PlayerPrefs.Save();
 
 				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
 			},
@@ -298,10 +354,10 @@ public class UI_Store : MonoBehaviour
 		Cash.transform.parent = transform.parent.FindChild("Camera");
 		if (CashLittleCount <= CurrentCash)
 		{
-<<<<<<< HEAD
-			CurTime += Time.deltaTime;
-			Vector3.Lerp(GoldLittleBtn.transform.position, GoalPosition, CurTime/ ArrTime);
-=======
+
+			//CurTime += Time.deltaTime;
+			//Vector3.Lerp(GoldLittleBtn.transform.position, GoldGoalPosition, CurTime/ ArrTime);
+
 			CancelInvoke("CashLittleAnimation");
 			CurrentCash = 0;
 		}
@@ -309,7 +365,7 @@ public class UI_Store : MonoBehaviour
 
 	void CashMiddleAnimation()
 	{
->>>>>>> 553b654560aa054027dc58a505c7638bce7d2da4
+
 
 		CurrentCash++;
 		Debug.Log("현재 보석 : " + CurrentCash);

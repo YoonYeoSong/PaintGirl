@@ -22,9 +22,15 @@ public class UI_MoveUI : MonoBehaviour
 	UIButton StartBtn = null;
 	UIButton OptionBtn = null;
 
+	public UILabel EXPLabel = null;
+	public UILabel GoldLabel = null;
+	public UILabel CashLabel = null;
+
 	Vector3 M1 = new Vector3(-1480, 0, 0);
 	Vector3 M2 = new Vector3(0, 0, 0);
 	Vector3 M3 = new Vector3(1480, 0, 0);
+
+
 	int CheckGoMenu = 0;
 	bool ArriveCheck = true;
 	float ChangeTime = 0.5f;
@@ -93,8 +99,14 @@ public class UI_MoveUI : MonoBehaviour
 		EventDelegate.Add(OptionBtn.onClick, new EventDelegate(this, "ShowOption"));
 
 
+		EXPLabel = transform.FindChild("TopPanel").FindChild("Exp").FindChild("Text").GetComponent<UILabel>();
+		GoldLabel = transform.FindChild("TopPanel").FindChild("Gold").FindChild("Text").GetComponent<UILabel>();
+		CashLabel = transform.FindChild("TopPanel").FindChild("Cash").FindChild("Text").GetComponent<UILabel>();
 
+		if (GoldLabel == null)
+			Debug.Log("GoldLabel is null");
 
+		
 		MyRoomBtn.defaultColor = Color.green;
 		MainBtn.defaultColor = Color.blue;
 		StoreBtn.defaultColor = Color.green;
