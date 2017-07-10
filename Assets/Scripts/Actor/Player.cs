@@ -314,6 +314,7 @@ public class Player : Actor
 			Vector2 Axis = Stick.Axis;
 			Vector3 MovePosition = new Vector3(0, 0, 0);
 			MovePosition += new Vector3(Axis.x, 0, Axis.y + 1f);
+			//SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 1.0f;
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 1.0f;
 		}
 		//else

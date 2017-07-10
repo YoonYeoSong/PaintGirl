@@ -9,3 +9,19 @@ public class ParticleDecalData
 	public Vector3 rotation;
 	public Color color;
 }
+
+public class ParticleDecalDataB
+{
+    public Vector3 position;
+    public float size;
+    public Vector3 rotation;
+    public Color color;
+}
+
+public class ParticleDecalDataC
+{
+    public Vector3 position;
+    public float size;
+    public Vector3 rotation;
+    public Color color;
+}
