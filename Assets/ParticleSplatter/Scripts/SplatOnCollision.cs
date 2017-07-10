@@ -5,8 +5,6 @@ using UnityEngine;
 public class SplatOnCollision : MonoBehaviour {
 
 	public ParticleSystem particleLauncher;
-	public Gradient particleColorGradient;
-    public int ABcount = 0;
 
 
     public int ACount = 0;

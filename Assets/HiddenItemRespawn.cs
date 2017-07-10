@@ -5,27 +5,27 @@ using UnityEngine;
 public class HiddenItemRespawn : MonoBehaviour {
 
 
-    //충돌태그 가지고있음 
+    //플레이어충돌태그 가지고있음 
     SplatOnCollision sp = null;
+
+	ParticleDecalPool s2 = null;
+
+
     //TestBoard s1;
     // 컴퍼넌트 받아올 리스트 
     List<Collider> testList;
     List<Collider> testList2;
-    List<string> testList3;
 
-    public string[] m1;
-
-    GameObject[] Mob1;
-    GameObject[] Mob2;
+    public bool checkusetag = false;
 
     // Use this for initialization
     void Start () {
         sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+
+		s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
         //s1 = GameObject.Find("PF_UI_SCORE").GetComponent<TestBoard>();
         testList = new List<Collider>();
         testList2 = new List<Collider>();
-        testList3 = new List<string>();
-        m1 = new string[100];
 
 
     }
@@ -52,53 +52,53 @@ public class HiddenItemRespawn : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-            
-        if(other.tag == "APlayer")
-        {
-            //for (int i = 0; i < testList2.Count; i++)
-            //{
 
-            //    //testList3.Add(testList2[i].tag);
-
-            ////    testList[i].tag = testList2[i].tag;
-            //  testList2.Clear();
-            //     testList2[i].tag = m1[i];
-            //    Debug.Log("achange");
-            //}
-            testList = Finding("A");
-            testList2 = Finding("B");
-
-
-
-            //  for(int i= 0; ;i++)
-            //{
-
-            //    if (i < sp.BCount)
-            //    {
-            //        testList[i].tag = testList2[i].tag;
-
-
-            //    }
-
+        testList = Finding("A");
+        testList2 = Finding("B");
+        if (other.CompareTag("APlayer"))
+        {   //점유율이 높은 a플레이어가 히든아이템을 먹었을떄 작용  
+            //if (testList.Count > testList2.Count) {
 
             //}
-
-
-
+            //a,b 태그를 뒤바꾼다. 
+            for (int i = 0; i < testList.Count; i++)
+            {
+                testList[i].tag = "B";
+            }
+            for (int i = 0; i < testList2.Count; i++)
+            {
+                testList2[i].tag = "A";
+            }
+      //      checkusetag = true;
+			s2.swapcolorA();
+			s2.swapcolorB();
 
         }
-        //else if(sp.tag == "Bplayer")
-        //{
-        //    for (int i = 0; i < testList.Count; i++)
-        //    {
-        //        m1[i] = testList2[i].tag;
-        //        //testList3.Add(testList2[i].tag);
-        //        testList[i].tag = testList2[i].tag;
-        //        testList[i].tag = m1[i];
-        //        Debug.Log("bchange");
-        //    }
 
-        //}
+        if (other.CompareTag("BPlayer"))
+        {
+            if(testList2.Count > testList.Count)
+            {
+
+
+            }
+            //a,b 태그를 뒤바꾼다. 
+            for (int i = 0; i < testList.Count; i++)
+            {
+                testList[i].tag = "B";
+            }
+            for (int i = 0; i < testList2.Count; i++)
+            {
+                testList2[i].tag = "A";
+            }
+        //    checkusetag = true;
+			s2.swapcolorA();
+			s2.swapcolorB();
+
+        }
+
+
+
 
     }
 }
