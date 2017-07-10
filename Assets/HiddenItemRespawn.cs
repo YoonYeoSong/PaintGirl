@@ -36,6 +36,9 @@ public class HiddenItemRespawn : MonoBehaviour {
         testList = Finding("A");
         testList2 = Finding("B");
 
+
+
+
     }
 
 
@@ -55,8 +58,8 @@ public class HiddenItemRespawn : MonoBehaviour {
 
         testList = Finding("A");
         testList2 = Finding("B");
-        if (other.CompareTag("APlayer"))
-        {   //점유율이 높은 a플레이어가 히든아이템을 먹었을떄 작용  
+            
+            //점유율이 높은 a플레이어가 히든아이템을 먹었을떄 작용  
             //if (testList.Count > testList2.Count) {
 
             //}
@@ -65,37 +68,37 @@ public class HiddenItemRespawn : MonoBehaviour {
             {
                 testList[i].tag = "B";
             }
-            for (int i = 0; i < testList2.Count; i++)
+        
+        for (int i = 0; i < testList2.Count; i++)
             {
                 testList2[i].tag = "A";
             }
-      //      checkusetag = true;
-			s2.swapcolorA();
-			s2.swapcolorB();
+        //      checkusetag = true;
+     
+            s2.swapcolorA();
+            s2.swapcolorB();
 
-        }
-
-        if (other.CompareTag("BPlayer"))
-        {
-            if(testList2.Count > testList.Count)
-            {
+   //     if (other.CompareTag("BPlayer"))
+   //     {
+   //         if(testList2.Count > testList.Count)
+   //         {
 
 
-            }
-            //a,b 태그를 뒤바꾼다. 
-            for (int i = 0; i < testList.Count; i++)
-            {
-                testList[i].tag = "B";
-            }
-            for (int i = 0; i < testList2.Count; i++)
-            {
-                testList2[i].tag = "A";
-            }
-        //    checkusetag = true;
-			s2.swapcolorA();
-			s2.swapcolorB();
+   //         }
+   //         //a,b 태그를 뒤바꾼다. 
+   //         for (int i = 0; i < testList.Count; i++)
+   //         {
+   //             testList[i].tag = "B";
+   //         }
+   //         for (int i = 0; i < testList2.Count; i++)
+   //         {
+   //             testList2[i].tag = "A";
+   //         }
+   //     //    checkusetag = true;
+			//s2.swapcolorA();
+			//s2.swapcolorB();
 
-        }
+   //     }
 
 
 

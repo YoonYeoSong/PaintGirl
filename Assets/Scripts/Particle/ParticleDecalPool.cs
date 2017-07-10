@@ -89,11 +89,19 @@ public class ParticleDecalPool : MonoBehaviour {
 	}
 
 	public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
-	{
-		SetParticleData(particleCollisionEvent, colorGradient);
-        SetParticleDataB(particleCollisionEvent, colorGradient);
+	{   if(gameObject.tag =="APlayer")
+        {
+            SetParticleData(particleCollisionEvent, colorGradient);
+            DisplayParticlesA();
+            Debug.Log("AP");
+        }
 
-        DisplayParticlesA();
+        if (gameObject.tag == "BPlayer")
+        {
+            SetParticleDataB(particleCollisionEvent, colorGradient);
+            DisplayParticlesB();
+            Debug.Log("BP");
+        }
 	}
 
 
@@ -115,10 +123,6 @@ public class ParticleDecalPool : MonoBehaviour {
 		{
 			particleDecalDataIndex = 0;
 		}
-
-
-		if (gameObject.tag == "APlayer")
-		{
 			particleData[particleDecalDataIndex].position = particleCollisionEvent.intersection;
 			Vector3 particleRotationEuler = Quaternion.LookRotation(particleCollisionEvent.normal).eulerAngles;
 			particleRotationEuler.z = Random.Range(0, 360);
@@ -130,7 +134,6 @@ public class ParticleDecalPool : MonoBehaviour {
 			//바닥에 칠해지는 페인트 색상 변경  
 			// particleData[particleDecalDataIndex].color = Color.yellow;
 			particleDecalDataIndex++;
-		}
 
 		//else if(gameObject.tag == "BPlayer")
 		//{
@@ -164,8 +167,6 @@ public class ParticleDecalPool : MonoBehaviour {
 
     void SetParticleDataB(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
     {
-        if (gameObject.tag == "BPlayer")
-        {
             if (particleDecalDataIndexB >= maxDecals)
             {
                 particleDecalDataIndexB = 0;
@@ -178,14 +179,10 @@ public class ParticleDecalPool : MonoBehaviour {
             particleData2[particleDecalDataIndexB].size = Random.Range(decalSizeMin, decalSizeMax);
             particleData2[particleDecalDataIndexB].color = Color.green;
 
-
-
-
             //바닥에 칠해지는 페인트 색상 변경  
             // particleData[particleDecalDataIndex].color = Color.yellow;
             particleDecalDataIndexB++;
 
-        }
 
 
         //바닥에 칠해지는 페인트 색상 변경  
@@ -217,8 +214,7 @@ public class ParticleDecalPool : MonoBehaviour {
 
     //바닥에 칠해지는 파티클 보여줌 
     void DisplayParticlesA()
-	{   if (gameObject.tag == "APlayer")
-		{
+	{
 
 			for (int i = 0; i < particleData.Length; i++)
 			{
@@ -229,54 +225,66 @@ public class ParticleDecalPool : MonoBehaviour {
 
 			}
 			decalParticleSystem.SetParticles(particlesA, particlesA.Length);
-		}
 
-		if (gameObject.tag == "BPlayer")
-		{
-			for (int i = 0; i < particleData2.Length; i++)
-			{
-				particlesB[i].position = particleData2[i].position;
-				particlesB[i].rotation3D = particleData2[i].rotation;
-				particlesB[i].startSize = particleData2[i].size;
-				particlesB[i].startColor = particleData2[i].color;
+		//if (gameObject.tag == "BPlayer")
+		//{
+		//	for (int i = 0; i < particleData2.Length; i++)
+		//	{
+		//		particlesB[i].position = particleData2[i].position;
+		//		particlesB[i].rotation3D = particleData2[i].rotation;
+		//		particlesB[i].startSize = particleData2[i].size;
+		//		particlesB[i].startColor = particleData2[i].color;
 
-			}
-			decalParticleSystem.SetParticles(particlesB, particlesB.Length);
-		}
+		//	}
+		//	decalParticleSystem.SetParticles(particlesB, particlesB.Length);
+		//}
 	}
 
 
+    void DisplayParticlesB()
+    {
+            for (int i = 0; i < particleData2.Length; i++)
+            {
+                particlesB[i].position = particleData2[i].position;
+                particlesB[i].rotation3D = particleData2[i].rotation;
+                particlesB[i].startSize = particleData2[i].size;
+                particlesB[i].startColor = particleData2[i].color;
+
+            }
+            decalParticleSystemB.SetParticles(particlesB, particlesB.Length);
+
+
+    }
+
+
+
+    //public void swapcolor()
+    // {
+    //     for(int i =0; i <particleData2.Length; i++)
+    //     {   
+    //         particlesC[i].startColor = Color.green;
+    //         particlesA[i].startColor = particlesC[i].startColor;
+
+    //     }
+    //     for (int i = 0; i < particleData.Length; i++)
+    //     {
+    //         particlesC[i].startColor = Color.yellow;
+    //         particlesB[i].startColor = particlesC[i].startColor;
+
+    //     }
+    //     Debug.Log("check");
 
 
 
 
-	//public void swapcolor()
-	// {
-	//     for(int i =0; i <particleData2.Length; i++)
-	//     {   
-	//         particlesC[i].startColor = Color.green;
-	//         particlesA[i].startColor = particlesC[i].startColor;
-
-	//     }
-	//     for (int i = 0; i < particleData.Length; i++)
-	//     {
-	//         particlesC[i].startColor = Color.yellow;
-	//         particlesB[i].startColor = particlesC[i].startColor;
-
-	//     }
-	//     Debug.Log("check");
-
-
-
-
-	// }
+    // }
 
 
 
 
 
 
-	public	void swapcolorA() {
+    public	void swapcolorA() {
 
 		for (int i = 0; i < particleData.Length; i++)
 		{

@@ -36,7 +36,12 @@ public class ParticleLauncher : MonoBehaviour {
                 EmitAtLocation(collisionEvents[i]);
 
 
-        }
+            }
+
+
+
+
+
         //if (sp.tag == "BPlayer")
         //{
         //    ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEventsB);
