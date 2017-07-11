@@ -11,19 +11,19 @@ public class HiddenItemRespawn : MonoBehaviour {
 	ParticleDecalPool s2 = null;
 
 
-    //TestBoard s1;
     // 컴퍼넌트 받아올 리스트 
     List<Collider> testList;
     List<Collider> testList2;
+    public string m3;
+    public bool CheckColliderUse = false;
 
-    public bool checkusetag = false;
-
-    // Use this for initialization
     void Start () {
-        sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+         //sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+		//s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
 
-		s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
-        //s1 = GameObject.Find("PF_UI_SCORE").GetComponent<TestBoard>();
+       //s1 = GameObject.Find("PF_UI_SCORE").GetComponent<TestBoard>();
+
+
         testList = new List<Collider>();
         testList2 = new List<Collider>();
 
@@ -33,13 +33,13 @@ public class HiddenItemRespawn : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        testList = Finding("A");
-        testList2 = Finding("B");
+		if(s2 == null)
+			s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
+		//    testList = Finding("A");
+		//  testList2 = Finding("B");
 
 
-
-
-    }
+	}
 
 
     public List<Collider> Finding(string tagName)
@@ -58,50 +58,62 @@ public class HiddenItemRespawn : MonoBehaviour {
 
         testList = Finding("A");
         testList2 = Finding("B");
-            
-            //점유율이 높은 a플레이어가 히든아이템을 먹었을떄 작용  
-            //if (testList.Count > testList2.Count) {
+        m3 = other.tag;
+        //점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
+        //a,b 태그를 뒤바꾼다. 
 
-            //}
-            //a,b 태그를 뒤바꾼다. 
-            for (int i = 0; i < testList.Count; i++)
+        if (other.CompareTag("APlayer")){
+            if (testList.Count > testList2.Count)
             {
-                testList[i].tag = "B";
-            }
-        
-        for (int i = 0; i < testList2.Count; i++)
+                Debug.Log("a점유율이 더 큼");
+			}
+            else
             {
-                testList2[i].tag = "A";
+                for (int i = 0; i < testList.Count; i++)
+                {
+                    testList[i].tag = "B";
+                }
+
+                for (int i = 0; i < testList2.Count; i++)
+                {
+                    testList2[i].tag = "A";
+                }
+				
+				s2.swapColorA();
+				s2.swapColorB();
+				//CheckColliderUse = true;
+				
             }
-        //      checkusetag = true;
-     
-            s2.swapcolorA();
-            s2.swapcolorB();
+        }
+        else if(other.CompareTag("BPlayer"))
+        {
+            if (testList2.Count > testList.Count)
+            {
+                Debug.Log("B점유율이 더 큼");
+            }
+            else
+            {
+                for (int i = 0; i < testList.Count; i++)
+                {
+                    testList[i].tag = "B";
+                }
 
-   //     if (other.CompareTag("BPlayer"))
-   //     {
-   //         if(testList2.Count > testList.Count)
-   //         {
-
-
-   //         }
-   //         //a,b 태그를 뒤바꾼다. 
-   //         for (int i = 0; i < testList.Count; i++)
-   //         {
-   //             testList[i].tag = "B";
-   //         }
-   //         for (int i = 0; i < testList2.Count; i++)
-   //         {
-   //             testList2[i].tag = "A";
-   //         }
-   //     //    checkusetag = true;
-			//s2.swapcolorA();
-			//s2.swapcolorB();
-
-   //     }
-
-
-
+                for (int i = 0; i < testList2.Count; i++)
+                {
+                    testList2[i].tag = "A";
+                }
+				s2.swapColorA();
+				s2.swapColorB();
+				//CheckColliderUse = true;
+            }
+        }
+    
+    }
+    //충돌후에 나갔을때 
+    private void OnTriggerExit(Collider other)
+    {
+        CheckColliderUse = false;
+        Destroy(this.gameObject, 0.2f);
 
     }
 }

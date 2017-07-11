@@ -33,10 +33,10 @@ public class SplatOnCollision : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {       //기본 게임시작시 아무것도 칠하지않는 상태에서 바닥 
-        if (gameObject.tag == "APlayer")
+        if (gameObject.CompareTag("APlayer"))
         {
            
-            if (other.gameObject.tag == "Coll")
+            if (other.gameObject.CompareTag("Coll"))
            {    
                 other.gameObject.tag = "A";
                 ACount++;
@@ -46,7 +46,7 @@ public class SplatOnCollision : MonoBehaviour {
             }
             //}
             //상대가 칠한 바닥을 덧칠할때 다시 내것으로 바꿈
-            else if (other.gameObject.tag == "B")
+            else if (other.gameObject.CompareTag("B"))
             {
                 other.gameObject.tag = "A";
                 //ABcount++;
@@ -55,17 +55,17 @@ public class SplatOnCollision : MonoBehaviour {
             }
         }
         //상대 플레이어
-        else if (gameObject.tag == "BPlayer")
+        else if (gameObject.CompareTag("BPlayer"))
         {
 
-            if (other.gameObject.tag == "Coll")
+            if (other.gameObject.CompareTag("Coll"))
             {
                 other.gameObject.tag = "B";
                 BCount++;
             }
             //}
             //상대가 칠한 바닥을 덧칠할때 다시 내것으로 바꿈
-            else if (other.gameObject.tag == "A")
+            else if (other.gameObject.CompareTag("A"))
             {
                 other.gameObject.tag = "B";
                 BCount++;

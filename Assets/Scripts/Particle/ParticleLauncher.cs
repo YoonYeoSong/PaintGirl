@@ -11,16 +11,16 @@ public class ParticleLauncher : MonoBehaviour {
 
 
 	List<ParticleCollisionEvent> collisionEvents;
-    List<ParticleCollisionEvent> collisionEventsB;
+   // List<ParticleCollisionEvent> collisionEventsB;
     //플레이어충돌태그 가지고있음 
-    SplatOnCollision sp = null;
-    HiddenItemRespawn s1 = null;
+    //SplatOnCollision sp = null;
+    //HiddenItemRespawn s1 = null;
     void Start()
 	{
 		collisionEvents = new List<ParticleCollisionEvent>();
-       collisionEventsB = new List<ParticleCollisionEvent>();
-        sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
-        s1 = GameObject.Find("box").GetComponent<HiddenItemRespawn>();
+       //collisionEventsB = new List<ParticleCollisionEvent>();
+       // sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+       // s1 = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
 
     }
 
@@ -129,20 +129,13 @@ public class ParticleLauncher : MonoBehaviour {
 
 		}
 
-    }
+	}
+    
 
 
 
 
 
 
-	//public void Shoot()
-	//{
-	//	if (Input.GetButton("Fire1"))
-	//	{
-	//		ParticleSystem.MainModule psMain = particleLauncher.main;
-	//		psMain.startColor = particleColorGradient.Evaluate(Random.Range(0f, 1f));
-	//		particleLauncher.Emit(1);
-	//	}
-	//}
+
 }
