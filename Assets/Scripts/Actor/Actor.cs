@@ -104,7 +104,7 @@ public class Actor : BaseObject
 		if(bEnableBoard)
 		{
 			BaseBoard board = BoardManager.Instance.AddBoard(this, eBoardType.BOARD_HP);
-			board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
+			//board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
 
 		}
 
@@ -112,11 +112,11 @@ public class Actor : BaseObject
 		//ActorManager.Instance.AddActor(this);
     }
 
-    public double GetStatusData(eStatusData statusData)
-    {
-		// 어떠한것을 가져올지
-        return SelfCharacter.CHARACTER_STATUS.GetStatusData(statusData);
-    }
+  //  public double GetStatusData(eStatusData statusData)
+  //  {
+		//// 어떠한것을 가져올지
+  //     // return SelfCharacter.CHARACTER_STATUS.GetStatusData(statusData);
+  //  }
 	 
     public override object GetData(string keyData, params object[] datas)
     {
@@ -168,7 +168,7 @@ public class Actor : BaseObject
 			BaseBoard board = BoardManager.Instance.GetBoardData(this, eBoardType.BOARD_HP);
 
 			if (board != null)
-				board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
+				//board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
 
 			// Board 초기화
 			board = null;

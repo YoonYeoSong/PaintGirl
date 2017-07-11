@@ -103,7 +103,7 @@ public class BaseBoard : MonoBehaviour {
 		Vector3 boardPosition = UI_CAMERA.ViewportToWorldPoint(viewPort);
 
 		boardPosition.z = 0f;
-		this.transform.position = boardPosition;
+		//this.transform.position = boardPosition;
 
 	}
 

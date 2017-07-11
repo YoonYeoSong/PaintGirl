@@ -26,11 +26,11 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
     [Tooltip("The Player's UI GameObject Prefab")]
     public GameObject PlayerUiPrefab;
 
-   // [Tooltip("The Beams GameObject to control")]
-   // public GameObject Beams;
+	[Tooltip("The Beams GameObject to control")]
+	public GameObject PaintGun;
 
-    [Tooltip("The current Health of our player")]
-    public float Health = 1f;
+   // [Tooltip("The current Health of our player")]
+    //public float Health = 1f;
 
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
@@ -81,6 +81,8 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
     {
 		MainCamera = Camera.main.transform.gameObject;
 		MainCamera.GetComponent<CameraWork> ().looktAt = LocalPlayerInstance.transform;
+
+		//LocalPlayerInstance.GetComponent<Player>().enabled = true;
 
         //CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
 	/*
@@ -136,25 +138,44 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
         {
             this.ProcessInputs();
 
-            if (this.Health <= 0f)
-            {
-				PhotonGameManager.Instance.LeaveRoom();
-            }
+    //        if (this.Health <= 0f)
+    //        {
+				//PhotonGameManager.Instance.LeaveRoom();
+    //        }
         }
 
-        //if (this.Beams != null && this.IsFiring != this.Beams.GetActive())
-        //{
-        //    this.Beams.SetActive(this.IsFiring);
-        //}
-    }
+		//if (this.Beams != null && this.IsFiring != this.Beams.GetActive())
+		//{
+		//    this.Beams.SetActive(this.IsFiring);
+		//}
 
-    /// <summary>
-    /// MonoBehaviour method called when the Collider 'other' enters the trigger.
-    /// Affect Health of the Player if the collider is a beam
-    /// Note: when jumping and firing at the same, you'll find that the player's own beam intersects with itself
-    /// One could move the collider further away to prevent this or check if the beam belongs to the player.
-    /// </summary>
-    public void OnTriggerEnter(Collider other)
+		//if (MainCamera.GetComponent<CameraWork>().looktAt == null)
+		//{
+		//	MainCamera.GetComponent<CameraWork>().looktAt = LocalPlayerInstance.transform;
+		//}
+		//else
+		//{
+		//	return;
+		//}
+
+	}
+
+
+
+	[PunRPC]
+	public void OnParticleCollision(GameObject other)
+	{
+		PaintGun.transform.FindChild("ParticleLauncher").GetComponent<ParticleLauncher>().ParticleColColor(other);
+	}
+
+
+	/// <summary>
+	/// MonoBehaviour method called when the Collider 'other' enters the trigger.
+	/// Affect Health of the Player if the collider is a beam
+	/// Note: when jumping and firing at the same, you'll find that the player's own beam intersects with itself
+	/// One could move the collider further away to prevent this or check if the beam belongs to the player.
+	/// </summary>
+	public void OnTriggerEnter(Collider other)
     {
         if (!photonView.isMine)
         {
@@ -164,12 +185,12 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
 
         // We are only interested in Beamers
         // we should be using tags but for the sake of distribution, let's simply check by name.
-        if (!other.name.Contains("Beam"))
+        if (!other.name.Contains("PaintGun"))
         {
             return;
         }
 
-        this.Health -= 0.1f;
+        //this.Health -= 0.1f;
     }
 
     /// <summary>
@@ -185,16 +206,16 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
             return;
         }
 
-        // We are only interested in Beamers
-        // we should be using tags but for the sake of distribution, let's simply check by name.
-        if (!other.name.Contains("Beam"))
-        {
-            return;
-        }
+		// We are only interested in Beamers
+		// we should be using tags but for the sake of distribution, let's simply check by name.
+		if (!other.name.Contains("Beam"))
+		{
+			return;
+		}
 
-        // we slowly affect health when beam is constantly hitting us, so player has to move to prevent death.
-        this.Health -= 0.1f*Time.deltaTime;
-    }
+		// we slowly affect health when beam is constantly hitting us, so player has to move to prevent death.
+		//this.Health -= 0.1f*Time.deltaTime;
+	}
 
 
     #if !UNITY_MIN_5_4
@@ -242,20 +263,22 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
     /// </summary>
     void ProcessInputs()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
-            // we don't want to fire when we interact with UI buttons for example. IsPointerOverGameObject really means IsPointerOver*UI*GameObject
-            // notice we don't use on on GetbuttonUp() few lines down, because one can mouse down, move over a UI element and release, which would lead to not lower the isFiring Flag.
-            //if (EventSystem.current.IsPointerOverGameObject())
-            //{
-            //    //	return;
-            //}
+			// we don't want to fire when we interact with UI buttons for example. IsPointerOverGameObject really means IsPointerOver*UI*GameObject
+			// notice we don't use on on GetbuttonUp() few lines down, because one can mouse down, move over a UI element and release, which would lead to not lower the isFiring Flag.
+			//if (EventSystem.current.IsPointerOverGameObject())
+			//{
+			//    //	return;
+			//}
 
-            //if (!this.IsFiring)
-            //{
-            //    this.IsFiring = true;
-            //}
-        }
+			//if (!this.IsFiring)
+			//{
+			//    this.IsFiring = true;
+			//}
+
+			photonView.RPC("SplatterAttack", PhotonTargets.All);
+		}
 
         if (Input.GetButtonUp("Fire1"))
         {
@@ -267,6 +290,12 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
     }
 
     #endregion
+
+	[PunRPC]
+	void SplatterAttack()
+	{
+		PaintGun.transform.FindChild("ParticleLauncher").GetComponent<ParticleLauncher>().Shoot();
+	}
 
     /*
     #region IPunObservable implementation
@@ -298,13 +327,13 @@ public class PlayerManager : Photon.PunBehaviour, IPunObservable
         {
             // We own this player: send the others our data
             stream.SendNext(this.IsFiring);
-            stream.SendNext(this.Health);
+            //stream.SendNext(this.Health);
         }
         else
         {
             // Network player, receive data
             this.IsFiring = (bool)stream.ReceiveNext();
-            this.Health = (float)stream.ReceiveNext();
+           // this.Health = (float)stream.ReceiveNext();
         }
     }
 

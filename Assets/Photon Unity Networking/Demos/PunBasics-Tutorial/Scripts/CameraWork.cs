@@ -42,7 +42,7 @@ public class CameraWork : MonoBehaviour
 		if (looktAt == null)
 		{
 			//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
-			looktAt = GameObject.Find("SD_Basic_Change_Main 1").transform;
+			//looktAt = GameObject.Find("SD_Basic_Change_Main 1").transform;
 		}
 
 		currentX += Input.GetAxis("Mouse X") * sensitivityX;
@@ -61,6 +61,4 @@ public class CameraWork : MonoBehaviour
 
 		camTransform.LookAt(looktAt.position + new Vector3(0, 1.2f, 0));
 	}
-
-
 }

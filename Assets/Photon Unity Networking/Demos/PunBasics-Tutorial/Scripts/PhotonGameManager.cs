@@ -64,14 +64,16 @@ public class PhotonGameManager : Photon.MonoBehaviour {
 		} else {
 
 
-			if (PlayerManager.LocalPlayerInstance==null)
+			if (PlayerManager.LocalPlayerInstance == null)
 			{
 				Debug.Log("We are Instantiating LocalPlayer from "+SceneManagerHelper.ActiveSceneName);
 
 				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 				localPrefab = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+				
 
-			}else{
+			}
+			else{
 
 				Debug.Log("Ignoring scene load for "+ SceneManagerHelper.ActiveSceneName);
 			}

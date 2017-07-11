@@ -66,7 +66,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 		if (hpBoard != null)
 		{
-			hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP), PlayerActor.SELF_CHARACTER.CURRENT_HP);
+			//hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP), PlayerActor.SELF_CHARACTER.CURRENT_HP);
 		}
 
 		// clear Setting
