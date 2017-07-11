@@ -31,7 +31,7 @@ public class Enemy : Actor {
 		if (Generator != null)
 			Generator.RemoveActor(this);
 
-		base.OnDisable();
+	//	base.OnDisable();
 	}
 
 	// 부모것을 완전히 재정히 할때

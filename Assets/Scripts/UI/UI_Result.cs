@@ -59,29 +59,46 @@ public class UI_Result : MonoBehaviour {
 			TitleText.text = "승리 !";
 			TitleText.color = Color.blue;
 
+			int value;
+
 			ReWordValue = Random.RandomRange(100, 200);
 			GoldText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("GoldKey");
+			PlayerPrefs.SetInt("GoldKey", ReWordValue + value);
 
 			ReWordValue = Random.RandomRange(100, 200);
 			CashText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("CashKey");
+			PlayerPrefs.SetInt("CashKey", ReWordValue + value);
 
 			ReWordValue = Random.RandomRange(100, 200);
 			ExpText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("ExpKey");
+			PlayerPrefs.SetInt("ExpKey", ReWordValue + value);
 
 		}
 
 		if (Victory == 2) // 패배시 
 		{
+			int value;
+
 			TitleText.text = "패배 !";
 			TitleText.color = Color.red;
 			ReWordValue = Random.RandomRange(10, 50);
 			GoldText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("GoldKey");
+			PlayerPrefs.SetInt("GoldKey", ReWordValue + value);
 
 			ReWordValue = Random.RandomRange(10, 50);
 			CashText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("CashKey");
+			PlayerPrefs.SetInt("CashKey", ReWordValue + value);
 
 			ReWordValue = Random.RandomRange(10, 50);
 			ExpText.text = ReWordValue.ToString();
+			value = PlayerPrefs.GetInt("ExpKey");
+			PlayerPrefs.SetInt("ExpKey", ReWordValue + value);
+
 		}
 
 	}

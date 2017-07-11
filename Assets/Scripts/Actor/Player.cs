@@ -161,18 +161,18 @@ public class Player : Actor
 		Anim.SetInteger("State", (int)state);
 	}
 
-	private void OnEnable()
-	{
-		StartCoroutine("FSMMain"); // fsm
-	}
+	//private void OnEnable()
+	//{
+	//	StartCoroutine("FSMMain"); // fsm
+	//}
 
-	IEnumerator FSMMain()
-	{
-		while(true)
-		{
-			yield return StartCoroutine(State.ToString());
-		}
-	}
+	//IEnumerator FSMMain()
+	//{
+	//	while(true)
+	//	{
+	//		yield return StartCoroutine(State.ToString());
+	//	}
+	//}
 
 	IEnumerator STATE_IDLE()
 	{
@@ -267,7 +267,7 @@ public class Player : Actor
 			if (StunItem == true)
 			{
 
-				MovePosition += new Vector3(0, 0, 0);//Axis.x * 0, 0, Axis.y * 0);
+				MovePosition = new Vector3(Axis.x *0, 0, Axis.y * 0);//Axis.x * 0, 0, Axis.y * 0);
 				Debug.Log("스턴중이다!");
 			}
 			else

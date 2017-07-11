@@ -228,6 +228,15 @@ public class UI_MoveUI : MonoBehaviour
 			GameObject go = GameObject.FindGameObjectWithTag("Player");
 			go.transform.rotation = Quaternion.Euler(0, 180, 0);
 
+			go = transform.parent.parent.FindChild("PF_UI_STORE").FindChild("BackGround").FindChild("ScrollView").FindChild("Grid").gameObject;
+			go.transform.localPosition = new Vector3(-225, 0, 0);
+
+			GameObject ScrollPos = transform.parent.parent.FindChild("PF_UI_STORE").FindChild("BackGround").FindChild("ScrollView").gameObject;
+
+			go.transform.localPosition = go.transform.localPosition - ScrollPos.transform.localPosition;
+			//go = transform.parent.parent.FindChild("PF_UI_STORE").FindChild("BackGround").FindChild("ScrollView").gameObject;
+			//go.transform.localPosition = new Vector3(-3, 0, 0);
+
 			CheckGoMenu = 3;
 			ArriveCheck = false;
 			MyRoomBtn.defaultColor = Color.green;
@@ -237,6 +246,7 @@ public class UI_MoveUI : MonoBehaviour
 			MainBtn.gameObject.SetActive(true);
 			StartBtn.gameObject.SetActive(false);
 
+			Debug.Log("상점 클릭");
 		}
 
 	}

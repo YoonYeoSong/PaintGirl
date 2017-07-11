@@ -37,7 +37,7 @@ public static class ConstValue
 
 
 	// UI PATH
-	public const string UI_PATH_HP = "Prefabs/UI/HP_Board";
+	public const string UI_PATH_HP = "Prefabs/UI/Aim";
 	public const string UI_PATH_DAMAGE = "Prefabs/UI/Damage_Board";
 
 

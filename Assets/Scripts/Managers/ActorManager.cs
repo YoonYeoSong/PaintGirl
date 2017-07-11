@@ -14,9 +14,14 @@ public class ActorManager : MonoSingleton<ActorManager> {
 	// 몬스터 프리팹 관리
 	Dictionary<eMonsterType, GameObject> DicMonsterPrefab = new Dictionary<eMonsterType, GameObject>();
 
+
+	bool TeamA; //팀 구별 
+
 	private void Awake()
 	{
 		MonsterPrefabInit();
+
+		TeamA = true;
 	}
 
 	void MonsterPrefabInit()
@@ -49,25 +54,25 @@ public class ActorManager : MonoSingleton<ActorManager> {
 		}
 	}
 
-	public Actor InstantiateOnce(GameObject prefab, Vector3 pos)
-	{
-		if(prefab == null)
-		{
-			Debug.LogError("프리팹이 null 입니다. [ActorManager.InstantiateOnce()]");
-			return null;
-		}
-		GameObject go = Instantiate(prefab, pos, Quaternion.identity) as GameObject;
+	//public Actor InstantiateOnce(GameObject prefab, Vector3 pos)
+	//{
+	//	if(prefab == null)
+	//	{
+	//		Debug.LogError("프리팹이 null 입니다. [ActorManager.InstantiateOnce()]");
+	//		return null;
+	//	}
+	//	//GameObject go = Instantiate(prefab, pos, Quaternion.identity) as GameObject;
 
-		if(ActorRoot == null)
-		{
-			GameObject temp = new GameObject();
-			temp.name = "ActorRoot";
-			ActorRoot = temp.transform;
-		}
+	//	if(ActorRoot == null)
+	//	{
+	//		GameObject temp = new GameObject();
+	//		temp.name = "ActorRoot";
+	//		ActorRoot = temp.transform;
+	//	}
 
-		go.transform.SetParent(ActorRoot);
-		return go.GetComponent<Actor>();
-	}
+	//	//go.transform.SetParent(ActorRoot);
+	//	//return go.GetComponent<Actor>();
+	//}
 
 	public void AddActor(Actor actor)
 	{
@@ -177,16 +182,34 @@ public class ActorManager : MonoSingleton<ActorManager> {
 	public Actor PlayerLoad()
 	{
 		GameObject playerPrefab = Resources.Load("Prefabs/" + "Charactor/" + "SD_Basic_Change_Main") as GameObject;
-		GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		GameObject go = null;
+		GameObject StartingPoint = null;
+
+		if (TeamA == true)
+		{
+			StartingPoint = GameObject.Find("STAGE_1").transform.FindChild("APlayerStartPoint").FindChild("StartingPoint").gameObject;
+			 go = Instantiate(playerPrefab, new Vector3(-8.78f,4.69f,-28.04f), Quaternion.identity) as GameObject;
+			go.name = "PlayerA";
+			Debug.Log("팀A생성");
+		}
+		TeamA = false;
+
+		if (TeamA == false)
+		{
+			StartingPoint = GameObject.Find("STAGE_1").transform.FindChild("BPlayerStartPoint").FindChild("StartingPoint").gameObject;
+			go = Instantiate(playerPrefab, new Vector3(-8.82f, 4.37f, 26.46f), Quaternion.identity) as GameObject;
+			go.name = "PlayerB";
+			Debug.Log("팀B생성");
+		}
 
 		//go.GetComponent<Player>().enabled = true;
-//<<<<<<< HEAD
+		//<<<<<<< HEAD
 		//go.GetComponent<CapsuleCollider>().enabled = true;
 		//go.GetComponent<NavMeshAgent>().enabled = true;
-//=======
+		//=======
 		//go.GetComponent<CapsuleCollider>().enabled = true;
 		//go.GetComponent<NavMeshAgent>().enabled = true;
-//>>>>>>> 52fd23f1704dc24410a5800a3cdb50b4c96dc6b0
+		//>>>>>>> 52fd23f1704dc24410a5800a3cdb50b4c96dc6b0
 
 		return go.GetComponent<Actor>();
 	}
