@@ -14,12 +14,12 @@ public class HiddenItemRespawn : MonoBehaviour {
     // 컴퍼넌트 받아올 리스트 
     List<Collider> testList;
     List<Collider> testList2;
-
+    public string m3;
     public bool CheckColliderUse = false;
 
     void Start () {
-         sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
-		s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
+         //sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+		//s2 = GameObject.Find("SplatterDecalParticle").GetComponent<ParticleDecalPool>();
 
        //s1 = GameObject.Find("PF_UI_SCORE").GetComponent<TestBoard>();
 
@@ -33,8 +33,8 @@ public class HiddenItemRespawn : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        testList = Finding("A");
-        testList2 = Finding("B");
+    //    testList = Finding("A");
+      //  testList2 = Finding("B");
 
     
     }
@@ -56,11 +56,11 @@ public class HiddenItemRespawn : MonoBehaviour {
 
         testList = Finding("A");
         testList2 = Finding("B");
-
+        m3 = other.tag;
         //점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
         //a,b 태그를 뒤바꾼다. 
 
-        if (sp.CompareTag("APlayer")){
+        if (other.CompareTag("APlayer")){
             if (testList.Count > testList2.Count)
             {
                 Debug.Log("a점유율이 더 큼");
@@ -77,9 +77,10 @@ public class HiddenItemRespawn : MonoBehaviour {
                 {
                     testList2[i].tag = "A";
                 }
+                CheckColliderUse = true;
             }
         }
-        else if(sp.CompareTag("BPlayer"))
+        else if(other.CompareTag("BPlayer"))
         {
             if (testList2.Count > testList.Count)
             {
@@ -96,9 +97,10 @@ public class HiddenItemRespawn : MonoBehaviour {
                 {
                     testList2[i].tag = "A";
                 }
+                CheckColliderUse = true;
             }
         }
-        CheckColliderUse = true;    
+    
     }
     //충돌후에 나갔을때 
     private void OnTriggerExit(Collider other)

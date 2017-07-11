@@ -29,7 +29,7 @@ public class ParticleDecalPool : MonoBehaviour {
 
 	void Start()
 	{
-        HiddenItemRespawn = GameObject.Find("box").GetComponent<HiddenItemRespawn>();
+        HiddenItemRespawn = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
       //  SplatOnCollision = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
 		mytagObject = gameObject.tag;
 		decalParticleSystemA = GetComponent<ParticleSystem>();
@@ -68,18 +68,18 @@ public class ParticleDecalPool : MonoBehaviour {
     }
 
 	public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
-	{   if(gameObject.tag =="APlayer")
+	{   if(gameObject.CompareTag("APlayer"))
         {
             SetParticleDataA(particleCollisionEvent, colorGradient);
             DisplayParticlesA();
-            Debug.Log("AP");
+            Debug.Log("APlayer");
         }
 
-        if (gameObject.tag == "BPlayer")
+        if (gameObject.CompareTag("BPlayer"))
         {
             SetParticleDataB(particleCollisionEvent, colorGradient);
             DisplayParticlesB();
-            Debug.Log("BP");
+            Debug.Log("BPlayer");
         }
 
    
