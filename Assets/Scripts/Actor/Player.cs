@@ -19,7 +19,7 @@ public class Player : Actor
 	float AttackRange = 3.0f;
 	public float speed = 3.0f;
 	public float jumpPower = 5.0f;
-
+	public string m1;
 	Rigidbody rigdbody;
 	bool isJumping;
 	bool isRoll;
@@ -370,6 +370,14 @@ public class Player : Actor
 
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		m1 = other.transform.tag;
+		Debug.Log("피이격"+ m1);
+
+
+	}
+
 	void CheckGround()
 	{
 		RaycastHit hit;
@@ -393,6 +401,8 @@ public class Player : Actor
 			isJumping = false;
 			
 		}
+		if (collision.transform.tag == "APlayer")
+			Debug.Log("피격!");
 	}
 
 	private void OnCollisionExit(Collision collision)
@@ -402,7 +412,18 @@ public class Player : Actor
 			isJumping = true;
 			
 		}
+
+		if (collision.transform.tag == "APlayer")
+			Debug.Log("피격!");
 	}
+
+	private void OnParticleCollision(GameObject other)
+	{
+		m1 = other.tag;
+		if(other.transform.tag == "APlayer")
+			Debug.Log("피격!");
+	}
+
 
 	public void Buff(int TeamCheck)
 	{

@@ -15,28 +15,36 @@ public class ThirdPersonCamera : MonoBehaviour {
 	private float sensitivityX = 10.0f; //x축 민감도
 	private float sensitivityY = 5.0f; //y축 민감도
 
+	JoyStick Joystick = null;
+
 	public static Vector3 cameraRot;
 	// Use this for initialization
 	void Start ()
 	{
+		Joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
 		camTransform = transform;
 		cam = Camera.main;
 
 		//looktAt = gameObject.transform.Find("SD_Basic_Change_Main(Clone)").transform;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		if (looktAt == null)
+	void Update() {
+
+		if (Joystick.IsPressed != true)
 		{
-			//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
-			looktAt = GameObject.Find("PlayerA").transform;
+			if (looktAt == null)
+			{
+				//looktAt = gameObject.transform.parent.Find("SD_Basic_Change_Main(Clone)").transform;
+				looktAt = GameObject.Find("PlayerA").transform;
+			}
+
+			currentX += Input.GetAxis("Mouse X") * sensitivityX;
+			currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY;
+
+			currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 		}
-
-		currentX += Input.GetAxis("Mouse X") * sensitivityX;
-		currentY += Input.GetAxis("Mouse Y") * (-1) * sensitivityY;
-
-		currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+		
 	}
 	
 	void LateUpdate()

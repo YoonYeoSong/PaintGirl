@@ -63,7 +63,7 @@ private void Update()
         label.text = string.Format("{0:D2}:{1:D2}",
 				   (int)Minutes, (int)Seconds);
 
-        if ((int)Seconds == 30 && check == false)
+        if ((int)Minutes == 0 && (int)Seconds == 30 && check == false)
         {
             HiddenTime = true;
             Debug.Log("check");

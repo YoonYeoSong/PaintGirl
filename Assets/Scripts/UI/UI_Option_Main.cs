@@ -18,8 +18,13 @@ public class UI_Option_Main : MonoBehaviour {
 	UIButton SoundPlus = null;
 	UIButton SoundMinus = null;
 
+	UIButton GameOutbtn = null;
+
+	UI_MoveUI MoveUiScr = null;
 	private void Awake()
 	{
+		MoveUiScr =GameObject.Find("Root").transform.FindChild("UI Root").FindChild("Camera").FindChild("BaseGround").GetComponent<UI_MoveUI>();
+
 		CloseBtn = transform.FindChild("BackGround").FindChild("Top").FindChild("Close").GetComponent<UIButton>();
 		if (CloseBtn == null)
 			Debug.Log("CloseBtn is null");
@@ -63,6 +68,12 @@ public class UI_Option_Main : MonoBehaviour {
 		if (SoundMinus == null)
 			Debug.Log("SoundMinus is null");
 		EventDelegate.Add(SoundMinus.onClick, new EventDelegate(this, "MinusSound")); // Sound- 버튼
+
+		GameOutbtn = transform.FindChild("BackGround").FindChild("GameOut").GetComponent<UIButton>();
+		if (GameOutbtn == null)
+			Debug.Log("GameOut is null");
+		EventDelegate.Add(GameOutbtn.onClick, new EventDelegate(this, "GameOut")); // Sound- 버튼
+
 	}
 
 	void ClosePanel() //닫기버튼클릭
@@ -104,6 +115,11 @@ public class UI_Option_Main : MonoBehaviour {
 	void ShowGoogle()
 	{
 		Debug.Log("구글연동!");
+	}
+
+	void GameOut()
+	{
+		MoveUiScr.GameOut();
 	}
 
 }

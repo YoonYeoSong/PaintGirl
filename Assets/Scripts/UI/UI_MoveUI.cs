@@ -152,6 +152,12 @@ public class UI_MoveUI : MonoBehaviour
 				ArriveCheck = true;
 			}
 		}
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			GameOut();
+
+		}
 	}
 
 
@@ -293,6 +299,31 @@ public class UI_MoveUI : MonoBehaviour
 		OptionPrefab = Resources.Load("Prefabs/UI/PF_UI_OptionPanel") as GameObject;
 		NGUITools.AddChild(gameObject.transform.parent.gameObject, OptionPrefab);
 		Debug.Log("옵션오픈");
+	}
+
+	public void GameOut()
+	{
+
+		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
+		UI_Popup popup = go.GetComponent<UI_Popup>();
+
+
+		popup.Set(
+			() =>
+			{
+				Application.Quit();
+
+				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+			},
+			() =>
+			{
+				UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+			}
+			,
+			"게임 종료"
+			,
+			"게임 종료하시겠습니까?"
+			);
 	}
 
 }

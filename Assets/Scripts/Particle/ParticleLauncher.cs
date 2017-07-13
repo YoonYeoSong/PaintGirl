@@ -9,6 +9,7 @@ public class ParticleLauncher : MonoBehaviour {
 	public ParticleDecalPool splatDecalPool;
 
 
+	JoyStick joystick = null;
 
 	List<ParticleCollisionEvent> collisionEvents;
    // List<ParticleCollisionEvent> collisionEventsB;
@@ -17,6 +18,8 @@ public class ParticleLauncher : MonoBehaviour {
     //HiddenItemRespawn s1 = null;
     void Start()
 	{
+
+		joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
 		collisionEvents = new List<ParticleCollisionEvent>();
        //collisionEventsB = new List<ParticleCollisionEvent>();
        // sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
@@ -120,6 +123,9 @@ public class ParticleLauncher : MonoBehaviour {
 
 	void Update()
 	{
+
+		//if(joystick.IsPressed == true)
+		//{ 
 		if (Input.GetButtonDown("Fire1"))
 		{
 			ParticleSystem.MainModule psMain = particleLauncher.main;

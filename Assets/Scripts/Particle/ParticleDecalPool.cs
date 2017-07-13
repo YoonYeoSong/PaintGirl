@@ -100,7 +100,7 @@ public class ParticleDecalPool : MonoBehaviour {
 			particleData[particleDecalDataIndex].size = Random.Range(decalSizeMin, decalSizeMax);
 			particleData[particleDecalDataIndex].color = Color.yellow;
 
-
+		 
 			particleDecalDataIndex++;
 	}
 
