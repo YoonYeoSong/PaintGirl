@@ -8,9 +8,14 @@ public class HiddenItemBox : MonoBehaviour {
 	float CurTime = 0.0f;
 	float GoalTime = 2.0f;
 	Vector3 OriPos = Vector3.zero;
+	ItemGenerator ItemGen = null;
 	// Use this for initialization
 	void Start () {
 		OriPos = transform.localPosition;
+		ItemGen = GameObject.Find("ItemGenerator").GetComponent<ItemGenerator>();
+
+		if (ItemGen == null)
+			Debug.Log("ItemGen is null");
 	}
 
 	// Update is called once per frame

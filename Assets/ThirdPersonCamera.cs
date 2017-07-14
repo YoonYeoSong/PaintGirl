@@ -12,8 +12,8 @@ public class ThirdPersonCamera : MonoBehaviour {
 	public float distance = 2.5f; //카메라 와 플레이어 사이 거리.
 	private float currentX = 0.0f;
 	private float currentY = 0.0f;
-	private float sensitivityX = 10.0f; //x축 민감도
-	private float sensitivityY = 5.0f; //y축 민감도
+	private float sensitivityX = 5.0f; //x축 민감도
+	private float sensitivityY = 2.5f; //y축 민감도
 
 	JoyStick Joystick = null;
 

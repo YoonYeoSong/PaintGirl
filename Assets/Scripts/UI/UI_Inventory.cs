@@ -41,6 +41,7 @@ public class UI_Inventory : BaseObject {
 
 	public void Reset()
 	{
+
 		for (int i = 0; i< Grid.transform.childCount; i++)
 		{
 			Destroy(Grid.transform.GetChild(i).gameObject);
