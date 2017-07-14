@@ -39,7 +39,7 @@ public class ParticleLauncher : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetButton("Fire1"))
+		if (Input.GetButtonDown("Fire1"))
 		{
 			ParticleSystem.MainModule psMain = particleLauncher.main;
 			psMain.startColor = particleColorGradient.Evaluate(Random.Range(0f, 1f));
