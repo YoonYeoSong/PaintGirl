@@ -124,8 +124,11 @@ public class ParticleLauncher : MonoBehaviour {
 	void Update()
 	{
 
+
+
 		//if(joystick.IsPressed == true)
 		//{ 
+
 		if (Input.GetButtonDown("Fire1"))
 		{
 			ParticleSystem.MainModule psMain = particleLauncher.main;

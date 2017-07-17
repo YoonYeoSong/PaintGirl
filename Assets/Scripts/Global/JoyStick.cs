@@ -48,15 +48,15 @@ public class JoyStick : BaseObject
 
     public void OnEnable()
     {
-        UI_Camera = UICamera.mainCamera;
-        if (UI_Camera == null)
-        {
-            Debug.LogError("JoyStic UI_Camera is NULL");
-            return;
-        }
-        CenterPosition = UI_Camera.WorldToScreenPoint(this.SelfTransform.position);
+		UI_Camera = UICamera.mainCamera;
+		if (UI_Camera == null)
+		{
+			Debug.LogError("JoyStic UI_Camera is NULL");
+			return;
+		}
+		CenterPosition = UI_Camera.WorldToScreenPoint(this.SelfTransform.position);
 
-        UIWidget widget = this.SelfComponent<UIWidget>();
+		UIWidget widget = this.SelfComponent<UIWidget>();
         Radius = widget.width * 0.5f;       // 반지름
         InnerRadius = PointerTrans.gameObject.GetComponent<UIWidget>().width * 0.5f;
 
