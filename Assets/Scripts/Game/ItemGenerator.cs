@@ -43,6 +43,13 @@ public class ItemGenerator : MonoBehaviour {
 		Instantiate(ItemBoxGO,new Vector3(XPos,0.5f,ZPos),Quaternion.Euler(0,0,45));
 	}
 
+	public void GenAirPlane()
+	{
+		int RandomPos;
+		GameObject Go = null;
+		GameObject temp = Resources.Load("Prefabs/Game/AirPlane") as GameObject;
+		//Go = Instantiate(temp,)
+	}
 
 
 }
