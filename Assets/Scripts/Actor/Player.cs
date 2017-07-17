@@ -281,7 +281,7 @@ public class Player : Actor
 
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 			//SelfTransform.position += new Vector3(0.2f, 0, 0.2f);//new Vector3(AddSpeed, 0, AddSpeed);
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+			SelfTransform.rotation = Quaternion.Euler(CameraWork.cameraRot);
 			//if (isJumping == true)
 			//{
 			//	return;
@@ -305,7 +305,7 @@ public class Player : Actor
 			isRoll = false;
 			//State = eStateType.STATE_IDLE;
 			//SetAnimation(State);
-			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
+			SelfTransform.rotation = Quaternion.Euler(CameraWork.cameraRot);
 		}
 
 		if (isRoll)
