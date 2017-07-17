@@ -82,12 +82,12 @@ public class Actor : BaseObject
 			}
 		}
 
-		if(bEnableBoard)
-		{
-			BaseBoard board = BoardManager.Instance.AddBoard(this, eBoardType.BOARD_HP);
-			board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
+		//if(bEnableBoard)
+		//{
+		//	BaseBoard board = BoardManager.Instance.AddBoard(this, eBoardType.BOARD_HP);
+		//	//board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
 
-		}
+		//}
 
 		ActorManager.Instance.AddActor(this);
 		//ActorManager.Instance.AddActor(this);
@@ -146,19 +146,19 @@ public class Actor : BaseObject
 
 			}
 
-			// HPBaord
-			BaseBoard board = BoardManager.Instance.GetBoardData(this, eBoardType.BOARD_HP);
+			//// HPBaord
+			//BaseBoard board = BoardManager.Instance.GetBoardData(this, eBoardType.BOARD_HP);
 
-			if (board != null)
-				board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
+			//if (board != null)
+			//	board.SetData(ConstValue.SetData_HP, GetStatusData(eStatusData.MAX_HP), SelfCharacter.CURRENT_HP);
 
-			// Board 초기화
-			board = null;
+			//// Board 초기화
+			//board = null;
 
-			// DamageBoard
-			board = BoardManager.Instance.AddBoard(this, eBoardType.BOARD_DAMAGE);
-			if (board != null)
-				board.SetData(ConstValue.SetData_Damage, attackDamage);
+			//// DamageBoard
+			//board = BoardManager.Instance.AddBoard(this, eBoardType.BOARD_DAMAGE);
+			//if (board != null)
+			//	board.SetData(ConstValue.SetData_Damage, attackDamage);
 
 			// 피격 애니메이션
 			ai.ANIMATOR.SetInteger("Hit", 1);
@@ -200,11 +200,11 @@ public class Actor : BaseObject
 
 	public void OnDestroy()
 	{
-		if (BoardManager.Instance != null)
-		{
-			BoardManager.Instance.ClearBoard(this);
+		//if (BoardManager.Instance != null)
+		//{
+		//	BoardManager.Instance.ClearBoard(this);
 
-		}
+		//}
 
 		if (ActorManager.Instance != null)
 		{
@@ -213,23 +213,23 @@ public class Actor : BaseObject
 	}
 
 
-	public void OnDisable()
-	{
-		if (BoardManager.Instance != null && GameManager.Instance.GAME_OVER == false)
-		{
-			BoardManager.Instance.ShowBoard(this, false);
+	//public void OnDisable()
+	//{
+	//	if (BoardManager.Instance != null && GameManager.Instance.GAME_OVER == false)
+	//	{
+	//		BoardManager.Instance.ShowBoard(this, false);
 
-		}
-	}
+	//	}
+	//}
 
-	private void OnEnable()
-	{
-		if(BoardManager.Instance != null)
-		{
-			BoardManager.Instance.ShowBoard(this, true);
+	//private void OnEnable()
+	//{
+	//	if(BoardManager.Instance != null)
+	//	{
+	//		BoardManager.Instance.ShowBoard(this, true);
 
-		}
-	}
+	//	}
+	//}
 
 	//void SetAnimation(eStateType type)
 	//{

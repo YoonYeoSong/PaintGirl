@@ -62,12 +62,12 @@ public class GameManager : MonoSingleton<GameManager>
 
 		PlayerActor.SELF_CHARACTER.IncreaseCurrentHP(99999999999999);
 
-		BaseBoard hpBoard = BoardManager.Instance.GetBoardData(PlayerActor, eBoardType.BOARD_HP);
+		//BaseBoard hpBoard = BoardManager.Instance.GetBoardData(PlayerActor, eBoardType.BOARD_HP);
 
-		if(hpBoard != null)
-		{
-			hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP),PlayerActor.SELF_CHARACTER.CURRENT_HP);
-		}
+		//if(hpBoard != null)
+		//{
+		//	hpBoard.SetData(ConstValue.SetData_HP, PlayerActor.GetStatusData(eStatusData.MAX_HP),PlayerActor.SELF_CHARACTER.CURRENT_HP);
+		//}
 
 		// clear Setting
 		if(SelectStageInfo.CLEAR_TYPE == eClearType.CLEAR_TIME)

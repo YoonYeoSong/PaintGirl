@@ -59,7 +59,7 @@ public class MonsterRegenerator : BaseObject {
 					else
 					{
 						CurrTime = 0;
-						RegenMonster();
+						//RegenMonster();
 					}
 				}
 				break;
@@ -69,18 +69,18 @@ public class MonsterRegenerator : BaseObject {
 		
 	}
 
-	void RegenMonster()
-	{
-		for(int i = ListAttachMonster.Count; i < MaxObjectNum; i++)
-		{
-			Actor actor = ActorManager.Instance.InstantiateOnce(MonsterPrefab,SelfTransform.position + GetRandomPos());
+	//void RegenMonster()
+	//{
+	//	for(int i = ListAttachMonster.Count; i < MaxObjectNum; i++)
+	//	{
+	//		Actor actor = ActorManager.Instance.InstantiateOnce(MonsterPrefab,SelfTransform.position + GetRandomPos());
 
-			// 몬스터연결
-			actor.ThrowEvent(ConstValue.EventKey_EnemyInit, this);
+	//		// 몬스터연결
+	//		actor.ThrowEvent(ConstValue.EventKey_EnemyInit, this);
 
-			ListAttachMonster.Add(actor);
-		}
-	}
+	//		ListAttachMonster.Add(actor);
+	//	}
+	//}
 
 	Vector3 GetRandomPos()
 	{
@@ -100,7 +100,7 @@ public class MonsterRegenerator : BaseObject {
 					Actor actor = other.gameObject.GetComponent<Actor>();
 					if(actor != null && actor.IS_PLAYER == true) //actor.gameObject.name.Contains("Player")
 					{
-						RegenMonster();
+						//RegenMonster();
 					}
 				}
 				break;

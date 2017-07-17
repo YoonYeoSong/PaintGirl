@@ -45,6 +45,7 @@ public class JoyStick : BaseObject
     private float Radius = 60.0f;
     private float InnerRadius = 10.0f;
 
+
     public void OnEnable()
     {
 		UI_Camera = UICamera.mainCamera;
@@ -69,7 +70,7 @@ public class JoyStick : BaseObject
         Debug.Log("Press");
         if (IsKeyBoardInput)
             return;
-
+		
         if (Pressed) // 눌려짐
         {
             IsPressed = true;

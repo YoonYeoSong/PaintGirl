@@ -19,7 +19,7 @@ public class Player : Actor
 	float AttackRange = 3.0f;
 	public float speed = 3.0f;
 	public float jumpPower = 5.0f;
-
+	public string m1;
 	Rigidbody rigdbody;
 	bool isJumping;
 	bool isRoll;
@@ -161,18 +161,18 @@ public class Player : Actor
 		Anim.SetInteger("State", (int)state);
 	}
 
-	private void OnEnable()
-	{
-		StartCoroutine("FSMMain"); // fsm
-	}
+	//private void OnEnable()
+	//{
+	//	StartCoroutine("FSMMain"); // fsm
+	//}
 
-	IEnumerator FSMMain()
-	{
-		while(true)
-		{
-			yield return StartCoroutine(State.ToString());
-		}
-	}
+	//IEnumerator FSMMain()
+	//{
+	//	while(true)
+	//	{
+	//		yield return StartCoroutine(State.ToString());
+	//	}
+	//}
 
 	IEnumerator STATE_IDLE()
 	{
@@ -267,7 +267,7 @@ public class Player : Actor
 			if (StunItem == true)
 			{
 
-				MovePosition += new Vector3(0, 0, 0);//Axis.x * 0, 0, Axis.y * 0);
+				MovePosition = new Vector3(Axis.x *0, 0, Axis.y * 0);//Axis.x * 0, 0, Axis.y * 0);
 				Debug.Log("스턴중이다!");
 			}
 			else
@@ -370,6 +370,14 @@ public class Player : Actor
 
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		m1 = other.transform.tag;
+		Debug.Log("피이격"+ m1);
+
+
+	}
+
 	void CheckGround()
 	{
 		RaycastHit hit;
@@ -393,6 +401,8 @@ public class Player : Actor
 			isJumping = false;
 			
 		}
+		if (collision.transform.tag == "APlayer")
+			Debug.Log("피격!");
 	}
 
 	private void OnCollisionExit(Collision collision)
@@ -402,7 +412,18 @@ public class Player : Actor
 			isJumping = true;
 			
 		}
+
+		if (collision.transform.tag == "APlayer")
+			Debug.Log("피격!");
 	}
+
+	private void OnParticleCollision(GameObject other)
+	{
+		m1 = other.tag;
+		if(other.transform.tag == "APlayer")
+			Debug.Log("피격!");
+	}
+
 
 	public void Buff(int TeamCheck)
 	{

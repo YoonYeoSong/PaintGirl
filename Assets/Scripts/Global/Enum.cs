@@ -27,8 +27,8 @@ public enum eStatusData
 
 public enum eTeamType
 {
-    TEAM_1,
-    TEAM_2,
+    TEAM_A,
+    TEAM_B,
 }
 
 // Monster 관련

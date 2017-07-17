@@ -10,6 +10,9 @@ public class GameCountTime : MonoBehaviour {
 	GameObject GO = null;
 	int OnceCheck = 0;
 
+
+    public bool HiddenTime = false;
+    public bool check = false;
     void Start () {
         label = transform.GetComponent<UILabel>();
         //StartCoroutine(remainderTimer());
@@ -40,27 +43,48 @@ private void Update()
             else
             {
                 Seconds -= Time.deltaTime;
+
+         
+
+
             }
-            
+
 
 
             //180초 받아서 분,초 계산
             //TimeSpan ts = new TimeSpan(0,0, 150);
             //label.text = string.Format("{0:HH:mm:ss}", ts);
-            
-        }
 
-		label.text = string.Format("{0:D2}:{1:D2}",
+
+        }
+      
+
+
+        label.text = string.Format("{0:D2}:{1:D2}",
 				   (int)Minutes, (int)Seconds);
 
-		if (Minutes == 0 && Seconds == 0 && OnceCheck == 0)
+        if ((int)Minutes == 0 && (int)Seconds == 30 && check == false)
+        {
+            HiddenTime = true;
+            Debug.Log("check");
+            check = true;
+
+        }
+
+
+        if (Minutes == 0 && Seconds == 0 && OnceCheck == 0)
 		{
 			
 			CreateGameResult();
 
 			OnceCheck = 1;
 		}
-	}
+
+
+      
+
+
+    }
 
 	void CreateGameResult()
 	{
