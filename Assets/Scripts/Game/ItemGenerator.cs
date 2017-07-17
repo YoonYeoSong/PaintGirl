@@ -9,11 +9,14 @@ public class ItemGenerator : MonoBehaviour {
 
     GameCountTime HiddenTimeCheck = null;
 
+
+	float CurTime = 0.0f;
 	float XPos = 0.0f;
 	float ZPos = 0.0f;
 	// Use this for initialization
 
 	GameObject AirPlane = null;
+	
 	void Start () {
 
         HiddenTimeCheck = GameObject.Find("Timer").GetComponent<GameCountTime>();
@@ -31,18 +34,16 @@ public class ItemGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (HiddenTimeCheck.HiddenTime == true)
-        {
-            Instantiate(HiddenItem, new Vector3(-8.81f, 3.43f, -1.388f), Quaternion.Euler(0, 180, 0));
-            HiddenTimeCheck.HiddenTime = false;
-        }
+		CurTime += Time.deltaTime;
 
-		if (AirPlane != null)
+		if (HiddenTimeCheck.HiddenTime == true)
 		{
-			 AirPlane.transform.localPosition += new Vector3(0.2f,0,0);
+			Instantiate(HiddenItem, new Vector3(-8.81f, 3.43f, -1.388f), Quaternion.Euler(0, 180, 0));
+			HiddenTimeCheck.HiddenTime = false;
 		}
-		
-    }
+
+
+	}
 
 	void ItemRegen()
 	{
@@ -54,13 +55,17 @@ public class ItemGenerator : MonoBehaviour {
 
 	public void GenAirPlane()
 	{
-		int RandomPos;
-		GameObject temp = Resources.Load("Prefabs/Game/YellowAirPlane") as GameObject;
-		AirPlane = Instantiate(temp, Vector3.zero,Quaternion.identity);
-		AirPlane.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-		AirPlane.transform.localPosition = new Vector3(-100f, 6.1f, -8.42f);
-		AirPlane.transform.localRotation = Quaternion.Euler(-90,0,0);
-	}
+		int RandomPos = -1 ;
 
+		RandomPos = Random.Range(0, 6);
+		
+		GameObject temp = Resources.Load("Prefabs/Game/YellowAirPlane") as GameObject;
+
+		if (RandomPos >= 3)
+			RandomPos++;
+		RandomPos = 6;
+		AirPlane = Instantiate(temp, new Vector3(-40, 15.1f, -13.42f + RandomPos * 4.25f), Quaternion.identity);
+		AirPlane.name = "AirPlane";
+	}
 
 }
