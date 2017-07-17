@@ -63,8 +63,8 @@ public class ItemGenerator : MonoBehaviour {
 
 		if (RandomPos >= 3)
 			RandomPos++;
-
-		AirPlane = Instantiate(temp, new Vector3(-40, 15.1f, -12.42f + RandomPos * 4), Quaternion.identity);
+		RandomPos = 6;
+		AirPlane = Instantiate(temp, new Vector3(-40, 15.1f, -13.42f + RandomPos * 4.25f), Quaternion.identity);
 		AirPlane.name = "AirPlane";
 	}
 

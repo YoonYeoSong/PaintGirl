@@ -79,7 +79,7 @@ public class AirPlane : MonoBehaviour {
 	void AirPlaneStraight()
 	{
 		transform.localPosition += new Vector3(0.1f, 0, 0);
-		if (RocketGenTime >= 0.4f)
+		if (RocketGenTime >= 0.3f)
 		{
 			CreateRocket();
 		}
@@ -94,17 +94,18 @@ public class AirPlane : MonoBehaviour {
 
 	void CreateRocket()
 	{
+
 		if (FireRight == true)
 		{
-			Instantiate(temp, gameObject.transform.localPosition+ new Vector3(0,0,0.3f), Quaternion.identity);
+			Instantiate(temp, gameObject.transform.localPosition+ new Vector3(0,0,0.7f), Quaternion.identity);
 			FireRight = false;
 		}
 
 		else if (FireRight == false)
 		{
-			Instantiate(temp, gameObject.transform.localPosition + new Vector3(0, 0, -0.3f), Quaternion.identity);
+			Instantiate(temp, gameObject.transform.localPosition + new Vector3(0, 0, -0.7f), Quaternion.identity);
 			FireRight = true;
 		}
-			RocketGenTime = 0.0f;
+		RocketGenTime = 0.0f;
 	}
 }
