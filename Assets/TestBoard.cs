@@ -41,14 +41,14 @@ public class TestBoard : MonoBehaviour
         //배열의 길이로 점유율 계산 
         ProgressBar.value = ((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length));
 
-		//if (ACheck.Length != 0 || BCheck.Length != 0)
-		//{
-		//	HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
-		//		(((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
+		if (ACheck.Length != 0 || BCheck.Length != 0)
+		{
+			HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
+				(((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
 
-		//}
+		}
 
-		HPLabel.text = ACheck.Length + "/" + BCheck.Length;
+		//HPLabel.text = ACheck.Length + "/" + BCheck.Length;
 
 
         //0.2초마다 코루틴실행

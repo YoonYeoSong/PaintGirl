@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Player : Actor
-{
+public class PlayerB : Actor {
 
 	Animator Anim;
 
@@ -37,24 +35,23 @@ public class Player : Actor
 
 	int m_iTeamCheck = 0; // A팀 스크립트인지 B팀 스크립트인지 구분
 
-	float MoveSpeedUpItemTime = 0.0f;			//시간관련
+	float MoveSpeedUpItemTime = 0.0f;           //시간관련
 	float MoveSpeedDownItemTime = 0.0f;
 	public float StunItemTime = 0.0f;
-	float StubFadeOutTime = 4.0f;
 	float ItemEffectFadeOutTime = 10.0f;
+	float StubFadeOutTime = 4.0f;
+	GameObject PlayerA = null;//.GetComponent<Player>();
 
-	GameObject BPlayer = null;//.GetComponent<Player>();
-	
 	void Start()
 	{
 
-		BPlayer = GameObject.Find("PlayerB");
+		PlayerA = GameObject.Find("PlayerA");
 		isJumping = false;
 		isRoll = false;
-		//IS_PLAYER = true;
+		
 		Stick = JoyStick.Instance;
 		rigdbody = GetComponent<Rigidbody>();
-			
+
 		Anim = this.GetComponentInChildren<Animator>();
 		State = eStateType.STATE_IDLE;
 		SetAnimation(State);
@@ -66,21 +63,21 @@ public class Player : Actor
 		MoveSpeedDownItemTime += Time.deltaTime;
 		StunItemTime += Time.deltaTime;
 
-		
-			if (MoveSpeedUpItem == true)
-				if (ItemEffectFadeOutTime <= MoveSpeedUpItemTime)
-				{
-					MoveSpeedUpItem = false;
-					Debug.Log("버프끝");
-					
-				}
 
-			if (MoveSpeedDownItem == true)
-				if (ItemEffectFadeOutTime <= MoveSpeedDownItemTime)
-				{
-					MoveSpeedDownItem = false;
-					Debug.Log("버프끝");
-				}
+		if (MoveSpeedUpItem == true)
+			if (ItemEffectFadeOutTime <= MoveSpeedUpItemTime)
+			{
+				MoveSpeedUpItem = false;
+				Debug.Log("버프끝");
+
+			}
+
+		if (MoveSpeedDownItem == true)
+			if (ItemEffectFadeOutTime <= MoveSpeedDownItemTime)
+			{
+				MoveSpeedDownItem = false;
+				Debug.Log("버프끝");
+			}
 
 		if (StunItem == true)
 		{
@@ -88,11 +85,7 @@ public class Player : Actor
 			{
 				StunItem = false;
 
-				//if (m_iTeamCheck == 1)
-				//PlayerA.transform.localScale = Vector3.one;
-
-				//if (m_iTeamCheck == 2)
-				//PlayerB.transform.localScale = Vector3.one;
+				
 				transform.localScale = Vector3.one;
 				Debug.Log("스턴 끝");
 			}
@@ -101,7 +94,7 @@ public class Player : Actor
 		m_iTeamCheck = 0;
 
 		CheckGround(); // 밑이 땅인지 확인
-	
+
 		if (Input.GetKeyDown(KeyCode.Space) && grounded) // 점프
 		{
 			State = eStateType.STATE_JUMP;
@@ -114,7 +107,7 @@ public class Player : Actor
 			State = eStateType.STATE_ROLL;
 			SetAnimation(State);
 		}
-		else if(!Stick.IsPressed) // 눌리지 않았을때
+		else if (!Stick.IsPressed) // 눌리지 않았을때
 		{
 			if (isJumping == true)
 			{
@@ -142,7 +135,7 @@ public class Player : Actor
 			}
 			else
 			{
-				if(isRoll == false)
+				if (isRoll == false)
 				{
 					State = eStateType.STATE_WALK;
 					SetAnimation(State);
@@ -178,7 +171,7 @@ public class Player : Actor
 		// Enter
 
 		while (State == eStateType.STATE_IDLE)
-		{	
+		{
 			yield return null;
 			// Excute
 		}
@@ -229,7 +222,7 @@ public class Player : Actor
 	}
 
 	IEnumerator STATE_ROLL()
-		
+
 	{
 		// Enter
 		while (State == eStateType.STATE_ROLL)
@@ -242,7 +235,7 @@ public class Player : Actor
 
 
 	//물리 관련 움직임은 이곳에서 처리
-	
+
 	void FixedUpdate()
 	{
 		if (Stick.IsPressed)
@@ -253,7 +246,7 @@ public class Player : Actor
 			Vector3 MoveRotation = new Vector3(0, 0, 0);
 			Vector3 Rot = Vector3.zero;
 			//if(Axis.x != 0 && Axis.y ==0)
-			if(MoveSpeedUpItem == true)
+			if (MoveSpeedUpItem == true)
 				MovePosition += new Vector3(Axis.x * 2, 0, Axis.y * 2);
 			else
 				MovePosition += new Vector3(Axis.x, 0, Axis.y);
@@ -266,14 +259,13 @@ public class Player : Actor
 			if (StunItem == true)
 			{
 
-				MovePosition = new Vector3(Axis.x *0, 0, Axis.y * 0);//Axis.x * 0, 0, Axis.y * 0);
+				MovePosition = new Vector3(Axis.x * 0, 0, Axis.y * 0);//Axis.x * 0, 0, Axis.y * 0);
 				Debug.Log("스턴중이다!");
-				GameObject temp = Resources.Load("Prefabs/Game/UI/Stun") as GameObject;
-				Instantiate(temp);
+				
 			}
 			else
 				MovePosition += new Vector3(Axis.x, 0, Axis.y);
-			
+
 
 			//if(Axis.y != 0)
 			//	MovePosition += new Vector3(Axis.x , 0, Axis.y + AddSpeed);
@@ -282,7 +274,7 @@ public class Player : Actor
 
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 			//SelfTransform.position += new Vector3(0.2f, 0, 0.2f);//new Vector3(AddSpeed, 0, AddSpeed);
-			SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
+			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 			//if (isJumping == true)
 			//{
 			//	return;
@@ -306,7 +298,7 @@ public class Player : Actor
 			isRoll = false;
 			//State = eStateType.STATE_IDLE;
 			//SetAnimation(State);
-			SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
+			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 		}
 
 		if (isRoll)
@@ -343,7 +335,7 @@ public class Player : Actor
 			SetAnimation(State);
 			isRoll = false;
 			ftime = 0;
-			
+
 
 			return;
 		}
@@ -374,7 +366,7 @@ public class Player : Actor
 	private void OnTriggerEnter(Collider other)
 	{
 		m1 = other.transform.tag;
-		Debug.Log("피이격"+ m1);
+		Debug.Log("피이격" + m1);
 
 
 	}
@@ -400,7 +392,7 @@ public class Player : Actor
 		if (collision.transform.tag == "GROUND" || collision.transform.tag == "Coll")
 		{
 			isJumping = false;
-			
+
 		}
 		if (collision.transform.tag == "APlayer")
 			Debug.Log("피격!");
@@ -411,7 +403,7 @@ public class Player : Actor
 		if (collision.transform.tag == "GROUND" || collision.transform.tag == "Coll")
 		{
 			isJumping = true;
-			
+
 		}
 
 		if (collision.transform.tag == "APlayer")
@@ -421,7 +413,7 @@ public class Player : Actor
 	private void OnParticleCollision(GameObject other)
 	{
 		m1 = other.tag;
-		if(other.transform.tag == "APlayer")
+		if (other.transform.tag == "APlayer")
 			Debug.Log("피격!");
 	}
 
@@ -477,7 +469,7 @@ public class Player : Actor
 	{
 		Debug.Log("이속 증가");
 		MoveSpeedUpItemTime = 0.0f;
-			MoveSpeedUpItem = true;
+		MoveSpeedUpItem = true;
 		GameObject Parent = null;
 		Parent = GameObject.Find("UI Root/Camera");
 		GameObject item = null;
@@ -494,25 +486,21 @@ public class Player : Actor
 	{
 		Debug.Log("적 스턴");
 		GameObject Hammer = null;
-		
+
 		GameObject temp = Resources.Load("Prefabs/Game/Hammer") as GameObject;
 
 		Debug.Log(temp);
-		
-			//PlayerB.transform.localPosition
-			Hammer = Instantiate(temp,  BPlayer.transform.localPosition, Quaternion.identity);
-			 
-
-			Debug.Log(BPlayer);
-			if (BPlayer == null)
-				Debug.Log("playerB is null");
-			BPlayer.GetComponent<PlayerB>().StunItem = true;
-			BPlayer.GetComponent<PlayerB>().StunItemTime = 0.0f;
-
-			Invoke("WaitPlayerBPress", 0.5f);
-		
-
 	
+
+		
+			Hammer = Instantiate(temp, PlayerA.transform.localPosition, Quaternion.identity);
+
+			PlayerA.GetComponent<Player>().StunItem = true;
+			//PlayerA.GetComponent<Player>().m_iTeamCheck = 1;
+			PlayerA.GetComponent<Player>().StunItemTime = 0.0f;
+		
+		Invoke("WaitPlayerAPress", 0.5f);
+		
 		Hammer.transform.localPosition += new Vector3(0, 9, 0);
 		Hammer.transform.localRotation = Quaternion.Euler(0, 90, 180);
 
@@ -521,8 +509,8 @@ public class Player : Actor
 	{
 		Debug.Log("이속 감소");
 		MoveSpeedDownItemTime = 0.0f;
-		
-			MoveSpeedDownItem = true;
+
+		MoveSpeedDownItem = true;
 		GameObject Parent = null;
 		Parent = GameObject.Find("UI Root/Camera");
 		GameObject item = null;
@@ -532,10 +520,15 @@ public class Player : Actor
 		item.transform.localPosition = Vector3.zero;
 		item.transform.localScale = Vector3.one;
 
-
-
 	}
 
+
+
+	void WaitPlayerAPress()
+	{
+		PlayerA.transform.localScale = new Vector3(1, 0.05f, 1);
+		PlayerA.GetComponent<Player>().MyStun();
+	}
 
 	public void MyStun()
 	{
@@ -548,15 +541,10 @@ public class Player : Actor
 		item.transform.localPosition = Vector3.zero;
 		item.transform.localScale = Vector3.one;
 	}
-	//void WaitPlayerAPress()
+
+	//void WaitPlayerBPress()
 	//{
 	//	this.transform.localScale = new Vector3(1, 0.05f, 1);
 	//}
-
-	void WaitPlayerBPress()
-	{
-		BPlayer.transform.localScale = new Vector3(1, 0.05f, 1);
-		BPlayer.GetComponent<PlayerB>().MyStun();
-	}
 
 }

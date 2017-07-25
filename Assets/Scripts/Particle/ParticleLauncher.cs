@@ -7,8 +7,7 @@ public class ParticleLauncher : MonoBehaviour {
 	public ParticleSystem splatterParticles;
 	public Gradient particleColorGradient;
 	public ParticleDecalPool splatDecalPool;
-
-
+	int Team;
 	JoyStick joystick = null;
 
 	List<ParticleCollisionEvent> collisionEvents;
@@ -19,13 +18,23 @@ public class ParticleLauncher : MonoBehaviour {
     void Start()
 	{
 
-		joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
+		//joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
 		collisionEvents = new List<ParticleCollisionEvent>();
-       //collisionEventsB = new List<ParticleCollisionEvent>();
-       // sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
-       // s1 = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
+		//collisionEventsB = new List<ParticleCollisionEvent>();
+		// sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+		// s1 = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
+		if (transform.parent.parent.parent.gameObject.name == "PlayerA")
+		{
+			Team = 1; // A팀
+		}
+		
 
-    }
+		if (transform.parent.parent.parent.gameObject.name == "PlayerB")
+		{
+			Team = 2; // A팀
+		}
+
+	}
 
 
 
@@ -131,11 +140,26 @@ public class ParticleLauncher : MonoBehaviour {
 
 		if (Input.GetButtonDown("Fire1"))
 		{
-			ParticleSystem.MainModule psMain = particleLauncher.main;
-			//발사중에 있는 파티클 색상 
-			psMain.startColor = Color.yellow;
-			particleLauncher.Emit(1);
-
+			if (Team == 1)
+			{
+				if (transform.parent.parent.parent.gameObject.GetComponent<Player>().StunItem == false)
+				{
+					ParticleSystem.MainModule psMain = particleLauncher.main;
+					//발사중에 있는 파티클 색상 
+					psMain.startColor = Color.yellow;
+					particleLauncher.Emit(1);
+				}
+			}
+			else if (Team == 2)
+			{
+				if (transform.parent.parent.parent.gameObject.GetComponent<PlayerB>().StunItem == false)
+				{
+					ParticleSystem.MainModule psMain = particleLauncher.main;
+					//발사중에 있는 파티클 색상 
+					psMain.startColor = Color.green;
+					particleLauncher.Emit(1);
+				}
+			}
 		}
 
 	}

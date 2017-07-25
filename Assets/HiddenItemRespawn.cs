@@ -61,20 +61,20 @@ public class HiddenItemRespawn : MonoBehaviour {
         m3 = other.tag;
 
 		int random = -1;
-		random = Random.Range(0, 2);
+		//random = Random.Range(0, 2);
 
 		//점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
 		//a,b 태그를 뒤바꾼다. 
-		if (random == 0)  // 점유율 바꾸기
+		if (random == -1)  // 점유율 바꾸기
 		{
 			if (other.CompareTag("APlayer"))
 			{
-				if (testList.Count > testList2.Count)
-				{
-					Debug.Log("a점유율이 더 큼");
-				}
-				else
-				{
+				//if (testList.Count > testList2.Count)
+				//{
+				//	Debug.Log("a점유율이 더 큼");
+				//}
+				//else
+				//{
 					for (int i = 0; i < testList.Count; i++)
 					{
 						testList[i].tag = "B";
@@ -89,16 +89,16 @@ public class HiddenItemRespawn : MonoBehaviour {
 					s2.swapColorB();
 					//CheckColliderUse = true;
 
-				}
+				//}
 			}
 			else if (other.CompareTag("BPlayer"))
 			{
-				if (testList2.Count > testList.Count)
-				{
-					Debug.Log("B점유율이 더 큼");
-				}
-				else
-				{
+				//if (testList2.Count > testList.Count)
+				//{
+				//	Debug.Log("B점유율이 더 큼");
+				//}
+				//else
+				//{
 					for (int i = 0; i < testList.Count; i++)
 					{
 						testList[i].tag = "B";
@@ -111,7 +111,7 @@ public class HiddenItemRespawn : MonoBehaviour {
 					s2.swapColorA();
 					s2.swapColorB();
 					//CheckColliderUse = true;
-				}
+				//}
 			}
 		}
 
@@ -125,7 +125,7 @@ public class HiddenItemRespawn : MonoBehaviour {
     //충돌후에 나갔을때 
     private void OnTriggerExit(Collider other)
     {
-        CheckColliderUse = false;
+        //CheckColliderUse = false;
         Destroy(this.gameObject, 0.2f);
 
     }

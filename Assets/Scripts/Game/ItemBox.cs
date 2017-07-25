@@ -23,13 +23,12 @@ public class ItemBox : MonoBehaviour {
 		{
 			if (other.transform.tag == "APlayer")
 			{
-				TeamCheck = 1;
+				other.GetComponent<Player>().Buff();
 			}
 			if (other.transform.tag == "BPlayer")
 			{
-				TeamCheck = 2;
+				other.GetComponent<PlayerB>().Buff();
 			}
-				other.GetComponent<Player>().Buff(TeamCheck);
 			//ItemBoxManager.Instance.ItemType();
 			Debug.Log("아이템획득");
 			//ItemType();

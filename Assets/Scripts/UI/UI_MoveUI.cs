@@ -289,9 +289,32 @@ public class UI_MoveUI : MonoBehaviour
 	void ShowStage()
 	{
 		GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_STAGE);
-		UI_Stage stage = go.GetComponent<UI_Stage>();
+	UI_Stage stage = go.GetComponent<UI_Stage>();
 		stage.Init();
-	}
+
+		//GameObject go = UI_Tools.Instance.ShowUI(eUIType.PF_UI_POPUP);
+		//UI_Popup popup = go.GetComponent<UI_Popup>();
+
+		//popup.Set(
+		//	() =>
+		//	{
+		//		//Debug.Log(Info.NAME + "입장");
+		//		GameManager.Instance.SelectStage = int.Parse(INFO.KEY);
+		//		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_GAME);
+		//		UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+		//	}
+		//	,
+		//	() =>
+		//	{
+		//		UI_Tools.Instance.HideUI(eUIType.PF_UI_POPUP);
+		//	},
+		//	"게임 시작",
+		//	"게임을 시작하시겠습니까?"
+		//	);
+
+	
+
+}
 
 	void ShowOption()
 	{

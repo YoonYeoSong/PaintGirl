@@ -59,13 +59,14 @@ public class ParticleDecalPool : MonoBehaviour {
 
 	void Update()
 	{   //상자와 충돌하였을때 true값 
-        //if (HiddenItemRespawn.CheckColliderUse == true)
-        //{
-        //    swapColorA();
-        //    swapColorB();
-        //     Debug.Log("swap success");
-        //}
-    }
+		//if (HiddenItemRespawn.CheckColliderUse == true)
+		////{
+		////    swapColorA();
+		////    swapColorB();
+		////     Debug.Log("swap success");
+		//HiddenItemRespawn.CheckColliderUse = false;
+		//}
+	}
 
 	public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
 	{   if(gameObject.CompareTag("APlayer"))
