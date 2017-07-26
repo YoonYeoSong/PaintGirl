@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemGenerator : MonoBehaviour {
     Player APlayer = null;
-    //PlayerB BPlayer = null;
+    PlayerB BPlayer = null;
     
     public GameObject ItemBoxGO = null;
 
@@ -85,26 +85,16 @@ public class ItemGenerator : MonoBehaviour {
 
 	public void GenAirPlane(int Team)
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
 		int RandomPos = -1 ;
 
 		RandomPos = Random.Range(0, 6);
 		
-		GameObject temp = Resources.Load("Prefabs/Game/YellowAirPlane") as GameObject;
-=======
-		int RandomPos;
-		GameObject Go = null;
-		GameObject temp = Resources.Load("Prefabs/Game/AirPlane") as GameObject;
+
 		//Go = Instantiate(temp,)
-	}
->>>>>>> fa12a8a1ce1eb42594f2049f34ef12bcdf1e99bb
 
 		if (RandomPos >= 3)
 			RandomPos++;
 	
-=======
-		int RandomPos = -1 ;
         GameObject temp = null; //비행기 프리팹
 
         RandomPos = Random.Range(0, 6);
@@ -121,7 +111,6 @@ public class ItemGenerator : MonoBehaviour {
         }
 		if (RandomPos >= 3)
 			RandomPos++;
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 		AirPlane = Instantiate(temp, new Vector3(-40, 15.1f, -13.42f + RandomPos * 4.25f), Quaternion.identity);
 		AirPlane.name = "AirPlane";
 	}
@@ -142,11 +131,11 @@ public class ItemGenerator : MonoBehaviour {
         else if (Team == 2)
         {
             tickuse = true;
-            //BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(3, 3, 3);
+            BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(3, 3, 3);
             
-            //BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.3f, 0.05f);
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 6f;
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 6f;
+            BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.3f, 0.05f);
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 6f;
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 6f;
         }
 
     }
@@ -163,11 +152,11 @@ public class ItemGenerator : MonoBehaviour {
         }
         else if (Team == 2)
         {
-            //BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(1, 1, 1);
+            BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(1, 1, 1);
             
-            //BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.05f, 0.05f, 0.05f);
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 1f;
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 3f;
+            BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.05f, 0.05f, 0.05f);
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 1f;
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 3f;
         }
     }
 }

@@ -71,29 +71,13 @@ public class HiddenItemRespawn : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
 		int random = -1;
-<<<<<<< HEAD
 		//random = Random.Range(0, 2);
 
 		//점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
 		//a,b 태그를 뒤바꾼다. 
-		if (random == -1)  // 점유율 바꾸기
-		{
-			if (other.CompareTag("APlayer"))
-			{
-				//if (testList.Count > testList2.Count)
-				//{
-				//	Debug.Log("a점유율이 더 큼");
-				//}
-				//else
-				//{
-					for (int i = 0; i < testList.Count; i++)
-					{
-						testList[i].tag = "B";
-					}
-=======
+		
 		random = Random.Range(0, 3);
 
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 
         if (other.CompareTag("AChar"))
         {
@@ -103,46 +87,15 @@ public class HiddenItemRespawn : MonoBehaviour {
         {
             Team = 2;
         }
-
-
-<<<<<<< HEAD
-				//}
-			}
-			else if (other.CompareTag("BPlayer"))
-			{
-				//if (testList2.Count > testList.Count)
-				//{
-				//	Debug.Log("B점유율이 더 큼");
-				//}
-				//else
-				//{
-					for (int i = 0; i < testList.Count; i++)
-=======
+		
 
         if (random == 0)  // 점유율 바꾸기
 		{
             testList = Finding("A");
             testList2 = Finding("B");
 
-            //점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
-            //a,b 태그를 뒤바꾼다. 
-
-            //if (other.CompareTag("AChar"))
-            //{
-            //if (testList.Count > testList2.Count)
-            //{
-            //	Debug.Log("a점유율이 더 큼");
-            //}
-          // }
-            //else if (other.CompareTag("BChar"))
-            //  {
-            //    if (testList2.Count > testList.Count)
-            //    {
-            //        Debug.Log("B점유율이 더 큼");
-            //    }
-            //}
+     
             for (int i = 0; i < testList.Count; i++)
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 					{
 						testList[i].tag = "B";
 					}
@@ -150,14 +103,11 @@ public class HiddenItemRespawn : MonoBehaviour {
 					{
 						testList2[i].tag = "A";
 					}
-<<<<<<< HEAD
 					s2.swapColorA();
 					s2.swapColorB();
 					//CheckColliderUse = true;
 				//}
-=======
 					CheckColliderUse = true;
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 			}
 		else if (random == 1) // 거대화 
 
@@ -186,10 +136,8 @@ public class HiddenItemRespawn : MonoBehaviour {
     //충돌후에 나갔을때 
     private void OnTriggerExit(Collider other)
     {
-<<<<<<< HEAD
         //CheckColliderUse = false;
         Destroy(this.gameObject, 0.2f);
-=======
        CheckColliderUse = false;
         // Destroy(gameObject, 0.5f);
     }
@@ -247,7 +195,6 @@ public class HiddenItemRespawn : MonoBehaviour {
 
     public void swapColorB()
     {
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 
         for (int i = 0; i < DecalPool.particleData2.Length; i++)
         {

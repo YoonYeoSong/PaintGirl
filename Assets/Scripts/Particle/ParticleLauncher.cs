@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<< HEAD
+
 public class ParticleLauncher : MonoBehaviour {
 	public ParticleSystem particleLauncher;
 	public ParticleSystem splatterParticles;
@@ -29,21 +29,6 @@ public class ParticleLauncher : MonoBehaviour {
 			Team = 1; // A팀
 		}
 		
-=======
-public class ParticleLauncher : MonoBehaviour
-{
-    public ParticleSystem particleLauncher;
-    public Gradient particleColorGradient;
-    public ParticleDecalPool splatDecalPool;
-    public ParticleSystem splatterParticles;
-
-    JoyStick joystick = null;
-    List<ParticleCollisionEvent> collisionEvents;
-    void Start()
-    {
-        joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
-        collisionEvents = new List<ParticleCollisionEvent>();
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 
 		if (transform.parent.parent.parent.gameObject.name == "PlayerB")
 		{
@@ -72,15 +57,14 @@ public class ParticleLauncher : MonoBehaviour
 
 
 
-    //콜라이더와 충돌후 분산되는 파티클 설정
-    void EmitAtLocation(ParticleCollisionEvent particleCollisionEvent)
-    {   //위치
-        splatterParticles.transform.position = particleCollisionEvent.intersection;
-        //회전
-        splatterParticles.transform.rotation = Quaternion.LookRotation(particleCollisionEvent.normal);
-        ParticleSystem.MainModule psMain = splatterParticles.main;
-
-<<<<<<< HEAD
+	//콜라이더와 충돌후 분산되는 파티클 설정
+	void EmitAtLocation(ParticleCollisionEvent particleCollisionEvent)
+	{   //위치
+		splatterParticles.transform.position = particleCollisionEvent.intersection;
+		//회전
+		splatterParticles.transform.rotation = Quaternion.LookRotation(particleCollisionEvent.normal);
+		ParticleSystem.MainModule psMain = splatterParticles.main;
+	}
 	void Update()
 	{
 
@@ -88,14 +72,14 @@ public class ParticleLauncher : MonoBehaviour
 
 		//if(joystick.IsPressed == true)
 		//{ 
-
+		ParticleSystem.MainModule psMain = particleLauncher.main;
 		if (Input.GetButtonDown("Fire1"))
 		{
 			if (Team == 1)
 			{
 				if (transform.parent.parent.parent.gameObject.GetComponent<Player>().StunItem == false)
 				{
-					ParticleSystem.MainModule psMain = particleLauncher.main;
+					
 					//발사중에 있는 파티클 색상 
 					psMain.startColor = Color.yellow;
 					particleLauncher.Emit(1);
@@ -105,36 +89,17 @@ public class ParticleLauncher : MonoBehaviour
 			{
 				if (transform.parent.parent.parent.gameObject.GetComponent<PlayerB>().StunItem == false)
 				{
-					ParticleSystem.MainModule psMain = particleLauncher.main;
+					
 					//발사중에 있는 파티클 색상 
 					psMain.startColor = Color.green;
 					particleLauncher.Emit(1);
 				}
 			}
 		}
-=======
         //콜라이더와 충돌후 분산되는 파티클 색상 
         psMain.startColor = particleColorGradient.Evaluate(0f);
         //하나씩
         splatterParticles.Emit(1);
-    }
->>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
-
-
-    void Update()
-    {
-
-        //if(joystick.IsPressed == true)
-        //{ 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            ParticleSystem.MainModule psMain = particleLauncher.main;
-            //발사중에 있는 파티클 색상 
-            psMain.startColor = particleColorGradient.Evaluate(0f);
-            particleLauncher.Emit(1);
-
-        }
-
     }
 
 
