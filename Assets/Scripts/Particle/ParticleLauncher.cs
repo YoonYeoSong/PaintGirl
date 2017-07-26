@@ -57,14 +57,20 @@ public class ParticleLauncher : MonoBehaviour {
 
 
 
-	//콜라이더와 충돌후 분산되는 파티클 설정
-	void EmitAtLocation(ParticleCollisionEvent particleCollisionEvent)
-	{   //위치
-		splatterParticles.transform.position = particleCollisionEvent.intersection;
-		//회전
-		splatterParticles.transform.rotation = Quaternion.LookRotation(particleCollisionEvent.normal);
-		ParticleSystem.MainModule psMain = splatterParticles.main;
-	}
+
+    //콜라이더와 충돌후 분산되는 파티클 설정
+    void EmitAtLocation(ParticleCollisionEvent particleCollisionEvent)
+    {   //위치
+        splatterParticles.transform.position = particleCollisionEvent.intersection;
+        //회전
+        splatterParticles.transform.rotation = Quaternion.LookRotation(particleCollisionEvent.normal);
+        ParticleSystem.MainModule psMain = splatterParticles.main;
+
+        //콜라이더와 충돌후 분산되는 파티클 색상 
+        psMain.startColor = particleColorGradient.Evaluate(0f);
+        //하나씩
+        splatterParticles.Emit(1);
+    }
 	void Update()
 	{
 
@@ -100,6 +106,9 @@ public class ParticleLauncher : MonoBehaviour {
         psMain.startColor = particleColorGradient.Evaluate(0f);
         //하나씩
         splatterParticles.Emit(1);
+
+
+
     }
 
 

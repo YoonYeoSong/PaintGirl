@@ -38,8 +38,7 @@ public class StageManager : MonoSingleton<StageManager> {
 			return null;
 		}
 
-		GameObject go = Resources.Load("Prefabs/Stages/STAGE_1" ) as GameObject;
-		//GameObject go = Resources.Load("Prefabs/Stages/STAGE_1") as GameObject;
+		GameObject go = Resources.Load("Prefabs/Stages/" + info.MODEL) as GameObject;
 		Debug.Assert(go != null, "스테이지 리소스 로드 실패");
 		GameObject model = Instantiate(go);
 		model.transform.localPosition = Vector3.zero;

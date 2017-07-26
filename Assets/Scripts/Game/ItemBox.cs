@@ -19,13 +19,13 @@ public class ItemBox : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.tag == "APlayer" || other.transform.tag == "BPlayer")
+		if (other.transform.tag == "AChar" || other.transform.tag == "BChar")
 		{
-			if (other.transform.tag == "APlayer")
+			if (other.transform.tag == "AChar")
 			{
 				other.GetComponent<Player>().Buff();
 			}
-			if (other.transform.tag == "BPlayer")
+			if (other.transform.tag == "BChar")
 			{
 				other.GetComponent<PlayerB>().Buff();
 			}

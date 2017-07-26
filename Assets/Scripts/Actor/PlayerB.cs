@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerB : Actor {
+public class PlayerB : Actor
+{
 
 	Animator Anim;
 
@@ -48,7 +49,7 @@ public class PlayerB : Actor {
 		PlayerA = GameObject.Find("PlayerA");
 		isJumping = false;
 		isRoll = false;
-		
+
 		Stick = JoyStick.Instance;
 		rigdbody = GetComponent<Rigidbody>();
 
@@ -57,7 +58,7 @@ public class PlayerB : Actor {
 		SetAnimation(State);
 	}
 
-	 void Update()
+	void Update()
 	{
 		MoveSpeedUpItemTime += Time.deltaTime;
 		MoveSpeedDownItemTime += Time.deltaTime;
@@ -85,7 +86,7 @@ public class PlayerB : Actor {
 			{
 				StunItem = false;
 
-				
+
 				transform.localScale = Vector3.one;
 				Debug.Log("스턴 끝");
 			}
@@ -155,15 +156,15 @@ public class PlayerB : Actor {
 
 	//private void OnEnable()
 	//{
-	//	StartCoroutine("FSMMain"); // fsm
+	//   StartCoroutine("FSMMain"); // fsm
 	//}
 
 	//IEnumerator FSMMain()
 	//{
-	//	while(true)
-	//	{
-	//		yield return StartCoroutine(State.ToString());
-	//	}
+	//   while(true)
+	//   {
+	//      yield return StartCoroutine(State.ToString());
+	//   }
 	//}
 
 	IEnumerator STATE_IDLE()
@@ -261,14 +262,14 @@ public class PlayerB : Actor {
 
 				MovePosition = new Vector3(Axis.x * 0, 0, Axis.y * 0);//Axis.x * 0, 0, Axis.y * 0);
 				Debug.Log("스턴중이다!");
-				
+
 			}
 			else
 				MovePosition += new Vector3(Axis.x, 0, Axis.y);
 
 
 			//if(Axis.y != 0)
-			//	MovePosition += new Vector3(Axis.x , 0, Axis.y + AddSpeed);
+			//   MovePosition += new Vector3(Axis.x , 0, Axis.y + AddSpeed);
 			//MovePosition += new Vector3(Axis.x+AddSpeed, 0, Axis.y+AddSpeed );
 			//Debug.Log("Movepostion : " + MovePosition + ", AddSpeed : "+ AddSpeed);
 
@@ -277,17 +278,17 @@ public class PlayerB : Actor {
 			SelfTransform.rotation = Quaternion.Euler(ThirdPersonCamera.cameraRot);
 			//if (isJumping == true)
 			//{
-			//	return;
+			//   return;
 			//}
 			//else
 			//{
-			//	if (isRoll == false)
-			//	{
-			//		State = eStateType.STATE_WALK;
-			//		SetAnimation(State);
-			//	}
-			//	//State = eStateType.STATE_WALK;
-			//	//SetAnimation(State);
+			//   if (isRoll == false)
+			//   {
+			//      State = eStateType.STATE_WALK;
+			//      SetAnimation(State);
+			//   }
+			//   //State = eStateType.STATE_WALK;
+			//   //SetAnimation(State);
 			//}
 			//SelfTransform.rotation = Quaternion.LookRotation(ThirdPersonCamera.cameraRot);
 			//Quaternion newRotation = Quaternion.LookRotation(SelfTransform.position);
@@ -311,16 +312,16 @@ public class PlayerB : Actor {
 		}
 		//else
 		//{
-		//	//if(isJumping == false  && isRoll == false || Stick.IsPressed == true)
-		//	//{
-		//	//	State = eStateType.STATE_WALK;
-		//	//	SetAnimation(State);
-		//	//}
-		//	//else if(isJumping == false && isRoll == false || Stick.IsPressed == false)
-		//	//{
-		//	//	State = eStateType.STATE_IDLE;
-		//	//	SetAnimation(State);
-		//	//}
+		//   //if(isJumping == false  && isRoll == false || Stick.IsPressed == true)
+		//   //{
+		//   //   State = eStateType.STATE_WALK;
+		//   //   SetAnimation(State);
+		//   //}
+		//   //else if(isJumping == false && isRoll == false || Stick.IsPressed == false)
+		//   //{
+		//   //   State = eStateType.STATE_IDLE;
+		//   //   SetAnimation(State);
+		//   //}
 		//}
 
 		if (jump)
@@ -342,23 +343,23 @@ public class PlayerB : Actor {
 
 		//if (isRoll == false)
 		//{
-		//	if (Stick.IsPressed)
-		//	{
-		//		State = eStateType.STATE_WALK;
-		//		SetAnimation(State);
-		//	}
-		//	else
-		//	{
-		//		if (isJumping == true)
-		//		{
-		//			return;
-		//		}
-		//		else
-		//		{
-		//			State = eStateType.STATE_IDLE;
-		//			SetAnimation(State);
-		//		}
-		//	}
+		//   if (Stick.IsPressed)
+		//   {
+		//      State = eStateType.STATE_WALK;
+		//      SetAnimation(State);
+		//   }
+		//   else
+		//   {
+		//      if (isJumping == true)
+		//      {
+		//         return;
+		//      }
+		//      else
+		//      {
+		//         State = eStateType.STATE_IDLE;
+		//         SetAnimation(State);
+		//      }
+		//   }
 		//}
 
 	}
@@ -420,7 +421,7 @@ public class PlayerB : Actor {
 
 	public void Buff()
 	{
-		
+
 		ItemType();
 	}
 
@@ -490,17 +491,17 @@ public class PlayerB : Actor {
 		GameObject temp = Resources.Load("Prefabs/Game/Hammer") as GameObject;
 
 		Debug.Log(temp);
-	
 
-		
-			Hammer = Instantiate(temp, PlayerA.transform.localPosition, Quaternion.identity);
 
-			PlayerA.GetComponent<Player>().StunItem = true;
-			//PlayerA.GetComponent<Player>().m_iTeamCheck = 1;
-			PlayerA.GetComponent<Player>().StunItemTime = 0.0f;
-		
+
+		Hammer = Instantiate(temp, PlayerA.transform.localPosition, Quaternion.identity);
+
+		PlayerA.GetComponent<Player>().StunItem = true;
+		//PlayerA.GetComponent<Player>().m_iTeamCheck = 1;
+		PlayerA.GetComponent<Player>().StunItemTime = 0.0f;
+
 		Invoke("WaitPlayerAPress", 0.5f);
-		
+
 		Hammer.transform.localPosition += new Vector3(0, 9, 0);
 		Hammer.transform.localRotation = Quaternion.Euler(0, 90, 180);
 
@@ -544,7 +545,7 @@ public class PlayerB : Actor {
 
 	//void WaitPlayerBPress()
 	//{
-	//	this.transform.localScale = new Vector3(1, 0.05f, 1);
+	//   this.transform.localScale = new Vector3(1, 0.05f, 1);
 	//}
 
 }

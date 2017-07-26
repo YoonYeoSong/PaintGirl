@@ -14,8 +14,8 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     public void CameraInit(Actor Player)
     {
-       // MainCamera = Camera.main;
-        //Target = Player.SelfTransform;
+        MainCamera = Camera.main;
+        Target = Player.SelfTransform;
     }
 
     // Use this for initialization

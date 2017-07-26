@@ -12,7 +12,7 @@ public class HiddenItemRespawn : MonoBehaviour {
 
     //거대화 초기화 
     Player PlayerA = null;
-    Player PlayerB = null;
+	PlayerB PlayerB = null;
     ParticleLauncher Launcher = null;
     public bool tickuse = false;
     //거대화 시간 초기화 
@@ -33,7 +33,7 @@ public class HiddenItemRespawn : MonoBehaviour {
 
         //거대화관련 초기화 
         PlayerA = GameObject.Find("PlayerA").GetComponent<Player>();
-        PlayerB = GameObject.Find("PlayerB").GetComponent<Player>();
+        PlayerB = GameObject.Find("PlayerB").GetComponent<PlayerB>();
         Launcher = GameObject.Find("ParticleLauncher").GetComponent<ParticleLauncher>();
         Hidden = GameObject.Find("ItemGenerator").GetComponent<ItemGenerator>();
 
@@ -70,6 +70,7 @@ public class HiddenItemRespawn : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+
 		int random = -1;
 		//random = Random.Range(0, 2);
 
@@ -89,12 +90,53 @@ public class HiddenItemRespawn : MonoBehaviour {
         }
 		
 
+        Destroy(gameObject, 0.2f);
+        random = Random.Range(0, 3);
+        //random = 2;
+        //random = Random.Range(0, 2);
+
+        //점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
+
+            if (other.CompareTag("AChar"))
+            {
+                Team = 1;
+            }
+            else if (other.CompareTag("BChar"))
+            {
+                Team = 2;
+            }
+    
+
         if (random == 0)  // 점유율 바꾸기
 		{
             testList = Finding("A");
             testList2 = Finding("B");
 
-     
+            //점유율이 낮은 플레이어가 히든아이템을 먹었을떄 작용  
+            //a,b 태그를 뒤바꾼다. 
+
+            //if (other.CompareTag("AChar"))
+            //{
+            //if (testList.Count > testList2.Count)
+            //{
+            //	Debug.Log("a점유율이 더 큼");
+            //}
+            // }
+            //else if (other.CompareTag("BChar"))
+            //  {
+            //    if (testList2.Count > testList.Count)
+            //    {
+            //        Debug.Log("B점유율이 더 큼");
+            //    }
+            //}
+            //}
+            //if (testList2.Count > testList.Count)
+            //{
+            //	Debug.Log("B점유율이 더 큼");
+            //}
+            Debug.Log("CheckColliderUse = true");
+            CheckColliderUse = true;
+
             for (int i = 0; i < testList.Count; i++)
 					{
 						testList[i].tag = "B";
@@ -103,25 +145,14 @@ public class HiddenItemRespawn : MonoBehaviour {
 					{
 						testList2[i].tag = "A";
 					}
-					s2.swapColorA();
-					s2.swapColorB();
-					//CheckColliderUse = true;
-				//}
-					CheckColliderUse = true;
 			}
+            
+        
 		else if (random == 1) // 거대화 
-
 		{
             Hidden.ScaleTime = 0.0f;
             Hidden.ChangeScale(Team);
-            //if (other.CompareTag("AChar"))
-            //{
-            //    changeScale(PlayerA);
-            //}
-            //else if (other.CompareTag("BChar"))
-            //{
-            //    changeScale(PlayerB);
-            //}
+       
         }
 
         //비행기
@@ -133,74 +164,6 @@ public class HiddenItemRespawn : MonoBehaviour {
 
 
     }
-    //충돌후에 나갔을때 
-    private void OnTriggerExit(Collider other)
-    {
-        //CheckColliderUse = false;
-        Destroy(this.gameObject, 0.2f);
-       CheckColliderUse = false;
-        // Destroy(gameObject, 0.5f);
-    }
+	}
 
 
-    void changeScale(Player player)
-    {
-        tickuse = true;
-        player.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(3, 3, 3);
-        //    player.transform.localScale = new Vector3(3, 3, 3);
-        //  player.GetComponentInChildren<ParticleLauncher>().ParticleSize = 0.5f;
-        player.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.3f, 0.3f, 0.05f);
-        player.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 6f;
-        player.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 6f;
-    }
-
-    void BackScale(Player player)
-    {
-        player.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(1, 1, 1);
-        //   player.transform.localScale = new Vector3(1, 1, 1);
-        //   player.GetComponentInChildren<ParticleLauncher>().ParticleSize = 0.2f;
-        player.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.05f, 0.05f, 0.05f);
-        player.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 1f;
-        player.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 3f;
-    }
-    //거대화 크기 복구
-  public  void ExitChangeScale()
-    {
-        tick += Time.deltaTime;
-        if (tick >= 5)
-        {
-            Debug.Log("5s" + tick);
-            //5초뒤 원상복귀
-            BackScale(PlayerA);
-            BackScale(PlayerB);
-            tickuse = false;
-        }
-    }
-
-
-
-
-
-    public void swapColorA()
-    {
-
-        for (int i = 0; i < DecalPool.particleData.Length; i++)
-        {
-
-            DecalPool.particleData[i].color = Color.green;
-        }
-        Debug.Log("swapColorA");
-    }
-
-
-    public void swapColorB()
-    {
-
-        for (int i = 0; i < DecalPool.particleData2.Length; i++)
-        {
-            DecalPool.particleData2[i].color = Color.yellow;
-        }
-        Debug.Log("swapColorB");
-    }
-
-}
