@@ -18,8 +18,10 @@ public class HiddenItemBox : MonoBehaviour {
 			Debug.Log("ItemGen is null");
 	}
 
-	// Update is called once per frame
-	void Update() {
+   
+
+    // Update is called once per frame
+    void Update() {
 		transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * 70.0f);
 
 		CurTime += Time.deltaTime;
@@ -43,5 +45,7 @@ public class HiddenItemBox : MonoBehaviour {
 				Up = true;
 			}
 		}
+
+
 	}
 }

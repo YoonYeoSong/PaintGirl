@@ -371,13 +371,7 @@ public class Player : Actor
 
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		m1 = other.transform.tag;
-		Debug.Log("피이격"+ m1);
 
-
-	}
 
 	void CheckGround()
 	{
@@ -387,7 +381,7 @@ public class Player : Actor
 		if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.9f))
 		{
 			if (hit.transform.tag == "GROUND")
-			{
+			{   
 				grounded = true;
 				return;
 			}
@@ -418,12 +412,12 @@ public class Player : Actor
 			Debug.Log("피격!");
 	}
 
-	private void OnParticleCollision(GameObject other)
-	{
-		m1 = other.tag;
-		if(other.transform.tag == "APlayer")
-			Debug.Log("피격!");
-	}
+	//private void OnParticleCollision(GameObject other)
+	//{
+	//	m1 = other.tag;
+	//	if(other.transform.tag == "APlayer")
+	//		Debug.Log("피격!");
+	//}
 
 
 	public void Buff()

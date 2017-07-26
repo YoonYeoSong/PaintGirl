@@ -22,7 +22,6 @@ public class SplatOnCollision : MonoBehaviour {
 	void OnParticleCollision(GameObject other)
 	{
 		int numCollisionEvents = ParticlePhysicsExtensions.GetCollisionEvents (particleLauncher, other, collisionEvents);
-
 		int i = 0;
 		while (i < numCollisionEvents) 
 		{

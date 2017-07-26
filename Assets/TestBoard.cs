@@ -42,6 +42,7 @@ public class TestBoard : MonoBehaviour
         ProgressBar.value = ((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (ACheck.Length != 0 || BCheck.Length != 0)
 		{
 			HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
@@ -55,11 +56,21 @@ public class TestBoard : MonoBehaviour
         {
             HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
                 (((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
+=======
+        //if (ACheck.Length != 0 || BCheck.Length != 0)
+        //{
+        //    HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
+        //        (((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
+>>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 
-        }
+        //}
 
+<<<<<<< HEAD
         //HPLabel.text = ACheck.Length + "/" + BCheck.Length;
 >>>>>>> fa12a8a1ce1eb42594f2049f34ef12bcdf1e99bb
+=======
+        HPLabel.text = ACheck.Length + "/" + BCheck.Length;
+>>>>>>> c7df9cf5ab3813dd4ba35984b2fc51209513a558
 
 
         //0.2초마다 코루틴실행
