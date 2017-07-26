@@ -15,23 +15,25 @@ public class ParticleDecalPool : MonoBehaviour {
 	private int particleDecalDataIndex;
 	private int particleDecalDataIndexB;
 
-	private ParticleDecalData[] particleData;
-	private ParticleDecalDataB[] particleData2;
+	public ParticleDecalData[] particleData;
+	public ParticleDecalDataB[] particleData2;
 
 
 	public ParticleSystem.Particle[] particlesA;
 	public ParticleSystem.Particle[] particlesB;
 
-	//HiddenItemRespawn HiddenItemRespawn = null;
+	HiddenItemRespawn HiddenItembox = null;
 
-	//플레이어충돌태그 가지고있음 
-	//SplatOnCollision SplatOnCollision = null;
+    GameCountTime HiddenTimeCheck = null;
+    //플레이어충돌태그 가지고있음 
+    //SplatOnCollision SplatOnCollision = null;
 
-	void Start()
-	{
-       // HiddenItemRespawn = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
-      //  SplatOnCollision = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
-		mytagObject = gameObject.tag;
+    void Start()
+    {
+        HiddenItembox = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
+
+        //SplatOnCollision = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+        mytagObject = gameObject.tag;
 		decalParticleSystemA = GetComponent<ParticleSystem>();
 		decalParticleSystemB = GetComponent<ParticleSystem>();
 
@@ -53,33 +55,32 @@ public class ParticleDecalPool : MonoBehaviour {
 
 
 
-
-	}
+    }
 
 
 	void Update()
-	{   //상자와 충돌하였을때 true값 
-        //if (HiddenItemRespawn.CheckColliderUse == true)
-        //{
-        //    swapColorA();
-        //    swapColorB();
-        //     Debug.Log("swap success");
-        //}
+    {   //상자와 충돌하였을때 true값 
+        if (HiddenItembox.CheckColliderUse == true)
+        {
+            swapColorA();
+            swapColorB();
+            Debug.Log("swap success");
+        }
     }
 
-	public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
+    public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
 	{   if(gameObject.CompareTag("APlayer"))
         {
             SetParticleDataA(particleCollisionEvent, colorGradient);
             DisplayParticlesA();
-            Debug.Log("APlayer");
+          //  Debug.Log("APlayer");
         }
 
         if (gameObject.CompareTag("BPlayer"))
         {
             SetParticleDataB(particleCollisionEvent, colorGradient);
             DisplayParticlesB();
-            Debug.Log("BPlayer");
+         //   Debug.Log("BPlayer");
         }
 
    
@@ -157,29 +158,26 @@ public class ParticleDecalPool : MonoBehaviour {
        
     }
 
+    public void swapColorA()
+    {
 
+        for (int i = 0; i < particleData.Length; i++)
+        {
 
-
-
-
-       public	void swapColorA() {
-
-		for (int i = 0; i < particleData.Length; i++)
-		{
-
-			particleData[i].color = Color.green;
+            particleData[i].color = Color.green;
         }
         Debug.Log("swapColorA");
     }
 
 
-	public void swapColorB() {
+    public void swapColorB()
+    {
 
-		for (int i = 0; i < particleData2.Length; i++)
-		{
+        for (int i = 0; i < particleData2.Length; i++)
+        {
             particleData2[i].color = Color.yellow;
-
-		}
+        }
         Debug.Log("swapColorB");
     }
+
 }

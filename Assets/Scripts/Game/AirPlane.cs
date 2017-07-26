@@ -21,8 +21,14 @@ public class AirPlane : MonoBehaviour {
 		transform.FindChild("bomb_plane 1").localRotation = Quaternion.Euler(0, 20, 0);
 
 
+        if(gameObject.CompareTag("APlayer"))
 		 temp = Resources.Load("Prefabs/Game/YellowRocket") as GameObject;
-		Destroy(gameObject, 15.0f);
+
+        if(gameObject.CompareTag("BPlayer"))
+            temp = Resources.Load("Prefabs/Game/GreenRocket") as GameObject;
+
+
+        Destroy(gameObject, 15.0f);
 	}
 	
 	// Update is called once per frame
