@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemGenerator : MonoBehaviour {
     Player APlayer = null;
-    //PlayerB BPlayer = null;
+    PlayerB BPlayer = null;
     
     public GameObject ItemBoxGO = null;
 
@@ -61,13 +61,15 @@ public class ItemGenerator : MonoBehaviour {
         if (CurTime >= 6.0f && HiddenCreate == false)
 		{
             //Vector3(-8.81f, 3.43f, -1.388f)
-            Instantiate(HiddenItembox, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
+         //   Instantiate(HiddenItembox, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
 
             HiddenCreate = true;
 
         }
+
         if (ScaleTime >= 5.0f && TeamNum != 0)
         {
+
 
             BackScale(TeamNum);
         }
@@ -143,11 +145,11 @@ public class ItemGenerator : MonoBehaviour {
         }
         else if (Team == 2)
         {
-            //BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(1, 1, 1);
-            
-            //BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.05f, 0.05f, 0.05f);
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 1f;
-            //BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 3f;
+            BPlayer.FindInChild("SD_Basic_Change").transform.localScale = new Vector3(1, 1, 1);
+
+            BPlayer.GetComponentInChildren<SplatOnCollision>().GetComponent<BoxCollider>().size = new Vector3(0.05f, 0.05f, 0.05f);
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMin = 1f;
+            BPlayer.GetComponentInChildren<ParticleDecalPool>().decalSizeMax = 3f;
         }
     }
 }

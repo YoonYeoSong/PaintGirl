@@ -2,21 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleLauncher : MonoBehaviour
-{
-    public ParticleSystem particleLauncher;
-    public Gradient particleColorGradient;
-    public ParticleDecalPool splatDecalPool;
-    public ParticleSystem splatterParticles;
 
-    JoyStick joystick = null;
-    List<ParticleCollisionEvent> collisionEvents;
+public class ParticleLauncher : MonoBehaviour {
+	public ParticleSystem particleLauncher;
+	public ParticleSystem splatterParticles;
+	public Gradient particleColorGradient;
+	public ParticleDecalPool splatDecalPool;
+	int Team;
+	JoyStick joystick = null;
+
+	List<ParticleCollisionEvent> collisionEvents;
+   // List<ParticleCollisionEvent> collisionEventsB;
+    //플레이어충돌태그 가지고있음 
+    //SplatOnCollision sp = null;
+    //HiddenItemRespawn s1 = null;
     void Start()
-    {
-        joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
-        collisionEvents = new List<ParticleCollisionEvent>();
+	{
 
-    }
+		//joystick = GameObject.Find("JoyStick").GetComponent<JoyStick>();
+		collisionEvents = new List<ParticleCollisionEvent>();
+		//collisionEventsB = new List<ParticleCollisionEvent>();
+		// sp = GameObject.Find("SplatterParticles").GetComponent<SplatOnCollision>();
+		// s1 = GameObject.Find("HiddenBox").GetComponent<HiddenItemRespawn>();
+		if (transform.parent.parent.parent.gameObject.name == "PlayerA")
+		{
+			Team = 1; // A팀
+		}
+		
+
+		if (transform.parent.parent.parent.gameObject.name == "PlayerB")
+		{
+			Team = 2; // A팀
+		}
+
+	}
 
 
 
@@ -51,21 +70,39 @@ public class ParticleLauncher : MonoBehaviour
         //하나씩
         splatterParticles.Emit(1);
     }
+	void Update()
+	{
 
 
-    void Update()
-    {
 
-        //if(joystick.IsPressed == true)
-        //{ 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            ParticleSystem.MainModule psMain = particleLauncher.main;
-            //발사중에 있는 파티클 색상 
-            psMain.startColor = particleColorGradient.Evaluate(0f);
-            particleLauncher.Emit(1);
+		//if(joystick.IsPressed == true)
+		//{ 
 
-        }
+		if (Input.GetButtonDown("Fire1"))
+		{
+			if (Team == 1)
+			{
+				if (transform.parent.parent.parent.gameObject.GetComponent<Player>().StunItem == false)
+				{
+					ParticleSystem.MainModule psMain = particleLauncher.main;
+					//발사중에 있는 파티클 색상 
+					psMain.startColor = Color.yellow;
+					particleLauncher.Emit(1);
+				}
+			}
+			else if (Team == 2)
+			{
+				if (transform.parent.parent.parent.gameObject.GetComponent<PlayerB>().StunItem == false)
+				{
+					ParticleSystem.MainModule psMain = particleLauncher.main;
+					//발사중에 있는 파티클 색상 
+					psMain.startColor = Color.green;
+					particleLauncher.Emit(1);
+				}
+			}
+		}
+
+
 
     }
 

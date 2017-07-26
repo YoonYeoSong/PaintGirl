@@ -88,7 +88,7 @@ private void Update()
 
 	void CreateGameResult()
 	{
-		GameObject.Find("Main Camera").GetComponent<ThirdPersonCamera>().enabled = false;
+		//GameObject.Find("Main Camera").GetComponent<ThirdPersonCamera>().enabled = false;
 
 		GO = Resources.Load("Prefabs/UI/PF_UI_RESULT") as GameObject;
 		

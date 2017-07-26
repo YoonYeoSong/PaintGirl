@@ -25,6 +25,7 @@ public class ParticleDecalPool : MonoBehaviour {
 	HiddenItemRespawn HiddenItembox = null;
 
     GameCountTime HiddenTimeCheck = null;
+    bool changecheck = false;
     //플레이어충돌태그 가지고있음 
     //SplatOnCollision SplatOnCollision = null;
 
@@ -60,13 +61,18 @@ public class ParticleDecalPool : MonoBehaviour {
 
 	void Update()
     {   //상자와 충돌하였을때 true값 
-        if (HiddenItembox.CheckColliderUse == true)
+        if(HiddenItembox != null)
+        if (HiddenItembox.CheckColliderUse == true && changecheck == false)
         {
             swapColorA();
             swapColorB();
+          //  DisplayParticlesA();
+            //DisplayParticlesB();
             Debug.Log("swap success");
+            changecheck = true;
         }
     }
+
 
     public void ParticleHit(ParticleCollisionEvent particleCollisionEvent, Gradient colorGradient)
 	{   if(gameObject.CompareTag("APlayer"))
