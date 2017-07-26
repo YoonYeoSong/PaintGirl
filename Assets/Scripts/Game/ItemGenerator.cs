@@ -55,11 +55,19 @@ public class ItemGenerator : MonoBehaviour {
 
 	public void GenAirPlane()
 	{
+<<<<<<< HEAD
 		int RandomPos = -1 ;
 
 		RandomPos = Random.Range(0, 6);
 		
 		GameObject temp = Resources.Load("Prefabs/Game/YellowAirPlane") as GameObject;
+=======
+		int RandomPos;
+		GameObject Go = null;
+		GameObject temp = Resources.Load("Prefabs/Game/AirPlane") as GameObject;
+		//Go = Instantiate(temp,)
+	}
+>>>>>>> fa12a8a1ce1eb42594f2049f34ef12bcdf1e99bb
 
 		if (RandomPos >= 3)
 			RandomPos++;

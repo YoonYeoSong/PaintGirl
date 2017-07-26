@@ -9,8 +9,8 @@ public class TestBoard : MonoBehaviour
     [SerializeField]
     UILabel HPLabel = null;
 
-    GameObject[] ACheck;
-    GameObject[] BCheck;
+    GameObject[] ACheck = null;
+    GameObject[] BCheck = null;
     float holdTime = 0.2f;
     int count = 0;
     //총 충돌갯수
@@ -41,6 +41,7 @@ public class TestBoard : MonoBehaviour
         //배열의 길이로 점유율 계산 
         ProgressBar.value = ((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length));
 
+<<<<<<< HEAD
 		if (ACheck.Length != 0 || BCheck.Length != 0)
 		{
 			HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
@@ -49,6 +50,16 @@ public class TestBoard : MonoBehaviour
 		}
 
 		//HPLabel.text = ACheck.Length + "/" + BCheck.Length;
+=======
+        if (ACheck.Length != 0 || BCheck.Length != 0)
+        {
+            HPLabel.text = (((float)ACheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%" + " / " +
+                (((float)BCheck.Length / ((float)ACheck.Length + (float)BCheck.Length)) * 100).ToString("N0") + "%";
+
+        }
+
+        //HPLabel.text = ACheck.Length + "/" + BCheck.Length;
+>>>>>>> fa12a8a1ce1eb42594f2049f34ef12bcdf1e99bb
 
 
         //0.2초마다 코루틴실행
