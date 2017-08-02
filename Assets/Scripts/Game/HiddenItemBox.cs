@@ -9,10 +9,15 @@ public class HiddenItemBox : MonoBehaviour {
 	float GoalTime = 2.0f;
 	Vector3 OriPos = Vector3.zero;
 	ItemGenerator ItemGen = null;
+
+    //남은시간30초일때 bool값을 가져오기 위해 선언 
+    GameCountTime gamecount = null;
+
 	// Use this for initialization
 	void Start () {
 		OriPos = transform.localPosition;
 		ItemGen = GameObject.Find("ItemGenerator").GetComponent<ItemGenerator>();
+        gamecount = GameObject.Find("Timer").GetComponent<GameCountTime>();
 
 		if (ItemGen == null)
 			Debug.Log("ItemGen is null");
@@ -22,30 +27,51 @@ public class HiddenItemBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-		transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * 70.0f);
 
-		CurTime += Time.deltaTime;
-		if (Up == true)
-		{
-			this.gameObject.transform.localPosition = Vector3.Lerp(OriPos, OriPos + new Vector3(0, 0.3f, 0), CurTime / GoalTime);
+        if(gamecount.HiddenTime == false)
+        gameObject.SetActive(false);
 
-			if (transform.localPosition == (OriPos + new Vector3(0, 0.3f, 0)))
-			{
-				CurTime = 0.0f;
-				Up = false;
-			}
-		}
+        if(gamecount.HiddenTime == true)
+        {   //게임 남은 시간 30초가 되면 해당 위치로 이동 
+            //transform.localPosition = new Vector3(-1.22f, 3.4f, 8.87f);
+            gameObject.SetActive(true);
+           // transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * 70.0f);
+            //히든박스 회전 코드 
+            transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * 70.0f);
 
-		else if (Up == false)
-		{
-			this.gameObject.transform.localPosition = Vector3.Lerp(OriPos + new Vector3(0, 0.3f, 0), OriPos, CurTime / GoalTime);
-			if (transform.localPosition == OriPos)
-			{
-				CurTime = 0.0f;
-				Up = true;
-			}
-		}
+            CurTime += Time.deltaTime;
+            if (Up == true)
+            {
+                this.gameObject.transform.localPosition = Vector3.Lerp(OriPos, OriPos + new Vector3(0, 0.3f, 0), CurTime / GoalTime);
+
+                if (transform.localPosition == (OriPos + new Vector3(0, 0.3f, 0)))
+                {
+                    CurTime = 0.0f;
+                    Up = false;
+                }
+            }
+
+            else if (Up == false)
+            {
+                this.gameObject.transform.localPosition = Vector3.Lerp(OriPos + new Vector3(0, 0.3f, 0), OriPos, CurTime / GoalTime);
+                if (transform.localPosition == OriPos)
+                {
+                    CurTime = 0.0f;
+                    Up = true;
+                }
+            }
+
+        }
 
 
-	}
+
+    }
+
+
+    public void setfree()
+    {
+        gameObject.SetActive(true);
+
+    }
+
 }

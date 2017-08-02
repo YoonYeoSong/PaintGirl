@@ -27,7 +27,7 @@ public class TestBoard : MonoBehaviour
 
     private void Update()
     {
-
+      
     }
 
     public IEnumerator checkTag(float timer)
@@ -62,9 +62,13 @@ public class TestBoard : MonoBehaviour
 
         //0.2초마다 코루틴실행
         StartCoroutine(checkTag(timer));
+      
     }
 
-
+    public void TimeZero()
+    {
+        Time.timeScale = 0.01f;
+    }
   //public  void ChangeTag(string strTag)
   //  {
   //         if(strTag == "APlayer")

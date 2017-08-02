@@ -40,7 +40,7 @@ public class ItemGenerator : MonoBehaviour {
         //GenAirPlane();
 
         APlayer = GameObject.Find("PlayerA").GetComponent<Player>();
-        //BPlayer = GameObject.Find("PlayerB").GetComponent<PlayerB>();
+        BPlayer = GameObject.Find("PlayerB").GetComponent<PlayerB>();
 
 
     }

@@ -9,22 +9,22 @@ public class CharacterManager : MonoSingleton<CharacterManager>
 
     private void Awake()
     {
-        TextAsset characterText = Resources.Load(ConstValue.CharacterTemplatePath) as TextAsset;
+        //TextAsset characterText = Resources.Load(ConstValue.CharacterTemplatePath) as TextAsset;
 
-        if (characterText != null)
-        {
-            JSONObject rootNodeText = JSON.Parse(characterText.text) as JSONObject; // '{'하나 까기
+        //if (characterText != null)
+        //{
+        //    JSONObject rootNodeText = JSON.Parse(characterText.text) as JSONObject; // '{'하나 까기
 
-            if (rootNodeText != null)
-            {
-                JSONObject characterTemplateNode = rootNodeText[ConstValue.CharacterTemplateKey] as JSONObject;         //ConstValue.CharacterTemplateKey 첫번째 #key  
+        //    if (rootNodeText != null)
+        //    {
+        //        JSONObject characterTemplateNode = rootNodeText[ConstValue.CharacterTemplateKey] as JSONObject;         //ConstValue.CharacterTemplateKey 첫번째 #key  
 
-                foreach (KeyValuePair<string, JSONNode> templateNode in characterTemplateNode)
-                {
-                    DicTemplateData.Add(templateNode.Key, new CharacterTemplateData(templateNode.Key, templateNode.Value));
-                }
-            }
-        }
+        //        foreach (KeyValuePair<string, JSONNode> templateNode in characterTemplateNode)
+        //        {
+        //            DicTemplateData.Add(templateNode.Key, new CharacterTemplateData(templateNode.Key, templateNode.Value));
+        //        }
+        //    }
+        //}
     }
 
     public CharacterTemplateData GetTemplate(string strTemplateKey)

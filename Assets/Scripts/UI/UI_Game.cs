@@ -12,7 +12,19 @@ public class UI_Game : MonoBehaviour {
 
 	GameObject MapPrefab;
 	GameObject MiniMap = null;
-	private void Awake()
+
+    Player PlayerA = null;
+
+
+    public void Start()
+    {
+         PlayerA = GameObject.Find("PlayerA").GetComponent<Player>();
+
+
+
+    }
+
+    private void Awake()
 	{
 		MapPrefab = Resources.Load("Prefabs/UI/PF_UI_MiniMap") as GameObject;
 		
@@ -55,7 +67,12 @@ public class UI_Game : MonoBehaviour {
 	void PlayerJump()
 	{
 		Debug.Log("점프!");
-	}
+
+        PlayerA.JumpButton();
+
+
+
+    }
 
 	void PlayerSlide()
 	{

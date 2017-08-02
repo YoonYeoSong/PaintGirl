@@ -47,8 +47,10 @@ public class GameManager : MonoSingleton<GameManager>
 		SelectStageInfo = StageManager.Instance.LoadStage(SelectStage);
 
 		// PlayerLoad
-		PlayerActor = ActorManager.Instance.PlayerLoad();
-		// PlayerActor = ActorManager.Instance.
+		//PlayerActor = ActorManager.Instance.PlayerLoad();
+	
+        
+        // PlayerActor = ActorManager.Instance.
 
 
 
@@ -57,10 +59,11 @@ public class GameManager : MonoSingleton<GameManager>
 		foreach(KeyValuePair<eSlotType,ItemInstance> pair in ItemManager.Instance.DIC_EQUIP)
 		{
 			StatusData status = pair.Value.ITEM_INFO.STATUS;
-			PlayerActor.SELF_CHARACTER.CHARACTER_STATUS.AddStatusData(pair.Key.ToString(), status);
+
+			//PlayerActor.SELF_CHARACTER.CHARACTER_STATUS.AddStatusData(pair.Key.ToString(), status);
 		}
 
-		PlayerActor.SELF_CHARACTER.IncreaseCurrentHP(99999999999999);
+		//PlayerActor.SELF_CHARACTER.IncreaseCurrentHP(99999999999999);
 
 		//BaseBoard hpBoard = BoardManager.Instance.GetBoardData(PlayerActor, eBoardType.BOARD_HP);
 
@@ -127,8 +130,8 @@ public class GameManager : MonoSingleton<GameManager>
 			return;
 
 		// Player Check
-		if (PlayerActor.TEAM_TYPE == _dieActor.TEAM_TYPE)
-			return;
+		//if (PlayerActor.TEAM_TYPE == _dieActor.TEAM_TYPE)
+		//	return;
 
 		KillCount++;
 		//UI Setting

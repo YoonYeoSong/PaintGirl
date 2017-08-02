@@ -365,8 +365,13 @@ public class PlayerB : Actor {
 
 	private void OnTriggerEnter(Collider other)
 	{
-		m1 = other.transform.tag;
-		Debug.Log("피이격" + m1);
+		
+
+        if(other.CompareTag("APlayer"))
+        {
+
+            Debug.Log("hitB" + other.tag);
+        }
 
 
 	}

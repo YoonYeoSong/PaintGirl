@@ -12,9 +12,26 @@ public class UI_Result : MonoBehaviour {
 	UILabel CashText = null;
 	UILabel ExpText = null;
 
+    TestBoard testboard = null;
+
+    float CurTime = 0.0f;
 	int Victory = 0;
 	int ReWordValue = 0;
-	private void Awake()
+    bool Timedelay = false;
+
+    public void Start()
+    {
+     //   testboard = GameObject.Find("PF_UI_RESULT").GetComponentInChildren<TestBoard>();
+
+
+        //testboard = transform.GetComponent<TestBoard>();
+        if (testboard == null)
+            Debug.Log("테스트 보드 널");
+
+
+    }
+
+    private void Awake()
 	{
 		GoMainBtn = transform.FindChild("BackPanel").FindChild("BackGround").FindChild("LobbyBtn").GetComponent<UIButton>();
 		if (GoMainBtn == null)
@@ -38,12 +55,23 @@ public class UI_Result : MonoBehaviour {
 		Victory = 1;
 		Reword();
 
-	}
 
-	void GoLobby()
+    }
+
+    private void Update()
+    {
+        CurTime += Time.deltaTime;
+
+        if(CurTime >= 0.3f && Timedelay == true)
+        timedeley();
+    }
+    void GoLobby()
 	{
-		Time.timeScale = 1.0f;
+        Timedelay = false;
+
+        Time.timeScale = 1.0f;
 		Scene_Manager.Instance.LoadScene(eSceneType.SCENE_LOBBY);
+
 	}
 
 	void ReGame()
@@ -51,9 +79,16 @@ public class UI_Result : MonoBehaviour {
 		Debug.Log("게임 재시작!");
 	}
 
+    void timedeley()
+    {
+
+
+        Time.timeScale = 0.01f;
+    }
+
 	void Reword()
 	{
-
+        
 		if (Victory == 1) // 승리시
 		{
 			TitleText.text = "승리 !";
@@ -101,5 +136,8 @@ public class UI_Result : MonoBehaviour {
 
 		}
 
-	}
+        CurTime = 0.0f;
+        Timedelay = true;
+
+    }
 }

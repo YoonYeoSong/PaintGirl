@@ -37,7 +37,6 @@ public class ParticleHit : MonoBehaviour {
     }
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log("dd");
         ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
         for (int i = 0; i < collisionEvents.Count; i++)
         {

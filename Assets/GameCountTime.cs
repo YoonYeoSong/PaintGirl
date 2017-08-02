@@ -10,13 +10,15 @@ public class GameCountTime : MonoBehaviour {
 	GameObject GO = null;
 	int OnceCheck = 0;
 
-
+    HiddenItemBox HiddenBox = null;
     public bool HiddenTime = false;
     public bool check = false;
+    bool Notice = false;
     void Start () {
         label = transform.GetComponent<UILabel>();
+        HiddenBox = GameObject.Find("HiddenBox").GetComponent<HiddenItemBox>();
         //StartCoroutine(remainderTimer());
-       
+
     }
 
 	
@@ -63,12 +65,21 @@ private void Update()
         label.text = string.Format("{0:D2}:{1:D2}",
 				   (int)Minutes, (int)Seconds);
 
+
+        if ((int)Minutes == 0 && (int)Seconds == 40 && Notice == false)
+
+        {
+            Notice = true;
+            CreateHiddenNotice();
+        }
         if ((int)Minutes == 0 && (int)Seconds == 30 && check == false)
         {
             HiddenTime = true;
-            Debug.Log("check");
+            Debug.Log("30check");
+            HiddenBox.gameObject.SetActive(true);
+           // HiddenBox.setfree();
             check = true;
-
+            CreateHiddenCreateNotice();
         }
 
 
@@ -96,7 +107,23 @@ private void Update()
 		Trans.transform.localScale = Vector3.one;
 		Trans.transform.localPosition = Vector3.zero;
 
-		Time.timeScale = 0.02f;
+		//Time.timeScale = 0.02f;
 
 	}
+    void CreateHiddenNotice()
+    {
+        GO = Resources.Load("Prefabs/Game/UI/HiddenNotice") as GameObject;
+        GameObject Trans = Instantiate(GO, gameObject.transform.parent).gameObject;
+        Trans.transform.localScale = Vector3.one;
+        Trans.transform.localPosition = new Vector3(0,155,0);
+
+    }
+
+    void CreateHiddenCreateNotice()
+    {
+        GO = Resources.Load("Prefabs/Game/UI/HiddenCreateNotice") as GameObject;
+        GameObject Trans = Instantiate(GO, gameObject.transform.parent).gameObject;
+        Trans.transform.localScale = Vector3.one;
+        Trans.transform.localPosition = new Vector3(0, 155, 0);
+    }
 }

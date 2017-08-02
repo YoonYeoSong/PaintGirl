@@ -12,8 +12,10 @@ public class Player : Actor
 
 	DetectionArea DetectArea;
 
+    //캐릭터리지바디
+    public Rigidbody _rigidbody;
 
-	eStateType State;
+    eStateType State;
 
 	//Rigidbody rigi;
 	float AttackRange = 3.0f;
@@ -102,12 +104,15 @@ public class Player : Actor
 
 		CheckGround(); // 밑이 땅인지 확인
 	
-		if (Input.GetKeyDown(KeyCode.Space) && grounded) // 점프
-		{
-			State = eStateType.STATE_JUMP;
-			SetAnimation(State);
-			jump = true;
-		}
+		if (Input.GetKeyDown(KeyCode.Space)) // 점프
+        {           //2017 7 31 리지바디 추가 
+            if (_rigidbody.velocity.magnitude < 0.1f)
+            {
+                State = eStateType.STATE_JUMP;
+                SetAnimation(State);
+                jump = true;
+            }
+        }
 		else if (Input.GetKeyDown(KeyCode.F1)) // 구르기
 		{
 			isRoll = true;
@@ -155,6 +160,17 @@ public class Player : Actor
 		}
 	}
 
+
+    public void JumpButton()
+    {
+        if (_rigidbody.velocity.magnitude < 0.1f)
+        {
+            State = eStateType.STATE_JUMP;
+            SetAnimation(State);
+            jump = true;
+        }
+
+    }
 	public void SetAnimation(eStateType state)
 	{
 		Anim.SetInteger("State", (int)state);
@@ -282,7 +298,7 @@ public class Player : Actor
 
 			SelfTransform.position += (this.transform.rotation * Quaternion.Euler(1.0f, 0.0f, 1.0f)) * MovePosition * Time.deltaTime * 2;
 			//SelfTransform.position += new Vector3(0.2f, 0, 0.2f);//new Vector3(AddSpeed, 0, AddSpeed);
-			SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
+		//	SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
 			//if (isJumping == true)
 			//{
 			//	return;
@@ -306,7 +322,7 @@ public class Player : Actor
 			isRoll = false;
 			//State = eStateType.STATE_IDLE;
 			//SetAnimation(State);
-			SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
+		//	SelfTransform.rotation = Quaternion.Euler(CameraMove.cameraRot);
 		}
 
 		if (isRoll)
@@ -529,9 +545,17 @@ public class Player : Actor
 
 
 	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BPlayer"))
+        {
 
+            Debug.Log("hitA" + other.tag);
+        }
 
-	public void MyStun()
+    }
+
+    public void MyStun()
 	{
 		GameObject Parent = null;
 		Parent = GameObject.Find("UI Root/Camera");
