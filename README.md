@@ -13,4 +13,5 @@
 <img src="https://github.com/YoonYeoSong/YoonYeoSong.github.io/blob/master/images/p1.png?raw=true" /><br>
 <img src="https://github.com/YoonYeoSong/YoonYeoSong.github.io/blob/master/images/p2.png?raw=true" /><br>
 <img src="https://github.com/YoonYeoSong/YoonYeoSong.github.io/blob/master/images/p3.png?raw=true" /><br>
+<img src="https://github.com/YoonYeoSong/YoonYeoSong.github.io/blob/master/images/paintG.gif?raw=true" /><br>
 * [영상링크](https://www.youtube.com/watch?v=0e7AFa7KU7k&t=146s)
